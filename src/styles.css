@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("assets/fonts/PlusJakartaSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("assets/fonts/PlusJakartaSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  font-size: 62.5%;
+  --primary-color: #635fc7;
+  --hover-primary-color: #a8a4ff;
+  --secondary-color: #f0effa;
+  --hover-secondary-color: #d8d7f1;
+  --white: #fff;
+  --danger-color: #ea5555;
+  --hover-danger-color: #ff9898;
+  --light-bg: #f4f7fd;
+  --body-text: #828fa3;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-weight: 500;
+  color: var(--body-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
