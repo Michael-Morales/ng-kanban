@@ -1,3 +1,12 @@
-<ng-container *ngFor="let column of columns">
-  <h2>{{ column.name }}</h2>
-</ng-container>
+<app-empty
+  *ngIf="!columns?.length"
+  content="This board is empty. Create a new column to get started"
+>
+  <app-button>+ add new column</app-button>
+</app-empty>
+
+<div class="container">
+  <article *ngFor="let column of columns">
+    <h2>{{ column.name }}</h2>
+  </article>
+</div>
