@@ -19,10 +19,12 @@
   --hover-primary-color: #a8a4ff;
   --secondary-color: #f0effa;
   --hover-secondary-color: #d8d7f1;
-  --white: #fff;
   --danger-color: #ea5555;
   --hover-danger-color: #ff9898;
+  --white: #fff;
+  --black: #000112;
   --light-bg: #f4f7fd;
+  --dark-bg: #20212c;
   --body-text: #828fa3;
 }
 
@@ -46,6 +48,7 @@ body {
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
   font-weight: 500;
   color: var(--body-text);
+  background-color: var(--light-bg);
   -webkit-font-smoothing: antialiased;
 }
 
