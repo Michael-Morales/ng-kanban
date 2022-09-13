@@ -6,9 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ColumnComponent } from './column/column.component';
 import { EmptyComponent } from './empty/empty.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
-  declarations: [HomeComponent, ColumnComponent, EmptyComponent],
+  declarations: [HomeComponent, ColumnComponent, EmptyComponent, TaskComponent],
   imports: [CommonModule, BoardsRoutingModule, SharedModule],
 })
 export class BoardsModule {}

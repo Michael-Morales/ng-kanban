@@ -1,6 +1,6 @@
 main {
-  margin-top: 2.4rem;
+  padding-top: 2.4rem;
   padding-left: 1.6rem;
-  height: calc(100vh - 7rem - 2.4rem);
+  height: calc(100vh - 7rem);
   overflow-x: auto;
 }

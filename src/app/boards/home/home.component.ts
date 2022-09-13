@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Board } from '../../interfaces';
+import { data } from '../mock-data';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +8,7 @@ import { Board } from '../../interfaces';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  boards: Board[] = [
-    { id: '1', name: 'platform launch', columns: [] },
-    { id: '2', name: 'marketing plan', columns: [] },
-  ];
+  boards = data;
 
   constructor() {}
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Board, Column } from '../../interfaces';
+import { Column } from '../../interfaces';
+
+import { data } from '../mock-data';
 
 @Component({
   selector: 'app-column',
@@ -9,14 +11,7 @@ import { Board, Column } from '../../interfaces';
   styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit {
-  boards: Board[] = [
-    {
-      id: '1',
-      name: 'platform launch',
-      columns: [{ name: 'to do' }, { name: 'doing' }, { name: 'completed' }],
-    },
-    { id: '2', name: 'marketing plan', columns: [] },
-  ];
+  boards = data;
   columns: Column[] | undefined = [];
 
   constructor(private route: ActivatedRoute) {}

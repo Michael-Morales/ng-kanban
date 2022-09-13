@@ -1,0 +1,11 @@
+<div>
+  <h3>
+    {{ title }}
+  </h3>
+  <p *ngIf="subtasks.length > 0; else elseBlock">
+    {{ completedTasks }} of {{ subtasks.length }} subtasks
+  </p>
+  <ng-template #elseBlock>
+    <p>No subtasks</p>
+  </ng-template>
+</div>
