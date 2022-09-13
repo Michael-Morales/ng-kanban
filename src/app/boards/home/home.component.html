@@ -1,6 +1,11 @@
 <main>
-  <div class="no-boards">
+  <div *ngIf="!boards.length" class="no-boards">
     <p>Create a new board to get started</p>
     <app-button>+ create new board</app-button>
   </div>
+
+  <router-outlet></router-outlet>
+  <!-- <ng-container *ngIf="boards.length > 0">
+    <app-column *ngFor="let column of columns"></app-column>
+  </ng-container> -->
 </main>

@@ -39,11 +39,6 @@
   margin: 0;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 body {
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
   font-weight: 500;
