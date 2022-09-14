@@ -1,0 +1,21 @@
+<header>
+  <div class="navigation">
+    <a routerLink="/">
+      <img src="/assets/images/logo-mobile.svg" alt="" />
+    </a>
+
+    <button *ngIf="currentBoard" type="button">
+      <h1>{{ currentBoard.name }}</h1>
+      <img src="/assets/images/icon-chevron-down.svg" alt="" />
+    </button>
+  </div>
+  <div class="actions">
+    <app-button [buttonStyle]="['small']">
+      <img src="/assets/images/icon-add-task-mobile.svg" alt="" />
+    </app-button>
+
+    <button type="button">
+      <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
+    </button>
+  </div>
+</header>
