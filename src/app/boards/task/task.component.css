@@ -6,14 +6,35 @@ div {
   cursor: pointer;
 }
 
+h3,
+h4 {
+  color: var(--black);
+}
+
 h3 {
   margin-bottom: 0.8rem;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--black);
+}
+
+h4 {
+  margin-bottom: 2.4rem;
+  font-size: 1.8rem;
+}
+
+h5 {
+  margin-bottom: 1.6rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 p {
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+.description {
+  margin-bottom: 2.4rem;
+  font-size: 1.3rem;
+  font-weight: 500;
 }

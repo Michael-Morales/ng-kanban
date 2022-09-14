@@ -10,11 +10,7 @@
     <h2>{{ column.name }}</h2>
 
     <div class="task-container">
-      <app-task
-        *ngFor="let task of column.tasks"
-        [title]="task.title"
-        [subtasks]="task.subtasks"
-      ></app-task>
+      <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
     </div>
   </article>
 </div>

@@ -1,11 +1,23 @@
-<div>
-  <h3>
-    {{ title }}
-  </h3>
-  <p *ngIf="subtasks.length > 0; else elseBlock">
-    {{ completedTasks }} of {{ subtasks.length }} subtasks
-  </p>
-  <ng-template #elseBlock>
-    <p>No subtasks</p>
-  </ng-template>
-</div>
+<ng-container *ngIf="task">
+  <div (click)="showModal = true">
+    <h3>
+      {{ task.title }}
+    </h3>
+    <p *ngIf="task.subtasks.length > 0; else elseBlock">
+      {{ completedTasks }} of {{ task.subtasks.length }} subtasks
+    </p>
+    <ng-template #elseBlock>
+      <p>No subtasks</p>
+    </ng-template>
+  </div>
+
+  <app-modal *ngIf="showModal" (dismiss)="showModal = false">
+    <h4>
+      {{ task.title }}
+    </h4>
+    <p class="description">
+      {{ task.description }}
+    </p>
+    <h5>Subtasks ({{ completedTasks }} of {{ task.subtasks.length }})</h5>
+  </app-modal>
+</ng-container>

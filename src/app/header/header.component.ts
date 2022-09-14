@@ -14,7 +14,6 @@ import { Board } from '../interfaces';
 export class HeaderComponent implements OnInit {
   boards?: Board[];
   currentBoard?: Board;
-  showModal = false;
 
   constructor(private router: Router, private boardsService: BoardsService) {}
 
@@ -34,13 +33,5 @@ export class HeaderComponent implements OnInit {
       .subscribe((board) => {
         this.currentBoard = board;
       });
-  }
-
-  onOpenModal() {
-    this.showModal = true;
-  }
-
-  onCloseModal() {
-    this.showModal = false;
   }
 }

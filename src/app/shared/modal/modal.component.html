@@ -1,3 +1,5 @@
 <div class="modal-bg" (click)="onDismissClick()">
-  <div class="modal" (click)="$event.stopPropagation()"></div>
+  <div class="modal" (click)="$event.stopPropagation()">
+    <ng-content></ng-content>
+  </div>
 </div>

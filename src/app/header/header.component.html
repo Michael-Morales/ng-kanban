@@ -4,7 +4,7 @@
       <img src="/assets/images/logo-mobile.svg" alt="" />
     </a>
 
-    <button *ngIf="boards?.length" type="button" (click)="onOpenModal()">
+    <button *ngIf="boards?.length" type="button">
       <h1 *ngIf="currentBoard; else defaultView">
         {{ currentBoard.name }}
       </h1>
@@ -24,5 +24,3 @@
     </button>
   </div>
 </header>
-
-<app-modal *ngIf="showModal" (dismiss)="onCloseModal()"></app-modal>

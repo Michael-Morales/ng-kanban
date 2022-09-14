@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SubTask } from '../../interfaces';
+import { SubTask, Task } from '../../interfaces';
 
 @Component({
   selector: 'app-task',
@@ -8,14 +8,14 @@ import { SubTask } from '../../interfaces';
   styleUrls: ['./task.component.css'],
 })
 export class TaskComponent implements OnInit {
-  @Input() title = '';
-  @Input() subtasks: SubTask[] = [];
-  completedTasks: number = 0;
+  @Input() task?: Task;
+  completedTasks: number | undefined = 0;
+  showModal = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.completedTasks = this.subtasks?.reduce(
+    this.completedTasks = this.task?.subtasks?.reduce(
       (acc, { isCompleted }) => (isCompleted ? acc + 1 : acc),
       0
     );
