@@ -1,0 +1,15 @@
+.modal-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(32, 33, 44, 0.5);
+}
+
+.modal {
+  width: 300px;
+  height: 200px;
+  background-color: var(--white);
+  border-radius: 6px;
+}
