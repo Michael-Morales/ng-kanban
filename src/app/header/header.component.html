@@ -4,8 +4,13 @@
       <img src="/assets/images/logo-mobile.svg" alt="" />
     </a>
 
-    <button *ngIf="currentBoard" type="button">
-      <h1>{{ currentBoard.name }}</h1>
+    <button *ngIf="boards?.length" type="button">
+      <h1 *ngIf="currentBoard; else defaultView">
+        {{ currentBoard.name }}
+      </h1>
+      <ng-template #defaultView>
+        <h1>Select a board</h1>
+      </ng-template>
       <img src="/assets/images/icon-chevron-down.svg" alt="" />
     </button>
   </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BoardsService } from '../boards.service';
 
@@ -12,7 +13,7 @@ import { Board } from '../../interfaces';
 export class HomeComponent implements OnInit {
   boards: Board[] = [];
 
-  constructor(private boardsService: BoardsService) {}
+  constructor(private boardsService: BoardsService, private router: Router) {}
 
   ngOnInit(): void {
     this.boards = this.boardsService.boards$;

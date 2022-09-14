@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 
 import { BoardsService } from '../boards.service';
 
@@ -15,15 +16,23 @@ export class ColumnComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private boardsService: BoardsService
+    private boardsService: BoardsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      ({ id }) =>
-        (this.columns = this.boardsService.boards$.find(
-          (board) => board.id === id
-        )?.columns)
-    );
+    this.route.params
+      .pipe(
+        map(({ id }) =>
+          this.boardsService.boards$.find((board) => id === board.id)
+        )
+      )
+      .subscribe((board) => {
+        if (board) {
+          this.columns = board.columns;
+        } else {
+          this.router.navigateByUrl('/boards');
+        }
+      });
   }
 }

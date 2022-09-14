@@ -12,11 +12,14 @@ import { Board } from '../interfaces';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  boards?: Board[];
   currentBoard?: Board;
 
   constructor(private router: Router, private boardsService: BoardsService) {}
 
   ngOnInit(): void {
+    this.boards = this.boardsService.boards$;
+
     this.router.events
       .pipe(
         filter(
@@ -24,12 +27,11 @@ export class HeaderComponent implements OnInit {
             e instanceof ActivationEnd &&
             Object.keys(e.snapshot.params).length > 0
         ),
-        map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {}))
+        map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
+        map(({ id }) => this.boards?.find((board) => id === board.id))
       )
-      .subscribe((params) => {
-        this.currentBoard = this.boardsService.boards$.find(
-          ({ id }) => id === params['id']
-        );
+      .subscribe((board) => {
+        this.currentBoard = board;
       });
   }
 }
