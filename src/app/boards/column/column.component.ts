@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Column } from '../../interfaces';
+import { BoardsService } from '../boards.service';
 
-import { data } from '../mock-data';
+import { Column } from '../../interfaces';
 
 @Component({
   selector: 'app-column',
@@ -11,15 +11,19 @@ import { data } from '../mock-data';
   styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit {
-  boards = data;
   columns: Column[] | undefined = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private boardsService: BoardsService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(
       ({ id }) =>
-        (this.columns = this.boards.find((board) => board.id === id)?.columns)
+        (this.columns = this.boardsService.boards$.find(
+          (board) => board.id === id
+        )?.columns)
     );
   }
 }

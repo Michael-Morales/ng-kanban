@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { data } from '../mock-data';
+import { BoardsService } from '../boards.service';
+
+import { Board } from '../../interfaces';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,11 @@ import { data } from '../mock-data';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  boards = data;
+  boards: Board[] = [];
 
-  constructor() {}
+  constructor(private boardsService: BoardsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.boards = this.boardsService.boards$;
+  }
 }
