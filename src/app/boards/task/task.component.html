@@ -34,12 +34,8 @@
       </div>
       <div>
         <h5>Current Status</h5>
-        <select>
-          <option
-            *ngFor="let column of columns"
-            [value]="column.name"
-            [selected]="currentColumn === column.name"
-          >
+        <select formControlName="status">
+          <option *ngFor="let column of columns" [ngValue]="column.name">
             {{ column.name }}
           </option>
         </select>

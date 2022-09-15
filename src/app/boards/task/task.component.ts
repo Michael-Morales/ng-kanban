@@ -21,7 +21,7 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
-      status: [''],
+      status: [this.currentColumn],
     });
 
     const formArray = this.taskForm.get('subtasks') as FormArray;
