@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   ElementRef,
+  Input,
 } from '@angular/core';
 
 @Component({
@@ -14,6 +15,8 @@ import {
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Output() dismiss = new EventEmitter();
+  @Input() title = '';
+  @Input() type = '';
 
   constructor(private el: ElementRef) {}
 

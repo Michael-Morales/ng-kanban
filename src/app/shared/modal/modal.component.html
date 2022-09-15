@@ -1,5 +1,11 @@
 <div class="modal-bg" (click)="onDismissClick()">
   <div class="modal" (click)="$event.stopPropagation()">
+    <div class="header">
+      <h4>{{ title }}</h4>
+      <button *ngIf="type === 'task'" type="button">
+        <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
+      </button>
+    </div>
     <ng-content></ng-content>
   </div>
 </div>

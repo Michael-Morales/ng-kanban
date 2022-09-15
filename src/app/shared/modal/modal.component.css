@@ -15,3 +15,22 @@
   background-color: var(--white);
   border-radius: 6px;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.4rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+  color: var(--black);
+}
+
+button {
+  padding: 0.5rem;
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 <ng-container *ngIf="task">
-  <div (click)="showModal = true">
+  <div class="task-container" (click)="showModal = true">
     <h3>
       {{ task.title }}
     </h3>
@@ -11,13 +11,40 @@
     </ng-template>
   </div>
 
-  <app-modal *ngIf="showModal" (dismiss)="showModal = false">
-    <h4>
-      {{ task.title }}
-    </h4>
+  <app-modal
+    *ngIf="showModal"
+    (dismiss)="showModal = false"
+    [title]="task.title"
+    type="task"
+  >
     <p class="description">
       {{ task.description }}
     </p>
-    <h5>Subtasks ({{ completedTasks }} of {{ task.subtasks.length }})</h5>
+
+    <form>
+      <div class="checkbox-container">
+        <h5>Subtasks ({{ completedTasks }} of {{ task.subtasks.length }})</h5>
+        <label *ngFor="let subtask of task.subtasks">
+          <input
+            type="checkbox"
+            [value]="subtask.title"
+            [checked]="subtask.isCompleted"
+          />
+          <span>{{ subtask.title }}</span>
+        </label>
+      </div>
+      <div>
+        <h5>Current Status</h5>
+        <select>
+          <option
+            *ngFor="let column of columns"
+            [value]="column.name"
+            [selected]="currentColumn === column.name"
+          >
+            {{ column.name }}
+          </option>
+        </select>
+      </div>
+    </form>
   </app-modal>
 </ng-container>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SubTask, Task } from '../../interfaces';
+import { Column, Task } from '../../interfaces';
 
 @Component({
   selector: 'app-task',
@@ -9,6 +9,8 @@ import { SubTask, Task } from '../../interfaces';
 })
 export class TaskComponent implements OnInit {
   @Input() task?: Task;
+  @Input() columns?: Column[];
+  @Input() currentColumn = '';
   completedTasks: number | undefined = 0;
   showModal = false;
 
