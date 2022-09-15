@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { Column, Task } from '../../interfaces';
 
@@ -13,13 +14,36 @@ export class TaskComponent implements OnInit {
   @Input() currentColumn = '';
   completedTasks: number | undefined = 0;
   showModal = false;
+  taskForm!: FormGroup;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.completedTasks = this.task?.subtasks?.reduce(
-      (acc, { isCompleted }) => (isCompleted ? acc + 1 : acc),
+    this.taskForm = this.fb.group({
+      subtasks: this.fb.array([]),
+      status: [''],
+    });
+
+    const formArray = this.taskForm.get('subtasks') as FormArray;
+
+    this.task?.subtasks.forEach((subtask) => {
+      formArray.push(
+        this.fb.group({
+          title: this.fb.control(subtask.title),
+          isCompleted: this.fb.control(subtask.isCompleted),
+        })
+      );
+    });
+
+    this.completedTasks = formArray.value.reduce(
+      (acc: number, { isCompleted }: { isCompleted: boolean }) => {
+        return isCompleted ? acc + 1 : acc;
+      },
       0
     );
+  }
+
+  get subtasks() {
+    return this.taskForm.controls['subtasks'] as FormArray;
   }
 }

@@ -21,16 +21,15 @@
       {{ task.description }}
     </p>
 
-    <form>
-      <div class="checkbox-container">
-        <h5>Subtasks ({{ completedTasks }} of {{ task.subtasks.length }})</h5>
-        <label *ngFor="let subtask of task.subtasks">
-          <input
-            type="checkbox"
-            [value]="subtask.title"
-            [checked]="subtask.isCompleted"
-          />
-          <span>{{ subtask.title }}</span>
+    <form [formGroup]="taskForm">
+      <div class="checkbox-container" formArrayName="subtasks">
+        <h5>Subtasks ({{ completedTasks }} of {{ subtasks.length }})</h5>
+        <label
+          [formGroupName]="i"
+          *ngFor="let subtask of subtasks.controls; let i = index"
+        >
+          <input type="checkbox" formControlName="isCompleted" />
+          <span>{{ subtask.value.title }}</span>
         </label>
       </div>
       <div>
