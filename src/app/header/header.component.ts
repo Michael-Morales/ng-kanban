@@ -14,6 +14,7 @@ import { Board } from '../interfaces';
 export class HeaderComponent implements OnInit {
   boards?: Board[];
   currentBoard?: Board;
+  showNav = false;
 
   constructor(private router: Router, private boardsService: BoardsService) {}
 
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe((board) => {
         this.currentBoard = board;
+        this.showNav = false;
       });
   }
 }
