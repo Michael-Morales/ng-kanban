@@ -1,5 +1,5 @@
 <ng-container *ngIf="task">
-  <div class="task-container" (click)="showModal = true">
+  <div class="task-container" (click)="modalService.openModal(task.title)">
     <h3>
       {{ task.title }}
     </h3>
@@ -12,8 +12,8 @@
   </div>
 
   <app-modal
-    *ngIf="showModal"
-    (dismiss)="showModal = false"
+    *ngIf="modalService.modal === task.title"
+    (dismiss)="modalService.closeModal()"
     [title]="task.title"
     type="task"
   >

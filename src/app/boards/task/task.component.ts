@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { ModalService } from 'src/app/shared/modal.service';
+
 import { Task } from '../../interfaces';
 
 @Component({
@@ -13,7 +15,7 @@ export class TaskComponent implements OnInit {
   completedTasks: number | undefined = 0;
   showModal = false;
 
-  constructor() {}
+  constructor(public modalService: ModalService) {}
 
   ngOnInit(): void {
     this.completedTasks = this.task?.subtasks.reduce(

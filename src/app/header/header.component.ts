@@ -3,6 +3,7 @@ import { ActivationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 
 import { BoardsService } from '../boards/boards.service';
+import { ModalService } from '../shared/modal.service';
 
 import { Board } from '../interfaces';
 
@@ -17,7 +18,11 @@ export class HeaderComponent implements OnInit {
   showNav = false;
   showMenu = false;
 
-  constructor(private router: Router, private boardsService: BoardsService) {}
+  constructor(
+    private router: Router,
+    private boardsService: BoardsService,
+    public modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
@@ -35,6 +40,7 @@ export class HeaderComponent implements OnInit {
       .subscribe((board) => {
         this.currentBoard = board;
         this.showNav = false;
+        this.showMenu = false;
       });
   }
 
@@ -44,5 +50,17 @@ export class HeaderComponent implements OnInit {
 
   onDeleteClick() {
     console.log('delete');
+  }
+
+  onMenuClick() {
+    this.showMenu = !this.showMenu;
+    this.showNav = false;
+    this.modalService.closeModal();
+  }
+
+  onNavClick() {
+    this.showNav = !this.showNav;
+    this.showMenu = false;
+    this.modalService.closeModal();
   }
 }

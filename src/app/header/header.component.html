@@ -4,7 +4,7 @@
       <img src="/assets/images/logo-mobile.svg" alt="" />
     </a>
 
-    <button *ngIf="boards?.length" type="button" (click)="showNav = !showNav">
+    <button *ngIf="boards?.length" type="button" (click)="onNavClick()">
       <h1 *ngIf="currentBoard; else defaultView">
         {{ currentBoard.name }}
       </h1>
@@ -50,7 +50,7 @@
     </app-button>
 
     <div class="menu-container">
-      <button type="button" (click)="showMenu = !showMenu">
+      <button type="button" (click)="onMenuClick()">
         <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
       </button>
 
