@@ -1,0 +1,20 @@
+<form [formGroup]="taskForm">
+  <div class="checkbox-container" formArrayName="subtasks">
+    <h5>Subtasks ({{ completedTasks }} of {{ subtasks.length }})</h5>
+    <label
+      [formGroupName]="i"
+      *ngFor="let subtask of subtasks.controls; let i = index"
+    >
+      <input type="checkbox" formControlName="isCompleted" />
+      <span>{{ subtask.value.title }}</span>
+    </label>
+  </div>
+  <div>
+    <h5>Current Status</h5>
+    <select formControlName="status">
+      <option *ngFor="let column of columns" [ngValue]="column.name">
+        {{ column.name }}
+      </option>
+    </select>
+  </div>
+</form>

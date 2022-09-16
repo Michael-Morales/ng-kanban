@@ -13,12 +13,6 @@ h3 {
   color: var(--black);
 }
 
-h5 {
-  margin-bottom: 1.6rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
 p {
   font-size: 1.2rem;
   font-weight: bold;
@@ -28,41 +22,4 @@ p {
   margin-bottom: 2.4rem;
   font-size: 1.3rem;
   font-weight: 500;
-}
-
-.checkbox-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-bottom: 2.4rem;
-}
-
-.checkbox-container label {
-  display: flex;
-  gap: 1.6rem;
-  padding: 1.6rem 0.8rem;
-  background-color: var(--light-bg);
-  cursor: pointer;
-}
-
-.checkbox-container span {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--black);
-}
-
-.checkbox-container input:checked + span {
-  color: var(--body-text);
-  text-decoration: line-through;
-}
-
-select {
-  padding: 0.8rem;
-  width: 100%;
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: var(--black);
-  background-color: unset;
-  border: 1px solid rgba(130, 143, 163, 0.25);
-  border-radius: 4px;
 }

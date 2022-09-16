@@ -8,9 +8,10 @@ import { SharedModule } from '../shared/shared.module';
 import { ColumnComponent } from './column/column.component';
 import { EmptyComponent } from './empty/empty.component';
 import { TaskComponent } from './task/task.component';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
-  declarations: [HomeComponent, ColumnComponent, EmptyComponent, TaskComponent],
+  declarations: [HomeComponent, ColumnComponent, EmptyComponent, TaskComponent, TaskFormComponent],
   imports: [
     CommonModule,
     BoardsRoutingModule,

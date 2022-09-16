@@ -22,11 +22,7 @@ export class ColumnComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .pipe(
-        map(({ id }) =>
-          this.boardsService.boards$.find((board) => id === board.id)
-        )
-      )
+      .pipe(map(({ id }) => this.boardsService.getBoardById(id)))
       .subscribe((board) => {
         if (board) {
           this.columns = board.columns;
