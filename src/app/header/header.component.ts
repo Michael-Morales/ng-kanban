@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   boards?: Board[];
   currentBoard?: Board;
   showNav = false;
+  showMenu = false;
 
   constructor(private router: Router, private boardsService: BoardsService) {}
 
@@ -35,5 +36,13 @@ export class HeaderComponent implements OnInit {
         this.currentBoard = board;
         this.showNav = false;
       });
+  }
+
+  onEditClick() {
+    console.log('edit');
+  }
+
+  onDeleteClick() {
+    console.log('delete');
   }
 }

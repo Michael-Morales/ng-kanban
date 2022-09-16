@@ -34,3 +34,7 @@ button {
   border: none;
   cursor: pointer;
 }
+
+.task-menu {
+  position: relative;
+}

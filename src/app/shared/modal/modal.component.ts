@@ -17,6 +17,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Output() dismiss = new EventEmitter();
   @Input() title = '';
   @Input() type = '';
+  showMenu = false;
 
   constructor(private el: ElementRef) {}
 
@@ -30,5 +31,13 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   onDismissClick() {
     this.dismiss.emit();
+  }
+
+  onEditClick() {
+    console.log('edit');
+  }
+
+  onDeleteClick() {
+    console.log('delete');
   }
 }

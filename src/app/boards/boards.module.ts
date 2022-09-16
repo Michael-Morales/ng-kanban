@@ -11,7 +11,13 @@ import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
-  declarations: [HomeComponent, ColumnComponent, EmptyComponent, TaskComponent, TaskFormComponent],
+  declarations: [
+    HomeComponent,
+    ColumnComponent,
+    EmptyComponent,
+    TaskComponent,
+    TaskFormComponent,
+  ],
   imports: [
     CommonModule,
     BoardsRoutingModule,

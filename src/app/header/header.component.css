@@ -108,3 +108,7 @@ h1 {
 img.active {
   transform: rotate(180deg);
 }
+
+.menu-container {
+  position: relative;
+}

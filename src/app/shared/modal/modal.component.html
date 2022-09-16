@@ -2,9 +2,17 @@
   <div class="modal" (click)="$event.stopPropagation()">
     <div class="header">
       <h4>{{ title }}</h4>
-      <button *ngIf="type === 'task'" type="button">
-        <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
-      </button>
+      <div class="task-menu" *ngIf="type === 'task'">
+        <button type="button" (click)="showMenu = !showMenu">
+          <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
+        </button>
+        <app-menu
+          *ngIf="showMenu"
+          type="task"
+          (edit)="onEditClick()"
+          (delete)="onDeleteClick()"
+        ></app-menu>
+      </div>
     </div>
     <ng-content></ng-content>
   </div>

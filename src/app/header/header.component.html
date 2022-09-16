@@ -49,8 +49,17 @@
       <img src="/assets/images/icon-add-task-mobile.svg" alt="" />
     </app-button>
 
-    <button type="button">
-      <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
-    </button>
+    <div class="menu-container">
+      <button type="button" (click)="showMenu = !showMenu">
+        <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
+      </button>
+
+      <app-menu
+        *ngIf="showMenu"
+        type="board"
+        (edit)="onEditClick()"
+        (delete)="onDeleteClick()"
+      ></app-menu>
+    </div>
   </div>
 </header>
