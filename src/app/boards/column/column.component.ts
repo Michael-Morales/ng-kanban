@@ -23,12 +23,14 @@ export class ColumnComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .pipe(map(({ id }) => this.boardsService.getBoardById(id)))
-      .subscribe((board) => {
-        if (board) {
-          this.columns = board.columns;
-        } else {
-          this.router.navigateByUrl('/boards');
-        }
-      });
+      .subscribe((val) =>
+        val.subscribe((board) => {
+          if (board) {
+            this.columns = board.columns;
+          } else {
+            this.router.navigateByUrl('/boards');
+          }
+        })
+      );
   }
 }

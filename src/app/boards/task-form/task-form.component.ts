@@ -25,8 +25,10 @@ export class TaskFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      ({ id }) => (this.columns = this.boardsService.getBoardColumns(id))
+    this.route.params.subscribe(({ id }) =>
+      this.boardsService
+        .getBoardColumns(id)
+        .subscribe((columns) => (this.columns = columns))
     );
 
     this.taskForm = this.fb.group({

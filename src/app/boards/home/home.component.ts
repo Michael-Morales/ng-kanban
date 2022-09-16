@@ -16,6 +16,6 @@ export class HomeComponent implements OnInit {
   constructor(private boardsService: BoardsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.boards = this.boardsService.boards$;
+    this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
   }
 }

@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private boardsService: BoardsService) {}
 
   ngOnInit(): void {
-    this.boards = this.boardsService.boards$;
+    this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
 
     this.router.events
       .pipe(
