@@ -12,7 +12,14 @@ header {
 .actions {
   display: flex;
   align-items: center;
+}
+
+.navigation {
   gap: 1.6rem;
+}
+
+.actions {
+  gap: 0.8rem;
 }
 
 .nav-menu {
@@ -85,7 +92,6 @@ button {
   border: none;
   cursor: pointer;
 }
-
 .new-board {
   gap: 1.2rem;
   padding-block: 1.6rem;
@@ -111,4 +117,8 @@ img.active {
 
 .menu-container {
   position: relative;
+}
+
+.menu-container button {
+  padding: 0 0.8rem;
 }
