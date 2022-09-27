@@ -1,0 +1,10 @@
+<p class="description">
+  <ng-content></ng-content>
+</p>
+
+<div class="actions">
+  <app-button [buttonStyle]="['danger']">delete</app-button>
+  <app-button [buttonStyle]="['secondary']" (click)="modalService.closeModal()"
+    >cancel</app-button
+  >
+</div>
