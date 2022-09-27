@@ -122,3 +122,15 @@ img.active {
 .menu-container button {
   padding: 0 0.8rem;
 }
+
+.delete-description {
+  margin-bottom: 2.4rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.delete-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}

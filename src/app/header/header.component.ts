@@ -49,7 +49,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onDeleteClick() {
-    console.log('delete');
+    if (this.currentBoard) {
+      this.showMenu = false;
+      this.modalService.openModal(this.currentBoard.id + ' delete');
+    }
   }
 
   onMenuClick() {
