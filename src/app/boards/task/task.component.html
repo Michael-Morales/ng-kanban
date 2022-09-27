@@ -27,4 +27,23 @@
       [completedTasks]="completedTasks"
     ></app-task-form>
   </app-modal>
+
+  <app-modal
+    *ngIf="modalService.modal === task.title + ' delete'"
+    title="Delete this task?"
+  >
+    <p class="description">
+      Are you sure you want to delete the ‘{{ task.title }}’ task and its
+      subtasks? This action cannot be reversed.
+    </p>
+
+    <div class="actions">
+      <app-button [buttonStyle]="['danger']">delete</app-button>
+      <app-button
+        [buttonStyle]="['secondary']"
+        (click)="modalService.closeModal()"
+        >cancel</app-button
+      >
+    </div>
+  </app-modal>
 </ng-container>

@@ -8,6 +8,8 @@ import {
   Input,
 } from '@angular/core';
 
+import { ModalService } from '../modal.service';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -19,7 +21,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() type = '';
   showMenu = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private modalService: ModalService) {}
 
   ngOnInit(): void {
     document.body.appendChild(this.el.nativeElement);
@@ -38,6 +40,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onDeleteClick() {
-    console.log('delete');
+    this.modalService.openModal(this.title + ' delete');
   }
 }

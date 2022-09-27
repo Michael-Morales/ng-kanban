@@ -13,7 +13,6 @@ export class TaskComponent implements OnInit {
   @Input() task?: Task;
   @Input() currentColumn = '';
   completedTasks: number | undefined = 0;
-  showModal = false;
 
   constructor(public modalService: ModalService) {}
 
