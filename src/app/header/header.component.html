@@ -81,4 +81,7 @@
 <app-modal
   *ngIf="modalService.modal === currentBoard?.id + ' edit'"
   title="Edit Board"
-></app-modal>
+  (dismiss)="modalService.closeModal()"
+>
+  <app-edit-menu [board]="currentBoard"></app-edit-menu>
+</app-modal>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { BoardsService } from '../boards.service';
 import { HeaderService } from 'src/app/header/header.service';

@@ -28,6 +28,6 @@ import { EditMenuComponent } from './edit-menu/edit-menu.component';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [DeleteMenuComponent],
+  exports: [DeleteMenuComponent, EditMenuComponent],
 })
 export class BoardsModule {}

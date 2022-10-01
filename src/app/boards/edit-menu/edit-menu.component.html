@@ -1,1 +1,20 @@
-<p>edit-menu works!</p>
+<form *ngIf="board" [formGroup]="editForm">
+  <div class="form-group">
+    <label>Board name</label>
+    <input type="text" formControlName="name" />
+  </div>
+  <div class="form-group" formArrayName="columns">
+    <label>Board columns</label>
+    <div class="columns">
+      <div
+        class="column-input"
+        [formGroupName]="i"
+        *ngFor="let column of columns.controls; let i = index"
+      >
+        <input type="text" formControlName="columnName" />
+      </div>
+      <app-button [buttonStyle]="['secondary']">+ add new column</app-button>
+    </div>
+  </div>
+  <app-button buttonType="submit">save changes</app-button>
+</form>
