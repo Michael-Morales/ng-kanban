@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonComponent } from './button/button.component';
 import { ModalComponent } from './modal/modal.component';
 import { MenuComponent } from './menu/menu.component';
-import { DeleteMenuComponent } from '../boards/delete-menu/delete-menu.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
-  declarations: [ButtonComponent, ModalComponent, MenuComponent],
-  imports: [CommonModule],
-  exports: [ButtonComponent, ModalComponent, MenuComponent],
+  declarations: [
+    ButtonComponent,
+    ModalComponent,
+    MenuComponent,
+    InputComponent,
+  ],
+  imports: [CommonModule, ReactiveFormsModule],
+  exports: [ButtonComponent, ModalComponent, MenuComponent, InputComponent],
 })
 export class SharedModule {}

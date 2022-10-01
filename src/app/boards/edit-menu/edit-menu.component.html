@@ -1,8 +1,8 @@
 <form *ngIf="board" [formGroup]="editForm">
-  <div class="form-group">
-    <label>Board name</label>
-    <input type="text" formControlName="name" />
-  </div>
+  <app-input
+    label="Board name"
+    [control]="$any(editForm).get('name')"
+  ></app-input>
   <div class="form-group" formArrayName="columns">
     <label>Board columns</label>
     <div class="columns">
