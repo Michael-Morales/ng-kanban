@@ -10,21 +10,21 @@ label {
   margin-bottom: 2.4rem;
 }
 
-.columns {
+.elements {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-input {
-  padding: 0.8rem 1.6rem;
-  width: 100%;
-  font-size: 1.3rem;
-  border: 1px solid var(--light-grey);
-  border-radius: 4px;
+.element-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
 }
 
-input:focus-visible {
-  border-color: var(--body-text);
-  outline: none;
+button {
+  border: unset;
+  background-color: unset;
+  cursor: pointer;
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditMenuComponent } from './edit-menu.component';
+import { EditBoardComponent } from './edit-board.component';
 
-describe('EditMenuComponent', () => {
-  let component: EditMenuComponent;
-  let fixture: ComponentFixture<EditMenuComponent>;
+describe('EditBoardComponent', () => {
+  let component: EditBoardComponent;
+  let fixture: ComponentFixture<EditBoardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditMenuComponent ]
+      declarations: [ EditBoardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditMenuComponent);
+    fixture = TestBed.createComponent(EditBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

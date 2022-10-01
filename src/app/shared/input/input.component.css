@@ -3,6 +3,11 @@
   flex-direction: column;
   gap: 0.8rem;
   margin-bottom: 2.4rem;
+  width: 100%;
+}
+
+:host.list {
+  margin-bottom: 0;
 }
 
 label {

@@ -10,7 +10,7 @@ import { EmptyComponent } from './empty/empty.component';
 import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
-import { EditMenuComponent } from './edit-menu/edit-menu.component';
+import { EditBoardComponent } from './edit-board/edit-board.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { EditMenuComponent } from './edit-menu/edit-menu.component';
     TaskComponent,
     TaskFormComponent,
     DeleteMenuComponent,
-    EditMenuComponent,
+    EditBoardComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +28,6 @@ import { EditMenuComponent } from './edit-menu/edit-menu.component';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [DeleteMenuComponent, EditMenuComponent],
+  exports: [DeleteMenuComponent, EditBoardComponent],
 })
 export class BoardsModule {}

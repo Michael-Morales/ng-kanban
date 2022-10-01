@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Board } from '../../interfaces';
 
 @Component({
-  selector: 'app-edit-menu',
-  templateUrl: './edit-menu.component.html',
-  styleUrls: ['./edit-menu.component.css'],
+  selector: 'app-edit-board',
+  templateUrl: './edit-board.component.html',
+  styleUrls: ['./edit-board.component.css'],
 })
-export class EditMenuComponent implements OnInit {
+export class EditBoardComponent implements OnInit {
   @Input() board?: Board;
   editForm!: FormGroup;
 
@@ -20,10 +20,8 @@ export class EditMenuComponent implements OnInit {
       columns: this.fb.array([]),
     });
 
-    const formArray = this.editForm.get('columns') as FormArray;
-
     this.board?.columns.forEach((column) => {
-      formArray.push(
+      this.columns.push(
         this.fb.group({
           columnName: column.name,
         })
@@ -33,5 +31,17 @@ export class EditMenuComponent implements OnInit {
 
   get columns() {
     return this.editForm.get('columns') as FormArray;
+  }
+
+  onDelete(index: number) {
+    this.columns.removeAt(index);
+  }
+
+  onSave() {
+    console.log('Save board');
+  }
+
+  onAddNewColumn() {
+    this.columns.push(this.fb.group({ columnName: '' }));
   }
 }
