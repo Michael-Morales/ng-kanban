@@ -4,6 +4,7 @@ import { filter, map } from 'rxjs';
 
 import { BoardsService } from '../boards/boards.service';
 import { ModalService } from '../shared/modal.service';
+import { HeaderService } from './header.service';
 
 import { Board } from '../interfaces';
 
@@ -15,12 +16,11 @@ import { Board } from '../interfaces';
 export class HeaderComponent implements OnInit {
   boards?: Board[];
   currentBoard?: Board;
-  showNav = false;
-  showMenu = false;
 
   constructor(
     private router: Router,
     private boardsService: BoardsService,
+    public headerService: HeaderService,
     public modalService: ModalService
   ) {}
 
@@ -39,31 +39,7 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe((board) => {
         this.currentBoard = board;
-        this.showNav = false;
-        this.showMenu = false;
+        this.headerService.closeMenus();
       });
-  }
-
-  onEditClick() {
-    console.log('edit');
-  }
-
-  onDeleteClick() {
-    if (this.currentBoard) {
-      this.showMenu = false;
-      this.modalService.openModal(this.currentBoard.id + ' delete');
-    }
-  }
-
-  onMenuClick() {
-    this.showMenu = !this.showMenu;
-    this.showNav = false;
-    this.modalService.closeModal();
-  }
-
-  onNavClick() {
-    this.showNav = !this.showNav;
-    this.showMenu = false;
-    this.modalService.closeModal();
   }
 }

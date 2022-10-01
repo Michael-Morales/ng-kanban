@@ -10,6 +10,7 @@ import { EmptyComponent } from './empty/empty.component';
 import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
+import { EditMenuComponent } from './edit-menu/edit-menu.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
     TaskComponent,
     TaskFormComponent,
     DeleteMenuComponent,
+    EditMenuComponent,
   ],
   imports: [
     CommonModule,

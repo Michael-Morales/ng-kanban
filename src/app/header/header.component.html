@@ -4,7 +4,11 @@
       <img src="/assets/images/logo-mobile.svg" alt="" />
     </a>
 
-    <button *ngIf="boards?.length" type="button" (click)="onNavClick()">
+    <button
+      *ngIf="boards?.length"
+      type="button"
+      (click)="headerService.onNavClick()"
+    >
       <h1 *ngIf="currentBoard; else defaultView">
         {{ currentBoard.name }}
       </h1>
@@ -14,11 +18,11 @@
       <img
         src="/assets/images/icon-chevron-down.svg"
         alt=""
-        [ngClass]="{ active: showNav }"
+        [ngClass]="{ active: headerService.showNav }"
       />
     </button>
 
-    <div class="nav-menu" *ngIf="showNav && boards?.length">
+    <div class="nav-menu" *ngIf="headerService.showNav && boards?.length">
       <p>all boards ({{ boards?.length }})</p>
       <nav>
         <a
@@ -50,15 +54,15 @@
     </app-button>
 
     <div class="menu-container">
-      <button type="button" (click)="onMenuClick()">
+      <button type="button" (click)="headerService.onMenuClick()">
         <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
       </button>
 
       <app-menu
-        *ngIf="showMenu"
+        *ngIf="headerService.showMenu && currentBoard"
         type="board"
-        (edit)="onEditClick()"
-        (delete)="onDeleteClick()"
+        (edit)="headerService.onEditClick(currentBoard)"
+        (delete)="headerService.onDeleteClick(currentBoard)"
       ></app-menu>
     </div>
   </div>
@@ -73,3 +77,8 @@
     action will remove all columns and tasks and cannot be reversed.
   </app-delete-menu>
 </app-modal>
+
+<app-modal
+  *ngIf="modalService.modal === currentBoard?.id + ' edit'"
+  title="Edit Board"
+></app-modal>

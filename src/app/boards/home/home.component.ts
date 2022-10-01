@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BoardsService } from '../boards.service';
+import { HeaderService } from 'src/app/header/header.service';
 
 import { Board } from '../../interfaces';
 
@@ -13,9 +14,18 @@ import { Board } from '../../interfaces';
 export class HomeComponent implements OnInit {
   boards: Board[] = [];
 
-  constructor(private boardsService: BoardsService, private router: Router) {}
+  constructor(
+    private boardsService: BoardsService,
+    private headerService: HeaderService
+  ) {}
 
   ngOnInit(): void {
     this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
+  }
+
+  dismissHeaderMenu() {
+    if (this.headerService.showMenu || this.headerService.showNav) {
+      this.headerService.closeMenus();
+    }
   }
 }
