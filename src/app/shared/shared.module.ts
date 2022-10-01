@@ -4,21 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { ModalComponent } from './modal/modal.component';
 import { MenuComponent } from './menu/menu.component';
-import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
+import { DeleteMenuComponent } from '../boards/delete-menu/delete-menu.component';
 
 @NgModule({
-  declarations: [
-    ButtonComponent,
-    ModalComponent,
-    MenuComponent,
-    DeleteMenuComponent,
-  ],
+  declarations: [ButtonComponent, ModalComponent, MenuComponent],
   imports: [CommonModule],
-  exports: [
-    ButtonComponent,
-    ModalComponent,
-    MenuComponent,
-    DeleteMenuComponent,
-  ],
+  exports: [ButtonComponent, ModalComponent, MenuComponent],
 })
 export class SharedModule {}

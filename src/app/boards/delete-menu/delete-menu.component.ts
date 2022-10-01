@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
@@ -8,7 +8,11 @@ import { ModalService } from 'src/app/shared/modal.service';
   styleUrls: ['./delete-menu.component.css'],
 })
 export class DeleteMenuComponent implements OnInit {
-  constructor(public modalService: ModalService) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
+
+  dismiss() {
+    this.modalService.closeModal();
+  }
 }

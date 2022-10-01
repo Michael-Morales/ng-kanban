@@ -9,6 +9,7 @@ import { ColumnComponent } from './column/column.component';
 import { EmptyComponent } from './empty/empty.component';
 import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TaskFormComponent } from './task-form/task-form.component';
     EmptyComponent,
     TaskComponent,
     TaskFormComponent,
+    DeleteMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -24,5 +26,6 @@ import { TaskFormComponent } from './task-form/task-form.component';
     SharedModule,
     ReactiveFormsModule,
   ],
+  exports: [DeleteMenuComponent],
 })
 export class BoardsModule {}
