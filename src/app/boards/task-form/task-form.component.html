@@ -11,10 +11,6 @@
   </div>
   <div>
     <h5>Current Status</h5>
-    <select formControlName="status">
-      <option *ngFor="let column of columns" [ngValue]="column.name">
-        {{ column.name }}
-      </option>
-    </select>
+    <app-select [control]="$any(taskForm).get('status')"></app-select>
   </div>
 </form>

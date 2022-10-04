@@ -15,7 +15,6 @@ export class TaskFormComponent implements OnInit {
   @Input() task?: Task;
   @Input() currentColumn = '';
   @Input() completedTasks?: number;
-  columns?: Column[];
   taskForm!: FormGroup;
 
   constructor(
@@ -25,21 +24,13 @@ export class TaskFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(({ id }) =>
-      this.boardsService
-        .getBoardColumns(id)
-        .subscribe((columns) => (this.columns = columns))
-    );
-
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
       status: [this.currentColumn],
     });
 
-    const formArray = this.taskForm.get('subtasks') as FormArray;
-
     this.task?.subtasks.forEach((subtask) => {
-      formArray.push(
+      this.subtasks.push(
         this.fb.group({
           title: this.fb.control(subtask.title),
           isCompleted: this.fb.control(subtask.isCompleted),
@@ -49,6 +40,6 @@ export class TaskFormComponent implements OnInit {
   }
 
   get subtasks() {
-    return this.taskForm.controls['subtasks'] as FormArray;
+    return this.taskForm.get('subtasks') as FormArray;
   }
 }
