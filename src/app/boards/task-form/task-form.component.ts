@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
-import { Task } from '../../interfaces';
+import { BoardsService } from '../boards.service';
+
+import { Task, Column } from '../../interfaces';
 
 @Component({
   selector: 'app-task-form',
@@ -13,10 +16,21 @@ export class TaskFormComponent implements OnInit {
   @Input() currentColumn = '';
   @Input() completedTasks?: number;
   taskForm!: FormGroup;
+  columns?: Column[];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private boardService: BoardsService
+  ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.boardService
+        .getBoardColumns(params.get('id'))
+        .subscribe((columns) => (this.columns = columns));
+    });
+
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
       status: [this.currentColumn],

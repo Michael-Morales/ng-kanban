@@ -36,7 +36,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onEditClick() {
-    console.log('edit');
+    this.modalService.openModal(this.title + ' edit');
   }
 
   onDeleteClick() {

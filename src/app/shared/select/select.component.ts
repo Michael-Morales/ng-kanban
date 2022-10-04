@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-
-import { BoardsService } from 'src/app/boards/boards.service';
 
 import { Column } from '../../interfaces';
 
@@ -13,18 +10,9 @@ import { Column } from '../../interfaces';
 })
 export class SelectComponent implements OnInit {
   @Input() control!: FormControl;
-  columns?: Column[];
+  @Input() columns?: Column[];
 
-  constructor(
-    private route: ActivatedRoute,
-    private boardService: BoardsService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.boardService
-        .getBoardColumns(params.get('id'))
-        .subscribe((columns) => (this.columns = columns));
-    });
-  }
+  ngOnInit(): void {}
 }

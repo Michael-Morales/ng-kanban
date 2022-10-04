@@ -13,6 +13,7 @@ import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
 import { EditBoardComponent } from './edit-board/edit-board.component';
 import { AddBoardComponent } from './add-board/add-board.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     EditBoardComponent,
     AddBoardComponent,
     AddTaskComponent,
+    EditTaskComponent,
   ],
   imports: [
     CommonModule,

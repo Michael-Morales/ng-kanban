@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+
+import { BoardsService } from '../boards.service';
+
+import { Board, Column } from '../../interfaces';
 
 @Component({
   selector: 'app-add-task',
@@ -7,6 +11,8 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class AddTaskComponent implements OnInit {
+  @Input() board?: Board;
+  columns?: Column[];
   addForm: FormGroup = this.fb.group({
     title: [''],
     description: [''],
@@ -16,9 +22,13 @@ export class AddTaskComponent implements OnInit {
     ]),
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private boardsService: BoardsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.boardsService
+      .getBoardColumns(this.board?.id)
+      .subscribe((columns) => (this.columns = columns));
+  }
 
   get subtasks() {
     return this.addForm.get('subtasks') as FormArray;

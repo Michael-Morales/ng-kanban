@@ -37,4 +37,15 @@
       subtasks? This action cannot be reversed.
     </app-delete-menu>
   </app-modal>
+
+  <app-modal
+    *ngIf="modalService.modal === task.title + ' edit'"
+    title="Edit task"
+    (dismiss)="modalService.closeModal()"
+  >
+    <app-edit-task
+      [task]="task"
+      [currentColumn]="currentColumn"
+    ></app-edit-task>
+  </app-modal>
 </ng-container>

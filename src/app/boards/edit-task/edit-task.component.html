@@ -1,13 +1,13 @@
-<form *ngIf="board" [formGroup]="addForm">
+<form [formGroup]="editForm">
   <app-input
     label="Title"
-    [control]="$any(addForm).get('title')"
+    [control]="$any(editForm).get('title')"
     placeholder="e.g. Take coffe break"
   ></app-input>
   <app-input
     label="Description"
     controlType="textarea"
-    [control]="$any(addForm).get('description')"
+    [control]="$any(editForm).get('description')"
     placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
   ></app-input>
   <div class="form-group" formArrayName="subtasks">
@@ -35,9 +35,9 @@
   <div class="form-group">
     <label>Current Status</label>
     <app-select
-      [control]="$any(addForm).get('status')"
+      [control]="$any(editForm).get('status')"
       [columns]="columns"
     ></app-select>
   </div>
-  <app-button buttonType="submit" (click)="onSave()">create task</app-button>
+  <app-button buttonType="submit" (click)="onSave()">saving changes</app-button>
 </form>

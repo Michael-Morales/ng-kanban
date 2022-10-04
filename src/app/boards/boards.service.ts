@@ -13,13 +13,13 @@ export class BoardsService {
 
   constructor() {}
 
-  getBoardById(id: string | null) {
+  getBoardById(id: string | null | undefined) {
     return this.boards$.pipe(
       map((boards) => boards.find((board) => board.id === id))
     );
   }
 
-  getBoardColumns(id: string | null) {
+  getBoardColumns(id: string | null | undefined) {
     return this.getBoardById(id).pipe(map((board) => board?.columns));
   }
 }

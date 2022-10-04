@@ -102,5 +102,5 @@
   title="Add New Task"
   (dismiss)="modalService.closeModal()"
 >
-  <app-add-task></app-add-task>
+  <app-add-task [board]="currentBoard"></app-add-task>
 </app-modal>
