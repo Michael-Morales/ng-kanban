@@ -11,6 +11,7 @@ import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
 import { EditBoardComponent } from './edit-board/edit-board.component';
+import { AddBoardComponent } from './add-board/add-board.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
     TaskFormComponent,
     DeleteMenuComponent,
     EditBoardComponent,
+    AddBoardComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,6 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [DeleteMenuComponent, EditBoardComponent],
+  exports: [DeleteMenuComponent, EditBoardComponent, AddBoardComponent],
 })
 export class BoardsModule {}

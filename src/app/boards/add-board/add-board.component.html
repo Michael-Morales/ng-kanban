@@ -1,7 +1,7 @@
-<form *ngIf="board" [formGroup]="editForm">
+<form [formGroup]="addForm">
   <app-input
     label="Board name"
-    [control]="$any(editForm).get('name')"
+    [control]="$any(addForm).get('name')"
     placeholder="e.g. Web Design"
   ></app-input>
   <div class="form-group" formArrayName="columns">
@@ -26,5 +26,7 @@
       >
     </div>
   </div>
-  <app-button buttonType="submit" (click)="onSave()">save changes</app-button>
+  <app-button buttonType="submit" (click)="onSave()"
+    >create new board</app-button
+  >
 </form>

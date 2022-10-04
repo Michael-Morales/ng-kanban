@@ -1,3 +1,8 @@
 <label *ngIf="label">{{ label }}</label>
-<input *ngIf="controlType === 'input'" [type]="type" [formControl]="control" />
+<input
+  *ngIf="controlType === 'input'"
+  [type]="type"
+  [formControl]="control"
+  [placeholder]="placeholder"
+/>
 <textarea *ngIf="controlType === 'textarea'" [formControl]="control"></textarea>

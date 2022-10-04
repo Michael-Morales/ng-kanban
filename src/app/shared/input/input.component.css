@@ -29,3 +29,7 @@ textarea:focus-visible {
   border-color: var(--body-text);
   outline: none;
 }
+
+input:placeholder {
+  color: var(--placeholder-text);
+}

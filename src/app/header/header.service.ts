@@ -35,6 +35,11 @@ export class HeaderService {
     this.modalService.openModal(board.id + ' edit');
   }
 
+  onAddClick() {
+    this.showNav = false;
+    this.modalService.openModal('add-board');
+  }
+
   onDeleteClick(board: Board) {
     this.showMenu = false;
     this.modalService.openModal(board.id + ' delete');
