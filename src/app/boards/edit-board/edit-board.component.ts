@@ -6,7 +6,7 @@ import { Board } from '../../interfaces';
 @Component({
   selector: 'app-edit-board',
   templateUrl: './edit-board.component.html',
-  styleUrls: ['./edit-board.component.css'],
+  styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditBoardComponent implements OnInit {
   @Input() board?: Board;

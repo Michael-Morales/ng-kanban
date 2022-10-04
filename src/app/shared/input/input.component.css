@@ -24,6 +24,11 @@ textarea {
   border-radius: 4px;
 }
 
+textarea {
+  height: 90px;
+  line-height: 1.5;
+}
+
 input:focus-visible,
 textarea:focus-visible {
   border-color: var(--body-text);

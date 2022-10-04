@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
-import { BoardsService } from '../boards.service';
-
-import { Task, Column } from '../../interfaces';
+import { Task } from '../../interfaces';
 
 @Component({
   selector: 'app-task-form',
@@ -17,11 +14,7 @@ export class TaskFormComponent implements OnInit {
   @Input() completedTasks?: number;
   taskForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private boardsService: BoardsService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({

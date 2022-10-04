@@ -35,9 +35,14 @@ export class HeaderService {
     this.modalService.openModal(board.id + ' edit');
   }
 
-  onAddClick() {
+  onAddBoardClick() {
     this.showNav = false;
     this.modalService.openModal('add-board');
+  }
+
+  onAddTaskClick() {
+    this.closeMenus();
+    this.modalService.openModal('add-task');
   }
 
   onDeleteClick(board: Board) {
