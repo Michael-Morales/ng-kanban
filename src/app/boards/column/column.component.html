@@ -2,7 +2,9 @@
   *ngIf="!columns?.length"
   content="This board is empty. Create a new column to get started"
 >
-  <app-button>+ add new column</app-button>
+  <app-button (click)="modalService.openModal('add-column')"
+    >+ add new column</app-button
+  >
 </app-empty>
 
 <div class="column-container">
@@ -17,4 +19,22 @@
       ></app-task>
     </div>
   </article>
+  <button class="new-column" (click)="modalService.openModal('add-column')">
+    + new column
+  </button>
 </div>
+
+<app-modal
+  *ngIf="modalService.modal === 'add-column'"
+  header="Add New Column"
+  (dismiss)="modalService.closeModal()"
+>
+  <form [formGroup]="formGroup">
+    <app-input
+      [control]="$any(formGroup).get('title')"
+      label="Title"
+      placeholder="e.g. Todo"
+    ></app-input>
+    <app-button buttonType="submit">add new column</app-button>
+  </form>
+</app-modal>

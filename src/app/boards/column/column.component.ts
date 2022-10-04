@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs';
 
 import { BoardsService } from '../boards.service';
+import { ModalService } from 'src/app/shared/modal.service';
 
 import { Column } from '../../interfaces';
 
@@ -13,11 +15,16 @@ import { Column } from '../../interfaces';
 })
 export class ColumnComponent implements OnInit {
   columns: Column[] | undefined = [];
+  formGroup: FormGroup = this.fb.group({
+    title: [''],
+  });
 
   constructor(
     private route: ActivatedRoute,
     private boardsService: BoardsService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
+    public modalService: ModalService
   ) {}
 
   ngOnInit(): void {
