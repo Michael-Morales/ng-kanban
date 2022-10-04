@@ -27,6 +27,7 @@ textarea {
 textarea {
   height: 90px;
   line-height: 1.5;
+  resize: none;
 }
 
 input:focus-visible,

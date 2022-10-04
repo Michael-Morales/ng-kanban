@@ -73,7 +73,7 @@
 
 <app-modal
   *ngIf="modalService.modal === currentBoard?.id + ' delete'"
-  title="Delete this board?"
+  header="Delete this board?"
 >
   <app-delete-menu>
     Are you sure you want to delete the ‘{{ currentBoard?.name }}’ board? This
@@ -83,7 +83,7 @@
 
 <app-modal
   *ngIf="modalService.modal === currentBoard?.id + ' edit'"
-  title="Edit Board"
+  header="Edit Board"
   (dismiss)="modalService.closeModal()"
 >
   <app-edit-board [board]="currentBoard"></app-edit-board>
@@ -91,7 +91,7 @@
 
 <app-modal
   *ngIf="modalService.modal === 'add-board'"
-  title="Add New Board"
+  header="Add New Board"
   (dismiss)="modalService.closeModal()"
 >
   <app-add-board></app-add-board>
@@ -99,7 +99,7 @@
 
 <app-modal
   *ngIf="modalService.modal === 'add-task'"
-  title="Add New Task"
+  header="Add New Task"
   (dismiss)="modalService.closeModal()"
 >
   <app-add-task [board]="currentBoard"></app-add-task>

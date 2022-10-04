@@ -14,7 +14,7 @@
   <app-modal
     *ngIf="modalService.modal === task.title"
     (dismiss)="modalService.closeModal()"
-    [title]="task.title"
+    [header]="task.title"
     type="task"
   >
     <p class="description">
@@ -30,7 +30,7 @@
 
   <app-modal
     *ngIf="modalService.modal === task.title + ' delete'"
-    title="Delete this task?"
+    header="Delete this task?"
   >
     <app-delete-menu>
       Are you sure you want to delete the ‘{{ task.title }}’ task and its
@@ -40,7 +40,7 @@
 
   <app-modal
     *ngIf="modalService.modal === task.title + ' edit'"
-    title="Edit task"
+    header="Edit task"
     (dismiss)="modalService.closeModal()"
   >
     <app-edit-task

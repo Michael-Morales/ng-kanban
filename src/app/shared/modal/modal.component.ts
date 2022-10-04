@@ -17,7 +17,7 @@ import { ModalService } from '../modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Output() dismiss = new EventEmitter();
-  @Input() title = '';
+  @Input() header = '';
   @Input() type = '';
   showMenu = false;
 
@@ -36,10 +36,10 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onEditClick() {
-    this.modalService.openModal(this.title + ' edit');
+    this.modalService.openModal(this.header + ' edit');
   }
 
   onDeleteClick() {
-    this.modalService.openModal(this.title + ' delete');
+    this.modalService.openModal(this.header + ' delete');
   }
 }

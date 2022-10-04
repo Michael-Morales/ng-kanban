@@ -1,7 +1,7 @@
 <div class="modal-bg" (click)="onDismissClick()">
   <div class="modal" (click)="$event.stopPropagation()">
     <div class="header">
-      <h4>{{ title }}</h4>
+      <h4>{{ header }}</h4>
       <div class="task-menu" *ngIf="type === 'task'">
         <button type="button" (click)="showMenu = !showMenu">
           <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
