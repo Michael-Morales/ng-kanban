@@ -10,24 +10,25 @@ import { Board } from '../interfaces';
 export class HeaderService {
   showNav = false;
   showMenu = false;
+  showSidebar = false;
 
   constructor(private modalService: ModalService) {}
 
   onMenuClick() {
     this.showMenu = !this.showMenu;
     this.showNav = false;
-    this.modalService.closeModal();
+    this.showSidebar = false;
   }
 
   onNavClick() {
     this.showNav = !this.showNav;
     this.showMenu = false;
-    this.modalService.closeModal();
   }
 
   closeMenus() {
     this.showMenu = false;
     this.showNav = false;
+    this.showSidebar = false;
   }
 
   onEditClick(board: Board) {
@@ -48,5 +49,14 @@ export class HeaderService {
   onDeleteClick(board: Board) {
     this.showMenu = false;
     this.modalService.openModal(board.id + ' delete');
+  }
+
+  onShowSidebarClick() {
+    this.closeMenus();
+    this.showSidebar = true;
+  }
+
+  onHideSidebarClick() {
+    this.showSidebar = false;
   }
 }

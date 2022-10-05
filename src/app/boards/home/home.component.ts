@@ -23,7 +23,11 @@ export class HomeComponent implements OnInit {
   }
 
   dismissHeaderMenu() {
-    if (this.headerService.showMenu || this.headerService.showNav) {
+    if (
+      this.headerService.showMenu ||
+      this.headerService.showNav ||
+      this.headerService.showSidebar
+    ) {
       this.headerService.closeMenus();
     }
   }

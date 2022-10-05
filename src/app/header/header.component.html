@@ -84,6 +84,12 @@
       ></app-menu>
     </div>
   </div>
+
+  <button class="show-sidebar" (click)="headerService.onShowSidebarClick()">
+    <img src="/assets/images/icon-show-sidebar.svg" alt="" />
+  </button>
+
+  <aside [ngClass]="{ sidebar: true, open: headerService.showSidebar }"></aside>
 </header>
 
 <app-modal
