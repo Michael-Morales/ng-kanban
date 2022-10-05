@@ -1,19 +1,28 @@
 <header>
   <div class="navigation">
     <a routerLink="/">
-      <img src="/assets/images/logo-mobile.svg" alt="" />
+      <img src="/assets/images/logo-mobile.svg" alt="" class="logo-mobile" />
+      <img src="/assets/images/logo-dark.svg" alt="" class="logo-desktop" />
     </a>
+
+    <h1 *ngIf="currentBoard; else defaultDesktopView" class="desktop-title">
+      {{ currentBoard.name }}
+    </h1>
+    <ng-template #defaultDesktopView>
+      <h1 class="desktop-title">Select a board</h1>
+    </ng-template>
 
     <button
       *ngIf="boards?.length"
       type="button"
       (click)="headerService.onNavClick()"
+      class="mobile-nav-button"
     >
-      <h1 *ngIf="currentBoard; else defaultView">
+      <h1 *ngIf="currentBoard; else defaultMobileView">
         {{ currentBoard.name }}
       </h1>
-      <ng-template #defaultView>
-        <h1>Select a board</h1>
+      <ng-template #defaultMobileView>
+        <h1 class="mobile-nav-button">Select a board</h1>
       </ng-template>
       <img
         src="/assets/images/icon-chevron-down.svg"
@@ -22,7 +31,10 @@
       />
     </button>
 
-    <div class="nav-menu" *ngIf="headerService.showNav && boards?.length">
+    <div
+      class="nav-mobile-menu"
+      *ngIf="headerService.showNav && boards?.length"
+    >
       <p>all boards ({{ boards?.length }})</p>
       <nav>
         <a
@@ -52,8 +64,11 @@
     <app-button
       [buttonStyle]="['small']"
       (click)="headerService.onAddTaskClick()"
+      [disabled]="!currentBoard"
+      class="add-task-button"
     >
       <img src="/assets/images/icon-add-task-mobile.svg" alt="" />
+      <span>+ add new task</span>
     </app-button>
 
     <div class="menu-container">

@@ -40,3 +40,7 @@ button.danger {
 button.danger:hover {
   background-color: var(--hover-danger-color);
 }
+
+button:disabled {
+  background-color: var(--secondary-color);
+}
