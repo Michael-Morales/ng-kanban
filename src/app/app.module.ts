@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { BoardsModule } from './boards/boards.module';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './header/header.component';
+import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, NavMenuComponent],
   imports: [BrowserModule, BoardsModule, AppRoutingModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],

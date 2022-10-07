@@ -36,75 +36,11 @@ header {
   left: 54px;
   padding: 1.6rem 2.4rem;
   width: 280px;
+  max-height: 70vh;
   background-color: var(--white);
   border-radius: 8px;
   overflow-x: hidden;
   box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
-}
-
-.nav-mobile-menu nav {
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-mobile-menu a {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  padding-block: 1.6rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--body-text);
-  text-decoration: none;
-  z-index: 1;
-}
-
-.nav-mobile-menu a svg path {
-  fill: var(--body-text);
-}
-
-.nav-mobile-menu a.active {
-  color: var(--white);
-}
-
-.nav-mobile-menu a:not(.active):hover {
-  color: var(--primary-color);
-}
-
-.nav-mobile-menu a.active svg path {
-  fill: var(--white);
-}
-
-.nav-mobile-menu a:not(.active):hover svg path {
-  fill: var(--primary-color);
-}
-
-.nav-mobile-menu a.active::before,
-.nav-mobile-menu a:hover::before {
-  position: absolute;
-  content: "";
-  width: 280px;
-  height: 100%;
-  border-radius: 100px;
-  transform: translateX(-50px);
-  z-index: -1;
-}
-
-.nav-mobile-menu a.active::before {
-  background-color: var(--primary-color);
-}
-
-.nav-mobile-menu a:not(.active):hover::before {
-  background-color: var(--secondary-color);
-}
-
-.nav-mobile-menu p {
-  margin-bottom: 1.8rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2.4px;
 }
 
 button {
@@ -119,19 +55,6 @@ button {
 
 .add-task-button span {
   display: none;
-}
-
-.new-board {
-  gap: 1.2rem;
-  padding-block: 1.6rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-transform: capitalize;
-}
-
-.new-board svg path {
-  fill: var(--primary-color);
 }
 
 h1 {
@@ -173,9 +96,11 @@ img.active {
 .sidebar {
   display: none;
   position: fixed;
-  top: 0;
+  top: 74px;
   bottom: 0;
   left: -300px;
+  padding-left: 3.2rem;
+  padding-top: 1.5rem;
   width: 300px;
   background-color: var(--white);
   z-index: -1;
