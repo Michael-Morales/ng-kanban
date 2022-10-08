@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class AddBoardComponent implements OnInit {
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    columns: this.fb.array([this.fb.group({ columnName: '' })]),
+    columns: this.fb.array([]),
   });
 
   constructor(private fb: FormBuilder) {}
@@ -29,6 +29,10 @@ export class AddBoardComponent implements OnInit {
   }
 
   onAddNewColumn() {
-    this.columns.push(this.fb.group({ columnName: '' }));
+    this.columns.push(
+      this.fb.group({
+        columnName: ['', [Validators.required, Validators.minLength(3)]],
+      })
+    );
   }
 }

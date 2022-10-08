@@ -1,6 +1,8 @@
 <main (click)="dismissHeaderMenu()">
   <app-empty *ngIf="!boards.length" content="Create a new board to get started">
-    <app-button>+ create new board</app-button>
+    <app-button (click)="modalService.openModal('add-board')"
+      >+ create new board</app-button
+    >
   </app-empty>
 
   <router-outlet></router-outlet>

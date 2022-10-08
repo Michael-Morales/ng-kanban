@@ -17,9 +17,7 @@ export class AddTaskComponent implements OnInit {
     title: ['', [Validators.required, Validators.minLength(3)]],
     description: [''],
     status: ['', Validators.required],
-    subtasks: this.fb.array([
-      this.fb.group({ title: [''], isComplete: [false] }),
-    ]),
+    subtasks: this.fb.array([]),
   });
 
   constructor(private fb: FormBuilder, private boardsService: BoardsService) {}
@@ -41,7 +39,7 @@ export class AddTaskComponent implements OnInit {
   onAddNewSubtask() {
     this.subtasks.push(
       this.fb.group({
-        title: [''],
+        title: ['', [Validators.required, Validators.minLength(3)]],
         isCompleted: [false],
       })
     );

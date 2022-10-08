@@ -9,7 +9,7 @@ import { data } from './mock-data';
   providedIn: 'root',
 })
 export class BoardsService {
-  boards$: BehaviorSubject<Board[]> = new BehaviorSubject(data);
+  boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>(data);
 
   constructor() {}
 

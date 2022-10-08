@@ -23,7 +23,10 @@ export class EditBoardComponent implements OnInit {
     this.board?.columns.forEach((column) => {
       this.columns.push(
         this.fb.group({
-          columnName: column.name,
+          columnName: [
+            column.name,
+            [Validators.required, Validators.minLength(3)],
+          ],
         })
       );
     });
@@ -42,6 +45,10 @@ export class EditBoardComponent implements OnInit {
   }
 
   onAddNewColumn() {
-    this.columns.push(this.fb.group({ columnName: '' }));
+    this.columns.push(
+      this.fb.group({
+        columnName: ['', [Validators.required, Validators.minLength(3)]],
+      })
+    );
   }
 }

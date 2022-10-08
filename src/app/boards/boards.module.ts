@@ -6,7 +6,6 @@ import { BoardsRoutingModule } from './boards-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ColumnComponent } from './column/column.component';
-import { EmptyComponent } from './empty/empty.component';
 import { TaskComponent } from './task/task.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { DeleteMenuComponent } from './delete-menu/delete-menu.component';
@@ -19,7 +18,6 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
   declarations: [
     HomeComponent,
     ColumnComponent,
-    EmptyComponent,
     TaskComponent,
     TaskFormComponent,
     DeleteMenuComponent,

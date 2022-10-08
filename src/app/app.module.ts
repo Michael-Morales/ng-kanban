@@ -7,9 +7,10 @@ import { BoardsModule } from './boards/boards.module';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, NavMenuComponent],
+  declarations: [AppComponent, HeaderComponent, NavMenuComponent, NotFoundComponent],
   imports: [BrowserModule, BoardsModule, AppRoutingModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -40,7 +40,7 @@ export class EditTaskComponent implements OnInit {
     this.task?.subtasks.forEach(({ title, isCompleted }) => {
       this.subtasks.push(
         this.fb.group({
-          title,
+          title: [title, [Validators.required, Validators.minLength(3)]],
           isCompleted,
         })
       );
@@ -58,7 +58,7 @@ export class EditTaskComponent implements OnInit {
   onAddNewSubtask() {
     this.subtasks.push(
       this.fb.group({
-        title: [''],
+        title: ['', [Validators.required, Validators.minLength(3)]],
         isCompleted: [false],
       })
     );

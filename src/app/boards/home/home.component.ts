@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { BoardsService } from '../boards.service';
 import { HeaderService } from 'src/app/header/header.service';
+import { ModalService } from 'src/app/shared/modal.service';
 
 import { Board } from '../../interfaces';
 
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private boardsService: BoardsService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    public modalService: ModalService
   ) {}
 
   ngOnInit(): void {

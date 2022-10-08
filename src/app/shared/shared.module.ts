@@ -7,6 +7,7 @@ import { ModalComponent } from './modal/modal.component';
 import { MenuComponent } from './menu/menu.component';
 import { InputComponent } from './input/input.component';
 import { SelectComponent } from './select/select.component';
+import { EmptyComponent } from './empty/empty.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SelectComponent } from './select/select.component';
     MenuComponent,
     InputComponent,
     SelectComponent,
+    EmptyComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -23,6 +25,7 @@ import { SelectComponent } from './select/select.component';
     MenuComponent,
     InputComponent,
     SelectComponent,
+    EmptyComponent,
   ],
 })
 export class SharedModule {}
