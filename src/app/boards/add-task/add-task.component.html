@@ -39,5 +39,10 @@
       [columns]="columns"
     ></app-select>
   </div>
-  <app-button buttonType="submit" (click)="onSave()">create task</app-button>
+  <app-button
+    buttonType="submit"
+    (click)="onSave()"
+    [disabled]="addForm.invalid"
+    >create task</app-button
+  >
 </form>

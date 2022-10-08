@@ -26,5 +26,10 @@
       >
     </div>
   </div>
-  <app-button buttonType="submit" (click)="onSave()">save changes</app-button>
+  <app-button
+    buttonType="submit"
+    (click)="onSave()"
+    [disabled]="editForm.invalid"
+    >save changes</app-button
+  >
 </form>

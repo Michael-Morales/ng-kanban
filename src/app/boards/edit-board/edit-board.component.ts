@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 import { Board } from '../../interfaces';
 
@@ -16,7 +16,7 @@ export class EditBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.editForm = this.fb.group({
-      name: [this.board?.name],
+      name: [this.board?.name, [Validators.required, Validators.minLength(3)]],
       columns: this.fb.array([]),
     });
 

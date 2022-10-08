@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 import { BoardsService } from '../boards.service';
 
@@ -14,9 +14,9 @@ export class AddTaskComponent implements OnInit {
   @Input() board?: Board;
   columns?: Column[];
   addForm: FormGroup = this.fb.group({
-    title: [''],
+    title: ['', [Validators.required, Validators.minLength(3)]],
     description: [''],
-    status: [''],
+    status: ['', Validators.required],
     subtasks: this.fb.array([
       this.fb.group({ title: [''], isComplete: [false] }),
     ]),

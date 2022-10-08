@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-board',
@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 })
 export class AddBoardComponent implements OnInit {
   addForm: FormGroup = this.fb.group({
-    name: [''],
+    name: ['', [Validators.required, Validators.minLength(3)]],
     columns: this.fb.array([this.fb.group({ columnName: '' })]),
   });
 

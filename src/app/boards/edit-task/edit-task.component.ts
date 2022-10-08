@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { BoardsService } from '../boards.service';
@@ -31,9 +31,9 @@ export class EditTaskComponent implements OnInit {
     });
 
     this.editForm = this.fb.group({
-      title: [this.task?.title],
+      title: [this.task?.title, [Validators.required, Validators.minLength(3)]],
       description: [this.task?.description],
-      status: [this.task?.status],
+      status: [this.task?.status, Validators.required],
       subtasks: this.fb.array([]),
     });
 
