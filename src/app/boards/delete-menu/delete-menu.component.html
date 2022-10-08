@@ -3,7 +3,9 @@
 </p>
 
 <div class="actions">
-  <app-button [buttonStyle]="['danger']">delete</app-button>
+  <app-button [buttonStyle]="['danger']" (click)="onDeleteClick()"
+    >delete</app-button
+  >
   <app-button [buttonStyle]="['secondary']" (click)="dismiss()"
     >cancel</app-button
   >

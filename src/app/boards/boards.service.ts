@@ -39,4 +39,11 @@ export class BoardsService {
 
     return this.boards$.value.length;
   }
+
+  deleteBoard(id: string) {
+    const currentData = this.boards$.value;
+    const newData = currentData.filter((board) => board.id !== id);
+
+    this.boards$.next(newData);
+  }
 }

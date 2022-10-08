@@ -42,4 +42,12 @@ export class HeaderComponent implements OnInit {
         this.headerService.closeMenus();
       });
   }
+
+  onDeleteClick() {
+    if (this.currentBoard) {
+      this.boardsService.deleteBoard(this.currentBoard.id);
+      this.router.navigateByUrl('/boards');
+      this.modalService.closeModal();
+    }
+  }
 }

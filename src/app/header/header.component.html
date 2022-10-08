@@ -85,7 +85,7 @@
   *ngIf="modalService.modal === currentBoard?.id + ' delete'"
   header="Delete this board?"
 >
-  <app-delete-menu>
+  <app-delete-menu (delete)="onDeleteClick()">
     Are you sure you want to delete the ‘{{ currentBoard?.name }}’ board? This
     action will remove all columns and tasks and cannot be reversed.
   </app-delete-menu>

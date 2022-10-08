@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ModalService } from '../shared/modal.service';
+import { BoardsService } from '../boards/boards.service';
 
 import { Board } from '../interfaces';
 
