@@ -42,7 +42,21 @@ export class BoardsService {
 
   deleteBoard(id: string) {
     const currentData = this.boards$.value;
+
     const newData = currentData.filter((board) => board.id !== id);
+
+    this.boards$.next(newData);
+  }
+
+  updateBoard(val: CreateBoardParam, id: string) {
+    const currentData = this.boards$.value;
+
+    const newData = currentData.map((board) => {
+      if (board.id === id) {
+        return { ...board, ...val };
+      }
+      return board;
+    });
 
     this.boards$.next(newData);
   }

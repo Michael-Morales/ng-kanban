@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
+import { BoardsService } from '../boards.service';
+import { ModalService } from 'src/app/shared/modal.service';
+
 import { Board } from '../../interfaces';
 
 @Component({
@@ -12,7 +15,11 @@ export class EditBoardComponent implements OnInit {
   @Input() board?: Board;
   editForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private boardsService: BoardsService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.editForm = this.fb.group({
@@ -23,10 +30,7 @@ export class EditBoardComponent implements OnInit {
     this.board?.columns.forEach((column) => {
       this.columns.push(
         this.fb.group({
-          columnName: [
-            column.name,
-            [Validators.required, Validators.minLength(3)],
-          ],
+          name: [column.name, [Validators.required, Validators.minLength(3)]],
         })
       );
     });
@@ -41,7 +45,10 @@ export class EditBoardComponent implements OnInit {
   }
 
   onSave() {
-    console.log('Save board');
+    if (this.editForm.valid && this.board) {
+      this.boardsService.updateBoard(this.editForm.value, this.board.id);
+      this.modalService.closeModal();
+    }
   }
 
   onAddNewColumn() {

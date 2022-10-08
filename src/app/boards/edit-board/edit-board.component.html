@@ -13,7 +13,7 @@
         *ngFor="let column of columns.controls; let i = index"
       >
         <app-input
-          [control]="$any(column).get('columnName')"
+          [control]="$any(column).get('name')"
           [ngClass]="'list'"
           placeholder="e.g. Todo"
         ></app-input>
