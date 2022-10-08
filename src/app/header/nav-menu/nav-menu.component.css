@@ -47,6 +47,7 @@
   border-bottom-right-radius: 100px;
   transform: translateX(-50px);
   z-index: -1;
+  transition: ease 0.3s;
 }
 
 :host a.active::before {

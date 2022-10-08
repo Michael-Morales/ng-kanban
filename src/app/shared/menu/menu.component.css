@@ -21,4 +21,13 @@ button {
   border: none;
   text-transform: capitalize;
   cursor: pointer;
+  transition: color ease 0.3s;
+}
+
+button:hover {
+  color: var(--body-text);
+}
+
+.delete:hover {
+  color: var(--danger-color);
 }

@@ -7,4 +7,9 @@ select {
   background-color: unset;
   border: 1px solid rgba(130, 143, 163, 0.25);
   border-radius: 4px;
+  transition: border-color ease 0.3s;
+}
+
+select:hover {
+  border-color: var(--primary-color);
 }

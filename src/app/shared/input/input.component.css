@@ -22,6 +22,11 @@ textarea {
   font-size: 1.3rem;
   border: 1px solid var(--light-grey);
   border-radius: 4px;
+  transition: border-color ease 0.3s;
+}
+
+:is(input, textarea):hover {
+  border-color: var(--primary-color);
 }
 
 textarea {
@@ -30,9 +35,8 @@ textarea {
   resize: none;
 }
 
-input:focus-visible,
-textarea:focus-visible {
-  border-color: var(--body-text);
+:is(input, textarea):focus-visible {
+  border-color: var(--primary-color);
   outline: none;
 }
 
