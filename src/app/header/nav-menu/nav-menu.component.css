@@ -37,12 +37,14 @@
 }
 
 :host a.active::before,
-:host a:hover::before {
+:host a:hover::before,
+.new-board::before {
   position: absolute;
   content: "";
   width: 280px;
   height: 100%;
-  border-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
   transform: translateX(-50px);
   z-index: -1;
 }
@@ -51,7 +53,8 @@
   background-color: var(--primary-color);
 }
 
-:host a:not(.active):hover::before {
+:host a:not(.active):hover::before,
+.new-board:hover::before {
   background-color: var(--secondary-color);
 }
 
@@ -64,6 +67,7 @@
 }
 
 .new-board {
+  position: relative;
   gap: 1.2rem;
   padding-block: 1.6rem;
   font-size: 1.5rem;
