@@ -1,5 +1,5 @@
 <app-empty
-  *ngIf="!columns?.length"
+  *ngIf="!columns?.length; else columnContainer"
   content="This board is empty. Create a new column to get started"
 >
   <app-button (click)="modalService.openModal('add-column')"
@@ -7,22 +7,24 @@
   >
 </app-empty>
 
-<div class="column-container">
-  <article *ngFor="let column of columns">
-    <h2>{{ column.name }}</h2>
+<ng-template #columnContainer>
+  <div class="column-container">
+    <article *ngFor="let column of columns">
+      <h2>{{ column.name }}</h2>
 
-    <div class="task-container">
-      <app-task
-        *ngFor="let task of column.tasks"
-        [task]="task"
-        [currentColumn]="column.name"
-      ></app-task>
-    </div>
-  </article>
-  <button class="new-column" (click)="modalService.openModal('add-column')">
-    + new column
-  </button>
-</div>
+      <div class="task-container">
+        <app-task
+          *ngFor="let task of column.tasks"
+          [task]="task"
+          [currentColumn]="column.name"
+        ></app-task>
+      </div>
+    </article>
+    <button class="new-column" (click)="modalService.openModal('add-column')">
+      + new column
+    </button>
+  </div>
+</ng-template>
 
 <app-modal
   *ngIf="modalService.modal === 'add-column'"

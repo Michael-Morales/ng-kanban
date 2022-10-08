@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { BoardsService } from '../boards.service';
+import { ModalService } from 'src/app/shared/modal.service';
 
 @Component({
   selector: 'app-add-board',
@@ -12,7 +16,12 @@ export class AddBoardComponent implements OnInit {
     columns: this.fb.array([]),
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private boardsService: BoardsService,
+    private modalService: ModalService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -25,13 +34,17 @@ export class AddBoardComponent implements OnInit {
   }
 
   onSave() {
-    console.log('Creating new board');
+    if (this.addForm.valid) {
+      const id = this.boardsService.createBoard(this.addForm.value);
+      this.modalService.closeModal();
+      this.router.navigateByUrl('/boards/' + id);
+    }
   }
 
   onAddNewColumn() {
     this.columns.push(
       this.fb.group({
-        columnName: ['', [Validators.required, Validators.minLength(3)]],
+        name: ['', [Validators.required, Validators.minLength(3)]],
       })
     );
   }

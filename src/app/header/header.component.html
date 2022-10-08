@@ -42,7 +42,7 @@
     <app-button
       [buttonStyle]="['small']"
       (click)="headerService.onAddTaskClick()"
-      [disabled]="!currentBoard"
+      [disabled]="!currentBoard || !currentBoard.columns.length"
       class="add-task-button"
     >
       <img src="/assets/images/icon-add-task-mobile.svg" alt="" />
