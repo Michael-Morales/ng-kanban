@@ -1,0 +1,35 @@
+<form *ngIf="board" [formGroup]="editForm">
+  <app-input
+    label="Board name"
+    [control]="$any(editForm).get('name')"
+    placeholder="e.g. Web Design"
+  ></app-input>
+  <div class="form-group" formArrayName="columns">
+    <label>Board columns</label>
+    <div class="elements">
+      <div
+        class="element-input"
+        [formGroupName]="i"
+        *ngFor="let column of columns.controls; let i = index"
+      >
+        <app-input
+          [control]="$any(column).get('name')"
+          [ngClass]="'list'"
+          placeholder="e.g. Todo"
+        ></app-input>
+        <button (click)="onDelete(i)">
+          <img src="/assets/images/icon-cross.svg" alt="" />
+        </button>
+      </div>
+      <app-button [buttonStyle]="['secondary']" (click)="onAddNewColumn()"
+        >+ add new column</app-button
+      >
+    </div>
+  </div>
+  <app-button
+    buttonType="submit"
+    (click)="onSave()"
+    [disabled]="editForm.invalid"
+    >save changes</app-button
+  >
+</form>

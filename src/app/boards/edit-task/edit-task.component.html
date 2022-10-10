@@ -1,0 +1,48 @@
+<form [formGroup]="editForm">
+  <app-input
+    label="Title"
+    [control]="$any(editForm).get('title')"
+    placeholder="e.g. Take coffe break"
+  ></app-input>
+  <app-input
+    label="Description"
+    controlType="textarea"
+    [control]="$any(editForm).get('description')"
+    placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
+  ></app-input>
+  <div class="form-group" formArrayName="subtasks">
+    <label>Subtasks</label>
+    <div class="elements">
+      <div
+        class="element-input"
+        [formGroupName]="i"
+        *ngFor="let column of subtasks.controls; let i = index"
+      >
+        <app-input
+          [control]="$any(column).get('title')"
+          [ngClass]="'list'"
+          placeholder="e.g. Make coffee"
+        ></app-input>
+        <button class="delete-button" (click)="onDelete(i)">
+          <img src="/assets/images/icon-cross.svg" alt="" />
+        </button>
+      </div>
+      <app-button [buttonStyle]="['secondary']" (click)="onAddNewSubtask()"
+        >+ add new subtask</app-button
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Current Status</label>
+    <app-select
+      [control]="$any(editForm).get('status')"
+      [columns]="columns"
+    ></app-select>
+  </div>
+  <app-button
+    buttonType="submit"
+    (click)="onSave()"
+    [disabled]="editForm.invalid"
+    >save changes</app-button
+  >
+</form>
