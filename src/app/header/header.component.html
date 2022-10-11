@@ -96,7 +96,7 @@
   header="Edit Board"
   (dismiss)="modalService.closeModal()"
 >
-  <app-edit-board [board]="currentBoard"></app-edit-board>
+  <app-edit-board [boardId]="currentBoard?.id"></app-edit-board>
 </app-modal>
 
 <app-modal
@@ -112,5 +112,5 @@
   header="Add New Task"
   (dismiss)="modalService.closeModal()"
 >
-  <app-add-task [board]="currentBoard"></app-add-task>
+  <app-add-task [boardId]="currentBoard?.id"></app-add-task>
 </app-modal>

@@ -50,11 +50,25 @@ export class BoardsService {
 
   updateBoard(val: CreateBoardParam, id: string) {
     const currentData = this.boards$.value;
+    const { name, columns } = val;
 
     const newData = currentData.map((board) => {
       if (board.id === id) {
-        return { ...board, ...val };
+        const updatedColumns = board.columns
+          .filter((column) => columns.find((col) => col.id === column.id))
+          .map((column) => {
+            const updatedCol = columns.find((col) => col.id === column.id);
+
+            if (updatedCol) {
+              return { ...column, name: updatedCol.name };
+            }
+
+            return column;
+          });
+
+        return { ...board, name, columns: updatedColumns };
       }
+
       return board;
     });
 

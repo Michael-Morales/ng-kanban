@@ -25,22 +25,24 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
+    this.boardsService.boards$.subscribe((boards) => {
+      this.boards = boards;
 
-    this.router.events
-      .pipe(
-        filter(
-          (e) =>
-            e instanceof ActivationEnd &&
-            Object.keys(e.snapshot.params).length > 0
-        ),
-        map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
-        map(({ id }) => this.boards?.find((board) => id === board.id))
-      )
-      .subscribe((board) => {
-        this.currentBoard = board;
-        this.headerService.closeMenus();
-      });
+      this.router.events
+        .pipe(
+          filter(
+            (e) =>
+              e instanceof ActivationEnd &&
+              Object.keys(e.snapshot.params).length > 0
+          ),
+          map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
+          map(({ id }) => boards?.find((board) => id === board.id))
+        )
+        .subscribe((board) => {
+          this.currentBoard = board;
+          this.headerService.closeMenus();
+        });
+    });
   }
 
   onDeleteClick() {

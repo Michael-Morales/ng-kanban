@@ -12,7 +12,8 @@ import { Board } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditBoardComponent implements OnInit {
-  @Input() board?: Board;
+  @Input() boardId?: string;
+  board?: Board;
   editForm!: FormGroup;
 
   constructor(
@@ -22,14 +23,18 @@ export class EditBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.boardsService
+      .getBoardById(this.boardId)
+      .subscribe((board) => (this.board = board));
+
     this.editForm = this.fb.group({
       name: [this.board?.name, [Validators.required, Validators.minLength(3)]],
       columns: this.fb.array([]),
     });
-
     this.board?.columns.forEach((column) => {
       this.columns.push(
         this.fb.group({
+          id: [column.id, Validators.required],
           name: [column.name, [Validators.required, Validators.minLength(3)]],
         })
       );
@@ -54,7 +59,8 @@ export class EditBoardComponent implements OnInit {
   onAddNewColumn() {
     this.columns.push(
       this.fb.group({
-        columnName: ['', [Validators.required, Validators.minLength(3)]],
+        id: ['90', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
       })
     );
   }

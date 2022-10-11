@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 import { BoardsService } from '../boards.service';
 
-import { Board, Column } from '../../interfaces';
+import { Column } from '../../interfaces';
 
 @Component({
   selector: 'app-add-task',
@@ -11,7 +11,7 @@ import { Board, Column } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() board?: Board;
+  @Input() boardId?: string;
   columns?: Column[];
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
@@ -24,7 +24,7 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.boardsService
-      .getBoardColumns(this.board?.id)
+      .getBoardColumns(this.boardId)
       .subscribe((columns) => (this.columns = columns));
   }
 

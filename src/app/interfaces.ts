@@ -5,11 +5,13 @@ export interface Board {
 }
 
 export interface Column {
+  id: string;
   name: string;
   tasks?: Task[];
 }
 
 export interface Task {
+  id: string;
   title: string;
   description?: string;
   status: string;
@@ -17,6 +19,7 @@ export interface Task {
 }
 
 export interface SubTask {
+  id: string;
   title: string;
   isCompleted: boolean;
 }
