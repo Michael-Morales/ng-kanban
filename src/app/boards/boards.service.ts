@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, zip } from 'rxjs';
 
-import { Board, Column } from '../interfaces';
+import { Board, Column, Task, SubTask } from '../interfaces';
 
-import { data } from './mock-data';
+import { boards, columns, tasks, subtasks } from './mock-data';
 
 interface CreateBoardParam {
   name: string;
@@ -14,18 +14,36 @@ interface CreateBoardParam {
   providedIn: 'root',
 })
 export class BoardsService {
-  boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>(data);
+  boards$: BehaviorSubject<Board[]> = new BehaviorSubject<Board[]>(boards);
+  columns$: BehaviorSubject<Column[]> = new BehaviorSubject<Column[]>(columns);
+  tasks$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(tasks);
+  subtasks$: BehaviorSubject<SubTask[]> = new BehaviorSubject<SubTask[]>(
+    subtasks
+  );
 
   constructor() {}
 
   getBoardById(id: string | null | undefined) {
-    return this.boards$.pipe(
-      map((boards) => boards.find((board) => board.id === id))
+    return zip(this.boards$, this.columns$).pipe(
+      map(([boards, columns]) => {
+        const board = boards.find((board) => board.id === id);
+
+        if (board) {
+          return {
+            ...board,
+            columns: columns.filter((column) => column.boardId === board.id),
+          };
+        }
+
+        return undefined;
+      })
     );
   }
 
   getBoardColumns(id: string | null | undefined) {
-    return this.getBoardById(id).pipe(map((board) => board?.columns));
+    return this.columns$.pipe(
+      map((columns) => columns.filter((column) => column.boardId === id))
+    );
   }
 
   createBoard(board: CreateBoardParam) {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,9 +10,23 @@ import { HeaderComponent } from './header/header.component';
 import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { boardsReducer } from './boards/state/boards.reducer';
+import { columnsReducer } from './boards/state/columns.reducer';
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, NavMenuComponent, NotFoundComponent],
-  imports: [BrowserModule, BoardsModule, AppRoutingModule, SharedModule],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    NavMenuComponent,
+    NotFoundComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BoardsModule,
+    AppRoutingModule,
+    SharedModule,
+    StoreModule.forRoot({ boards: boardsReducer, columns: columnsReducer }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
