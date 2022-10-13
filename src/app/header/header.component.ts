@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { BoardsService } from '../boards/boards.service';
 import { ModalService } from '../shared/modal.service';
 import { HeaderService } from './header.service';
+
+import { selectPopulatedBoards } from '../boards/state/boards.selectors';
 
 import { Board } from '../interfaces';
 
@@ -21,11 +24,12 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private boardsService: BoardsService,
     public headerService: HeaderService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.boards$.subscribe((boards) => {
+    this.store.select(selectPopulatedBoards).subscribe((boards) => {
       this.boards = boards;
 
       this.router.events

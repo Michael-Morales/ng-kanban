@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
+import { selectPopulatedColumns } from '../state/boards.selectors';
 
 import { Column, Task } from '../../interfaces';
 
@@ -13,21 +14,25 @@ import { Column, Task } from '../../interfaces';
 })
 export class EditTaskComponent implements OnInit {
   @Input() task?: Task;
-  @Input() currentColumn = '';
   columns?: Column[];
   editForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private boardsService: BoardsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.boardsService
-        .getBoardColumns(params.get('id'))
-        .subscribe((columns) => (this.columns = columns));
+      this.store
+        .select(selectPopulatedColumns)
+        .subscribe(
+          (columns) =>
+            (this.columns = columns.filter(
+              (column) => column.boardId === params.get('id')
+            ))
+        );
     });
 
     this.editForm = this.fb.group({

@@ -43,9 +43,6 @@
     header="Edit task"
     (dismiss)="modalService.closeModal()"
   >
-    <app-edit-task
-      [task]="task"
-      [currentColumn]="currentColumn"
-    ></app-edit-task>
+    <app-edit-task [task]="task"></app-edit-task>
   </app-modal>
 </ng-container>

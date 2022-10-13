@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
+import { selectPopulatedColumns } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -20,12 +21,17 @@ export class AddTaskComponent implements OnInit {
     subtasks: this.fb.array([]),
   });
 
-  constructor(private fb: FormBuilder, private boardsService: BoardsService) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
-    this.boardsService
-      .getBoardColumns(this.boardId)
-      .subscribe((columns) => (this.columns = columns));
+    this.store
+      .select(selectPopulatedColumns)
+      .subscribe(
+        (columns) =>
+          (this.columns = columns.filter(
+            (column) => column.boardId === this.boardId
+          ))
+      );
   }
 
   get subtasks() {
