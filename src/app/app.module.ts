@@ -12,6 +12,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 import { boardsReducer } from './boards/state/boards.reducer';
 import { columnsReducer } from './boards/state/columns.reducer';
+import { tasksReducer } from './boards/state/tasks.reducer';
+import { subtasksReducer } from './boards/state/subtasks.reducer';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,12 @@ import { columnsReducer } from './boards/state/columns.reducer';
     BoardsModule,
     AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot({ boards: boardsReducer, columns: columnsReducer }),
+    StoreModule.forRoot({
+      boards: boardsReducer,
+      columns: columnsReducer,
+      tasks: tasksReducer,
+      subtasks: subtasksReducer,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

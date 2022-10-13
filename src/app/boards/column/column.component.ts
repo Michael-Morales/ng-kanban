@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
 import { ModalService } from 'src/app/shared/modal.service';
+
+import { selectPopulatedBoards } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -14,30 +16,33 @@ import { Column } from '../../interfaces';
   styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit {
-  columns: Column[] | undefined = [];
+  columns?: Column[] = [];
   formGroup: FormGroup = this.fb.group({
     title: [''],
   });
 
   constructor(
     private route: ActivatedRoute,
-    private boardsService: BoardsService,
     private router: Router,
     private fb: FormBuilder,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(map(({ id }) => this.boardsService.getBoardById(id)))
-      .subscribe((val) =>
-        val.subscribe((board) => {
-          if (board) {
-            this.columns = board.columns;
+    this.route.paramMap.subscribe((params) => {
+      this.store
+        .select(selectPopulatedBoards)
+        .pipe(
+          map((boards) => boards.find((board) => board.id === params.get('id')))
+        )
+        .subscribe((board) => {
+          if (!board) {
+            this.router.navigateByUrl('/404');
           } else {
-            this.router.navigateByUrl('/boards');
+            this.columns = board.columns;
           }
-        })
-      );
+        });
+    });
   }
 }

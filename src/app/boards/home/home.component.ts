@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
 import { HeaderService } from 'src/app/header/header.service';
 import { ModalService } from 'src/app/shared/modal.service';
+
+import { selectPopulatedBoards } from '../state/boards.selectors';
 
 import { Board } from '../../interfaces';
 
@@ -12,16 +14,18 @@ import { Board } from '../../interfaces';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  boards: Board[] = [];
+  boards?: Board[];
 
   constructor(
-    private boardsService: BoardsService,
     private headerService: HeaderService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.boards$.subscribe((boards) => (this.boards = boards));
+    this.store
+      .select(selectPopulatedBoards)
+      .subscribe((boards) => (this.boards = boards));
   }
 
   dismissHeaderMenu() {
