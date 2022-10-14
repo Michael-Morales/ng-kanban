@@ -3,11 +3,10 @@ import { ActivationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards/boards.service';
 import { ModalService } from '../shared/modal.service';
 import { HeaderService } from './header.service';
 
-import { selectPopulatedBoards } from '../boards/state/boards.selectors';
+import { selectData } from '../boards/state/boards.selectors';
 
 import { Board } from '../interfaces';
 
@@ -22,14 +21,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private boardsService: BoardsService,
     public headerService: HeaderService,
     public modalService: ModalService,
     private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectPopulatedBoards).subscribe((boards) => {
+    this.store.select(selectData).subscribe((boards) => {
       this.boards = boards;
 
       this.router.events
@@ -51,7 +49,6 @@ export class HeaderComponent implements OnInit {
 
   onDeleteClick() {
     if (this.currentBoard) {
-      this.boardsService.deleteBoard(this.currentBoard.id);
       this.router.navigateByUrl('/boards');
       this.modalService.closeModal();
     }

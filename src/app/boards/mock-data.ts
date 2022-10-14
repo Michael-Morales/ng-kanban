@@ -1,103 +1,94 @@
 import { Board, Column, Task, SubTask } from '../interfaces';
+import {
+  StateBoard,
+  StateColumn,
+  StateTask,
+  StateSubTask,
+} from './state/boards.reducer';
 
-export const boards: Board[] = [
+export const boards: StateBoard[] = [
   {
     id: '1',
     name: 'Platform Launch',
-    columns: [],
   },
   {
     id: '2',
     name: 'Marketing Plan',
-    columns: [],
   },
   {
     id: '3',
     name: 'Roadmap',
-    columns: [],
   },
 ];
 
-export const columns: Column[] = [
+export const columns: StateColumn[] = [
   {
     id: '1',
     boardId: '1',
     name: 'Todo',
-    tasks: [],
   },
   {
     id: '2',
     boardId: '1',
     name: 'Doing',
-    tasks: [],
   },
   {
     id: '3',
     boardId: '1',
     name: 'Done',
-    tasks: [],
   },
 
   {
     id: '4',
     boardId: '2',
     name: 'Todo',
-    tasks: [],
   },
   {
     id: '5',
     boardId: '2',
     name: 'Doing',
-    tasks: [],
   },
   {
     id: '6',
     boardId: '2',
     name: 'Done',
-    tasks: [],
   },
 
   {
     id: '7',
     boardId: '3',
     name: 'Now',
-    tasks: [],
   },
   {
     id: '8',
     boardId: '3',
     name: 'Next',
-    tasks: [],
   },
   {
     id: '9',
     boardId: '3',
     name: 'Later',
-    tasks: [],
   },
 ];
 
-export const tasks: Task[] = [
+export const tasks: StateTask[] = [
   {
     id: '1',
     title: 'Build UI for onboarding flow',
     description: '',
     status: 'Todo',
-    subtasks: [],
   },
   {
     id: '2',
     title: 'Build UI for search',
     description: '',
     status: 'Todo',
-    subtasks: [],
   },
   {
     id: '3',
     title: 'Build settings UI',
     description: '',
     status: 'Todo',
-    subtasks: [],
   },
   {
     id: '4',
@@ -105,7 +96,6 @@ export const tasks: Task[] = [
     description:
       'Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.',
     status: 'Todo',
-    subtasks: [],
   },
 
   {
@@ -113,35 +103,30 @@ export const tasks: Task[] = [
     title: 'Design settings and search pages',
     description: '',
     status: 'Doing',
-    subtasks: [],
   },
   {
     id: '6',
     title: 'Add account management endpoints',
     description: '',
     status: 'Doing',
-    subtasks: [],
   },
   {
     id: '7',
     title: 'Design onboarding flow',
     description: '',
     status: 'Doing',
-    subtasks: [],
   },
   {
     id: '8',
     title: 'Add search enpoints',
     description: '',
     status: 'Doing',
-    subtasks: [],
   },
   {
     id: '9',
     title: 'Add authentication endpoints',
     description: '',
     status: 'Doing',
-    subtasks: [],
   },
   {
     id: '10',
@@ -150,7 +135,6 @@ export const tasks: Task[] = [
     description:
       "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
     status: 'Doing',
-    subtasks: [],
   },
 
   {
@@ -159,7 +143,6 @@ export const tasks: Task[] = [
     description:
       'Ensure the layout continues to make sense and we have strong buy-in from potential users.',
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '12',
@@ -167,7 +150,6 @@ export const tasks: Task[] = [
     description:
       'Create a greyscale clickable wireframe prototype to test our asssumptions so far.',
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '13',
@@ -175,7 +157,6 @@ export const tasks: Task[] = [
     description:
       "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '14',
@@ -183,7 +164,6 @@ export const tasks: Task[] = [
       'Create paper prototypes and conduct 10 usability tests with potential customers',
     description: '',
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '15',
@@ -191,14 +171,12 @@ export const tasks: Task[] = [
     description:
       'We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.',
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '16',
     title: 'Competitor analysis',
     description: '',
     status: 'Done',
-    subtasks: [],
   },
   {
     id: '17',
@@ -206,7 +184,6 @@ export const tasks: Task[] = [
     description:
       'We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.',
     status: 'Done',
-    subtasks: [],
   },
 
   {
@@ -214,21 +191,18 @@ export const tasks: Task[] = [
     title: 'Plan Product Hunt launch',
     description: '',
     status: 'Todo',
-    subtasks: [],
   },
   {
     id: '19',
     title: 'Share on Show HN',
     description: '',
     status: '',
-    subtasks: [],
   },
   {
     id: '20',
     title: 'Write launch article to publish on multiple channels',
     description: '',
     status: '',
-    subtasks: [],
   },
 
   {
@@ -236,7 +210,6 @@ export const tasks: Task[] = [
     title: 'Launch version one',
     description: '',
     status: '',
-    subtasks: [],
   },
   {
     id: '22',
@@ -244,11 +217,10 @@ export const tasks: Task[] = [
     description:
       "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
     status: '',
-    subtasks: [],
   },
 ];
 
-export const subtasks: SubTask[] = [
+export const subtasks: StateSubTask[] = [
   {
     id: '1',
     taskId: '1',

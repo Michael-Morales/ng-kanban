@@ -2,8 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
-import { selectPopulatedColumns } from '../state/boards.selectors';
+import { selectData } from '../state/boards.selectors';
 
 import { Task, Column } from '../../interfaces';
 
@@ -28,13 +29,11 @@ export class TaskFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.store
-        .select(selectPopulatedColumns)
-        .subscribe(
-          (columns) =>
-            (this.columns = columns.filter(
-              (column) => column.boardId === params.get('id')
-            ))
-        );
+        .select(selectData)
+        .pipe(
+          map((boards) => boards.find((board) => board.id === params.get('id')))
+        )
+        .subscribe((board) => (this.columns = board?.columns));
     });
 
     this.taskForm = this.fb.group({

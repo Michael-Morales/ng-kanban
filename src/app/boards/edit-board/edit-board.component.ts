@@ -2,10 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectPopulatedBoards } from '../state/boards.selectors';
+import { selectData } from '../state/boards.selectors';
 
 import { Board } from '../../interfaces';
 
@@ -21,14 +20,13 @@ export class EditBoardComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private boardsService: BoardsService,
     private modalService: ModalService,
     private store: Store
   ) {}
 
   ngOnInit(): void {
     this.store
-      .select(selectPopulatedBoards)
+      .select(selectData)
       .subscribe(
         (boards) =>
           (this.board = boards.find((board) => board.id === this.boardId))
@@ -58,7 +56,6 @@ export class EditBoardComponent implements OnInit {
 
   onSave() {
     if (this.editForm.valid && this.board) {
-      this.boardsService.updateBoard(this.editForm.value, this.board.id);
       this.modalService.closeModal();
     }
   }

@@ -1,23 +1,25 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Board } from '../../interfaces';
+import { Board, Column, Task, SubTask } from '../../interfaces';
 
-export const fetchBoards = createAction(
+import {
+  StateBoard,
+  StateColumn,
+  StateTask,
+  StateSubTask,
+} from './boards.reducer';
+
+export const fetchData = createAction(
   '[Boards] Fetch Boards',
-  props<{ boards: Board[] }>()
+  props<{
+    boards: StateBoard[];
+    columns: StateColumn[];
+    tasks: StateTask[];
+    subtasks: StateSubTask[];
+  }>()
 );
 
-export const addBoard = createAction(
-  '[Boards] Add Board',
+export const createBoard = createAction(
+  '[Boards] Create Board',
   props<{ board: Board }>()
-);
-
-export const deleteBoard = createAction(
-  '[Boards] Delete Board',
-  props<{ id: string }>()
-);
-
-export const updateBoard = createAction(
-  '[Boards] Update Board',
-  props<{ id: string; name: string }>()
 );

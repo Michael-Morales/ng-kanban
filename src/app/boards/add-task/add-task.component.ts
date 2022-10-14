@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
-import { selectPopulatedColumns } from '../state/boards.selectors';
+import { selectData } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -25,13 +26,9 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectPopulatedColumns)
-      .subscribe(
-        (columns) =>
-          (this.columns = columns.filter(
-            (column) => column.boardId === this.boardId
-          ))
-      );
+      .select(selectData)
+      .pipe(map((boards) => boards.find((board) => board.id === this.boardId)))
+      .subscribe((board) => (this.columns = board?.columns));
   }
 
   get subtasks() {

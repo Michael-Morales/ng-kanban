@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { BoardsService } from '../boards.service';
 import { ModalService } from 'src/app/shared/modal.service';
+
+import { selectData } from '../state/boards.selectors';
+
+import { createBoard } from '../state/boards.actions';
+
+import { Board } from '../../interfaces';
 
 @Component({
   selector: 'app-add-board',
@@ -11,6 +17,7 @@ import { ModalService } from 'src/app/shared/modal.service';
   styleUrls: ['./add-board.component.css'],
 })
 export class AddBoardComponent implements OnInit {
+  boards$?: Board[];
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     columns: this.fb.array([]),
@@ -18,12 +25,16 @@ export class AddBoardComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private boardsService: BoardsService,
     private modalService: ModalService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store
+      .select(selectData)
+      .subscribe((boards) => (this.boards$ = boards));
+  }
 
   get columns() {
     return this.addForm.get('columns') as FormArray;
@@ -35,9 +46,11 @@ export class AddBoardComponent implements OnInit {
 
   onSave() {
     if (this.addForm.valid) {
-      const id = this.boardsService.createBoard(this.addForm.value);
+      this.store.dispatch(createBoard({ board: this.addForm.value }));
       this.modalService.closeModal();
-      this.router.navigateByUrl('/boards/' + id);
+      this.router.navigateByUrl(
+        '/boards/' + this.boards$?.[this.boards$.length - 1].id
+      );
     }
   }
 

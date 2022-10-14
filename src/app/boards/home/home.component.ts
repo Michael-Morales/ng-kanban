@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { HeaderService } from 'src/app/header/header.service';
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectPopulatedBoards } from '../state/boards.selectors';
+import { selectData } from '../state/boards.selectors';
 
 import { Board } from '../../interfaces';
 
@@ -23,9 +23,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store
-      .select(selectPopulatedBoards)
-      .subscribe((boards) => (this.boards = boards));
+    this.store.select(selectData).subscribe((boards) => (this.boards = boards));
   }
 
   dismissHeaderMenu() {

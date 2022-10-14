@@ -1,22 +1,59 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Board } from '../../interfaces';
+import { fetchData, createBoard } from './boards.actions';
 
-import {
-  fetchBoards,
-  addBoard,
-  deleteBoard,
-  updateBoard,
-} from './boards.actions';
+export interface StateBoard {
+  id: string;
+  name: string;
+}
 
-export const initialState: ReadonlyArray<Board> = [];
+export interface StateColumn {
+  id: string;
+  boardId: string;
+  name: string;
+}
+
+export interface StateTask {
+  id: string;
+  status: string;
+  title: string;
+  description?: string;
+}
+
+export interface StateSubTask {
+  id: string;
+  taskId: string;
+  title: string;
+  isCompleted: boolean;
+}
+
+export interface AppBoardsState {
+  boards: StateBoard[];
+  columns: StateColumn[];
+  tasks: StateTask[];
+  subtasks: StateSubTask[];
+}
+
+export const initialState: AppBoardsState = {
+  boards: [],
+  columns: [],
+  tasks: [],
+  subtasks: [],
+};
 
 export const boardsReducer = createReducer(
   initialState,
-  on(fetchBoards, (_, { boards }) => boards),
-  on(addBoard, (state, { board }) => [...state, board]),
-  on(deleteBoard, (state, { id }) => state.filter((board) => board.id !== id)),
-  on(updateBoard, (state, { id, name }) =>
-    state.map((board) => (board.id === id ? { ...board, name } : board))
-  )
+  on(fetchData, (_, { boards, columns, tasks, subtasks }) => {
+    return { boards, columns, tasks, subtasks };
+  }),
+  on(createBoard, (state, { board }) => {
+    const id = (+state.boards[state.boards.length - 1].id + 1).toString();
+    const columns = board.columns.map((column) => ({ ...column, boardId: id }));
+
+    return {
+      ...state,
+      boards: [...state.boards, { id, name: board.name }],
+      columns: [...state.columns, ...columns],
+    };
+  })
 );

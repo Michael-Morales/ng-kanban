@@ -11,9 +11,6 @@ import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 import { boardsReducer } from './boards/state/boards.reducer';
-import { columnsReducer } from './boards/state/columns.reducer';
-import { tasksReducer } from './boards/state/tasks.reducer';
-import { subtasksReducer } from './boards/state/subtasks.reducer';
 
 @NgModule({
   declarations: [
@@ -29,9 +26,6 @@ import { subtasksReducer } from './boards/state/subtasks.reducer';
     SharedModule,
     StoreModule.forRoot({
       boards: boardsReducer,
-      columns: columnsReducer,
-      tasks: tasksReducer,
-      subtasks: subtasksReducer,
     }),
   ],
   providers: [],
