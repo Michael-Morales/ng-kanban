@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectData } from '../state/boards.selectors';
+import { selectAllBoards } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -32,7 +32,7 @@ export class ColumnComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.store
-        .select(selectData)
+        .select(selectAllBoards)
         .pipe(
           map((boards) => boards.find((board) => board.id === params.get('id')))
         )

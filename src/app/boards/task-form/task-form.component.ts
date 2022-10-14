@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectData } from '../state/boards.selectors';
+import { selectAllBoards } from '../state/boards.selectors';
 
 import { Task, Column } from '../../interfaces';
 
@@ -15,7 +15,7 @@ import { Task, Column } from '../../interfaces';
 })
 export class TaskFormComponent implements OnInit {
   @Input() task?: Task;
-  @Input() currentColumn = '';
+  @Input() currentColumn?: Column;
   @Input() completedTasks?: number;
   taskForm!: FormGroup;
   columns?: Column[];
@@ -29,7 +29,7 @@ export class TaskFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.store
-        .select(selectData)
+        .select(selectAllBoards)
         .pipe(
           map((boards) => boards.find((board) => board.id === params.get('id')))
         )
@@ -38,7 +38,7 @@ export class TaskFormComponent implements OnInit {
 
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
-      status: [this.currentColumn],
+      status: [this.currentColumn?.name],
     });
 
     this.task?.subtasks.forEach((subtask) => {

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectData } from '../state/boards.selectors';
+import { selectAllBoards } from '../state/boards.selectors';
 
 import { Board } from '../../interfaces';
 
@@ -26,7 +26,7 @@ export class EditBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectData)
+      .select(selectAllBoards)
       .subscribe(
         (boards) =>
           (this.board = boards.find((board) => board.id === this.boardId))

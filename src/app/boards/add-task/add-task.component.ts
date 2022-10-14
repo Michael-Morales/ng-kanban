@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectData } from '../state/boards.selectors';
+import { selectAllBoards } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -26,7 +26,7 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectData)
+      .select(selectAllBoards)
       .pipe(map((boards) => boards.find((board) => board.id === this.boardId)))
       .subscribe((board) => (this.columns = board?.columns));
   }

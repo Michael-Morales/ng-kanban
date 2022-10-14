@@ -6,7 +6,9 @@ import { Store } from '@ngrx/store';
 import { ModalService } from '../shared/modal.service';
 import { HeaderService } from './header.service';
 
-import { selectData } from '../boards/state/boards.selectors';
+import { selectAllBoards } from '../boards/state/boards.selectors';
+
+import { deleteBoard } from '../boards/state/boards.actions';
 
 import { Board } from '../interfaces';
 
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectData).subscribe((boards) => {
+    this.store.select(selectAllBoards).subscribe((boards) => {
       this.boards = boards;
 
       this.router.events
@@ -49,6 +51,7 @@ export class HeaderComponent implements OnInit {
 
   onDeleteClick() {
     if (this.currentBoard) {
+      this.store.dispatch(deleteBoard({ id: this.currentBoard.id }));
       this.router.navigateByUrl('/boards');
       this.modalService.closeModal();
     }

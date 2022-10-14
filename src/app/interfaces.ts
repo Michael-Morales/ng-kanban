@@ -6,7 +6,6 @@ export interface Board {
 
 export interface Column {
   id: string;
-  boardId: string;
   name: string;
   tasks: Task[];
 }
@@ -21,7 +20,6 @@ export interface Task {
 
 export interface SubTask {
   id: string;
-  taskId: string;
   title: string;
   isCompleted: boolean;
 }

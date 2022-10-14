@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectData } from '../state/boards.selectors';
+import { selectAllBoards } from '../state/boards.selectors';
 
 import { Column, Task } from '../../interfaces';
 
@@ -27,7 +27,7 @@ export class EditTaskComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.store
-        .select(selectData)
+        .select(selectAllBoards)
         .pipe(
           map((boards) => boards.find((board) => board.id === params.get('id')))
         )
