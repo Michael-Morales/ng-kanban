@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectAllBoards } from '../state/boards.selectors';
+import { selectPopulatedColumns } from '../state/boards.selectors';
 
 import { Column } from '../../interfaces';
 
@@ -13,7 +13,7 @@ import { Column } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() boardId?: number;
+  @Input() boardId?: string;
   columns?: Column[];
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
@@ -26,9 +26,13 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectAllBoards)
-      .pipe(map((boards) => boards.find((board) => board.id === this.boardId)))
-      .subscribe((board) => (this.columns = board?.columns));
+      .select(selectPopulatedColumns)
+      .pipe(
+        map((columns) =>
+          columns.filter((column) => column.boardId.toString() === this.boardId)
+        )
+      )
+      .subscribe((columns) => (this.columns = columns));
   }
 
   get subtasks() {

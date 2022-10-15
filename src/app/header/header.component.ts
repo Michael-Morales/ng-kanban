@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
               Object.keys(e.snapshot.params).length > 0
           ),
           map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
-          map(({ id }) => boards?.find((board) => id === board.id))
+          map(({ id }) => boards?.find((board) => +id === board.id))
         )
         .subscribe((board) => {
           this.currentBoard = board;

@@ -10,24 +10,38 @@ import {
 
 export const selectState = createFeatureSelector<AppBoardsState>('boards');
 
-export const selectAllBoards = createSelector(selectState, (state) => {
+export const selectPopulatedTasks = createSelector(selectState, (state) => {
   const subtasks = subtaskSelectors.selectAll(state.subtasks);
   const tasks = taskSelectors.selectAll(state.tasks);
-  const columns = columnSelectors.selectAll(state.columns);
-  const boards = boardSelectors.selectAll(state.boards);
 
-  const populatedTasks = tasks.map((task) => ({
+  return tasks.map((task) => ({
     ...task,
     subtasks: subtasks.filter((subtask) => subtask.taskId === task.id),
   }));
-
-  const populatedColumns = columns.map((column) => ({
-    ...column,
-    tasks: populatedTasks.filter((task) => task.columnId === column.id),
-  }));
-
-  return boards.map((board) => ({
-    ...board,
-    columns: populatedColumns.filter((column) => column.boardId === board.id),
-  }));
 });
+
+export const selectPopulatedColumns = createSelector(
+  selectState,
+  selectPopulatedTasks,
+  (state, tasks) => {
+    const columns = columnSelectors.selectAll(state.columns);
+
+    return columns.map((column) => ({
+      ...column,
+      tasks: tasks.filter((task) => task.columnId === column.id),
+    }));
+  }
+);
+
+export const selectAllBoards = createSelector(
+  selectState,
+  selectPopulatedColumns,
+  (state, columns) => {
+    const boards = boardSelectors.selectAll(state.boards);
+
+    return boards.map((board) => ({
+      ...board,
+      columns: columns.filter((column) => column.boardId === board.id),
+    }));
+  }
+);

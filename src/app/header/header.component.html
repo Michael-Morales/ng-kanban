@@ -112,5 +112,5 @@
   header="Add New Task"
   (dismiss)="modalService.closeModal()"
 >
-  <app-add-task [boardId]="currentBoard?.id"></app-add-task>
+  <app-add-task [boardId]="currentBoard?.id?.toString()"></app-add-task>
 </app-modal>
