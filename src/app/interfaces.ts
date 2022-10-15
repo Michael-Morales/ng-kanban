@@ -1,17 +1,19 @@
 export interface Board {
-  id: string;
+  id: number;
   name: string;
   columns: Column[];
 }
 
 export interface Column {
-  id: string;
+  id: number;
+  boardId: number;
   name: string;
   tasks: Task[];
 }
 
 export interface Task {
-  id: string;
+  id: number;
+  columnId: number;
   title: string;
   description?: string;
   status: string;
@@ -19,7 +21,8 @@ export interface Task {
 }
 
 export interface SubTask {
-  id: string;
+  id: number;
+  taskId: number;
   title: string;
   isCompleted: boolean;
 }

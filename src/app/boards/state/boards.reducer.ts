@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import { fetchData, createBoard, deleteBoard } from './boards.actions';
+import { fetchData } from './boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
 
@@ -34,4 +34,19 @@ export const initialState: AppBoardsState = {
 
 const generateId = () => Date.now() * Math.floor(Math.random() * 100);
 
-export const boardsReducer = createReducer(initialState);
+export const boardsReducer = createReducer(
+  initialState,
+  on(fetchData, (state, { boards, columns, tasks, subtasks }) => {
+    return {
+      boards: boardAdapter.setAll(boards, state.boards),
+      columns: columnAdapter.setAll(columns, state.columns),
+      tasks: taskAdapter.setAll(tasks, state.tasks),
+      subtasks: subtaskAdapter.setAll(subtasks, state.subtasks),
+    };
+  })
+);
+
+export const boardSelectors = boardAdapter.getSelectors();
+export const columnSelectors = columnAdapter.getSelectors();
+export const taskSelectors = taskAdapter.getSelectors();
+export const subtaskSelectors = subtaskAdapter.getSelectors();

@@ -31,7 +31,9 @@ export class TaskFormComponent implements OnInit {
       this.store
         .select(selectAllBoards)
         .pipe(
-          map((boards) => boards.find((board) => board.id === params.get('id')))
+          map((boards) =>
+            boards.find((board) => board.id.toString() === params.get('id'))
+          )
         )
         .subscribe((board) => (this.columns = board?.columns));
     });

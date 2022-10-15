@@ -13,7 +13,7 @@ import { Column } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() boardId?: string;
+  @Input() boardId?: number;
   columns?: Column[];
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],

@@ -14,7 +14,7 @@ import { Board } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditBoardComponent implements OnInit {
-  @Input() boardId?: string;
+  @Input() boardId?: number;
   board?: Board;
   editForm!: FormGroup;
 
