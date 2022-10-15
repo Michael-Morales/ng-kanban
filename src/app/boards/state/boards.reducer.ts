@@ -1,44 +1,37 @@
 import { createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { fetchData, createBoard, deleteBoard } from './boards.actions';
 
-import { Board } from '../../interfaces';
+import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
+
+export interface BoardState extends EntityState<IBoard> {}
+export interface ColumnState extends EntityState<IColumn> {}
+export interface TaskState extends EntityState<ITask> {}
+export interface SubTaskState extends EntityState<ISubTask> {}
+
+export const boardAdapter: EntityAdapter<IBoard> =
+  createEntityAdapter<IBoard>();
+export const columnAdapter: EntityAdapter<IColumn> =
+  createEntityAdapter<IColumn>();
+export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>();
+export const subtaskAdapter: EntityAdapter<ISubTask> =
+  createEntityAdapter<ISubTask>();
 
 export interface AppBoardsState {
-  boards: Board[];
+  boards: EntityState<IBoard>;
+  columns: EntityState<IColumn>;
+  tasks: EntityState<ITask>;
+  subtasks: EntityState<ISubTask>;
 }
 
 export const initialState: AppBoardsState = {
-  boards: [],
+  boards: boardAdapter.getInitialState(),
+  columns: columnAdapter.getInitialState(),
+  tasks: taskAdapter.getInitialState(),
+  subtasks: subtaskAdapter.getInitialState(),
 };
 
-const generateId = () =>
-  (Date.now() * Math.floor(Math.random() * 100)).toString();
+const generateId = () => Date.now() * Math.floor(Math.random() * 100);
 
-export const boardsReducer = createReducer(
-  initialState,
-  on(fetchData, (_, { boards }) => {
-    return { boards };
-  }),
-  on(createBoard, (state, { board }) => {
-    const newColumns = board.columns.map((column) => ({
-      ...column,
-      id: generateId(),
-      tasks: [],
-    }));
-
-    return {
-      ...state,
-      boards: [
-        ...state.boards,
-        { id: generateId(), name: board.name, columns: newColumns },
-      ],
-    };
-  }),
-  on(deleteBoard, (state, { id }) => {
-    return {
-      ...state,
-      boards: state.boards.filter((board) => board.id !== id),
-    };
-  })
-);
+export const boardsReducer = createReducer(initialState);
