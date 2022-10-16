@@ -46,6 +46,10 @@ export const boardsReducer = createReducer(
     return {
       ...state,
       boards: boardAdapter.addOne(board, state.boards),
+      columns:
+        columns.length > 0
+          ? columnAdapter.addMany(columns, state.columns)
+          : state.columns,
     };
   }),
   on(deleteBoard, (state, { id }) => {

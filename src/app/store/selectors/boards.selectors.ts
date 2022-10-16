@@ -45,3 +45,7 @@ export const selectAllBoards = createSelector(
     }));
   }
 );
+
+export const selectColumns = createSelector(selectState, (state) =>
+  columnSelectors.selectAll(state.columns)
+);

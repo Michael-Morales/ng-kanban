@@ -5,11 +5,14 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectAllBoards } from '../../store/selectors/boards.selectors';
+import {
+  selectAllBoards,
+  selectColumns,
+} from '../../store/selectors/boards.selectors';
 
 import { createBoard } from '../../store/actions/boards.actions';
 
-import { Board } from '../../interfaces';
+import { Board, IColumn } from '../../interfaces';
 
 @Component({
   selector: 'app-add-board',
@@ -18,6 +21,7 @@ import { Board } from '../../interfaces';
 })
 export class AddBoardComponent implements OnInit {
   boards$?: Board[];
+  columns$?: IColumn[];
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     columns: this.fb.array([]),
@@ -34,6 +38,10 @@ export class AddBoardComponent implements OnInit {
     this.store
       .select(selectAllBoards)
       .subscribe((boards) => (this.boards$ = boards));
+
+    this.store
+      .select(selectColumns)
+      .subscribe((columns) => (this.columns$ = columns));
   }
 
   get columns() {
@@ -51,6 +59,7 @@ export class AddBoardComponent implements OnInit {
       this.store.dispatch(
         createBoard({
           board: { id: newId, name: this.addForm.get('name')?.value },
+          columns: this.addForm.get('columns')?.value,
         })
       );
       this.modalService.closeModal();
@@ -61,10 +70,30 @@ export class AddBoardComponent implements OnInit {
   }
 
   onAddNewColumn() {
-    this.columns.push(
-      this.fb.group({
-        name: ['', [Validators.required, Validators.minLength(3)]],
-      })
-    );
+    if (this.boards$) {
+      const getNewColumnId = (): number | void => {
+        if (this.columns$) {
+          if (this.addForm.get('columns')?.value.length === 0) {
+            return this.columns$?.[this.columns$.length - 1].id + 1;
+          } else {
+            return (
+              this.addForm.get('columns')?.value[
+                this.addForm.get('columns')?.value.length - 1
+              ].id + 1
+            );
+          }
+        }
+      };
+
+      const newBoardId = this.boards$[this.boards$.length - 1].id + 1;
+
+      this.columns.push(
+        this.fb.group({
+          id: [getNewColumnId(), Validators.required],
+          boardId: [newBoardId, Validators.required],
+          name: ['', [Validators.required, Validators.minLength(3)]],
+        })
+      );
+    }
   }
 }

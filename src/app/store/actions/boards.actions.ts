@@ -1,11 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Predicate } from '@ngrx/entity';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
-
-interface ColumnProps {
-  name: string;
-}
 
 export const fetchData = createAction(
   '[Boards] Fetch Data',
@@ -19,7 +14,7 @@ export const fetchData = createAction(
 
 export const createBoard = createAction(
   '[Boards] Create Board',
-  props<{ board: IBoard; columns?: ColumnProps[] }>()
+  props<{ board: IBoard; columns: IColumn[] }>()
 );
 
 export const deleteBoard = createAction(
