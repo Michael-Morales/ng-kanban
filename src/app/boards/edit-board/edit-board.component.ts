@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectAllBoards } from '../state/boards.selectors';
+import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
 import { Board } from '../../interfaces';
 

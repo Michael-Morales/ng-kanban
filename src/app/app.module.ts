@@ -10,7 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
-import { boardsReducer } from './boards/state/boards.reducer';
+import { boardsReducer } from './store/reducers/boards.reducer';
 
 @NgModule({
   declarations: [

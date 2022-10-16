@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { fetchData } from './boards/state/boards.actions';
+import { fetchData } from './store/actions/boards.actions';
 
 import { boards, columns, tasks, subtasks } from './boards/mock-data';
 

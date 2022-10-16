@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectAllBoards } from '../state/boards.selectors';
+import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
-// import { createBoard } from '../state/boards.actions';
+import { createBoard } from '../../store/actions/boards.actions';
 
 import { Board } from '../../interfaces';
 
@@ -45,11 +45,17 @@ export class AddBoardComponent implements OnInit {
   }
 
   onSave() {
-    if (this.addForm.valid) {
-      // this.store.dispatch(createBoard({ board: this.addForm.value }));
+    if (this.addForm.valid && this.boards$) {
+      const newId = this.boards$[this.boards$.length - 1].id + 1;
+
+      this.store.dispatch(
+        createBoard({
+          board: { id: newId, name: this.addForm.get('name')?.value },
+        })
+      );
       this.modalService.closeModal();
       this.router.navigateByUrl(
-        '/boards/' + this.boards$?.[this.boards$.length - 1].id
+        '/boards/' + this.boards$[this.boards$.length - 1].id
       );
     }
   }

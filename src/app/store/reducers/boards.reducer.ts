@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import { fetchData } from './boards.actions';
+import { fetchData, createBoard, deleteBoard } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
 
@@ -32,8 +32,6 @@ export const initialState: AppBoardsState = {
   subtasks: subtaskAdapter.getInitialState(),
 };
 
-const generateId = () => Date.now() * Math.floor(Math.random() * 100);
-
 export const boardsReducer = createReducer(
   initialState,
   on(fetchData, (state, { boards, columns, tasks, subtasks }) => {
@@ -42,6 +40,47 @@ export const boardsReducer = createReducer(
       columns: columnAdapter.setAll(columns, state.columns),
       tasks: taskAdapter.setAll(tasks, state.tasks),
       subtasks: subtaskAdapter.setAll(subtasks, state.subtasks),
+    };
+  }),
+  on(createBoard, (state, { board, columns }) => {
+    return {
+      ...state,
+      boards: boardAdapter.addOne(board, state.boards),
+    };
+  }),
+  on(deleteBoard, (state, { id }) => {
+    const columnsToDelete = columnSelectors
+      .selectAll(state.columns)
+      .filter((column) => column.boardId === id)
+      .map((column) => column.id.toString());
+
+    const tasks = taskSelectors.selectAll(state.tasks);
+    const tasksToDelete: string[] = [];
+
+    for (let i = 0; i < tasks.length; i++) {
+      for (let j = 0; j < columnsToDelete.length; j++) {
+        if (tasks[i].columnId.toString() === columnsToDelete[j]) {
+          tasksToDelete.push(tasks[i].id.toString());
+        }
+      }
+    }
+
+    const subtasks = subtaskSelectors.selectAll(state.subtasks);
+    const subtasksToDelete: string[] = [];
+
+    for (let i = 0; i < subtasks.length; i++) {
+      for (let j = 0; j < tasksToDelete.length; j++) {
+        if (subtasks[i].taskId.toString() === tasksToDelete[j]) {
+          subtasksToDelete.push(subtasks[i].id.toString());
+        }
+      }
+    }
+
+    return {
+      boards: boardAdapter.removeOne(id.toString(), state.boards),
+      columns: columnAdapter.removeMany(columnsToDelete, state.columns),
+      tasks: taskAdapter.removeMany(tasksToDelete, state.tasks),
+      subtasks: subtaskAdapter.removeMany(subtasksToDelete, state.subtasks),
     };
   })
 );

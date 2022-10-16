@@ -6,7 +6,7 @@ import {
   columnSelectors,
   taskSelectors,
   subtaskSelectors,
-} from './boards.reducer';
+} from '../reducers/boards.reducer';
 
 export const selectState = createFeatureSelector<AppBoardsState>('boards');
 

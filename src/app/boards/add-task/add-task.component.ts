@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectPopulatedColumns } from '../state/boards.selectors';
+import { selectPopulatedColumns } from '../../store/selectors/boards.selectors';
 
 import { Column } from '../../interfaces';
 

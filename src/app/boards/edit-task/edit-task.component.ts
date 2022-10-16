@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectAllBoards } from '../state/boards.selectors';
+import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
 import { Column, Task } from '../../interfaces';
 
