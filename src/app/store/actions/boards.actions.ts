@@ -42,3 +42,8 @@ export const deleteTask = createAction(
   '[Board] Delete Task',
   props<{ id: number }>()
 );
+
+export const toggleSubtask = createAction(
+  '[Board] Toggle Subtask',
+  props<{ update: Update<ISubTask> }>()
+);

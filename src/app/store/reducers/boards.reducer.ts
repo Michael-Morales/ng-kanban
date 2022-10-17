@@ -9,6 +9,7 @@ import {
   createColumn,
   createTask,
   deleteTask,
+  toggleSubtask,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -64,7 +65,7 @@ export const boardsReducer = createReducer(
     };
   }),
   on(deleteBoard, (state, { id }) => {
-    const columnsToDelete = columnSelectors
+    const columnsToDelete: string[] = columnSelectors
       .selectAll(state.columns)
       .filter((column) => column.boardId === id)
       .map((column) => column.id.toString());
@@ -127,6 +128,12 @@ export const boardsReducer = createReducer(
       ...state,
       tasks: taskAdapter.removeOne(id.toString(), state.tasks),
       subtasks: subtaskAdapter.removeMany(subtasksToDelete, state.subtasks),
+    };
+  }),
+  on(toggleSubtask, (state, { update }) => {
+    return {
+      ...state,
+      subtasks: subtaskAdapter.updateOne(update, state.subtasks),
     };
   })
 );

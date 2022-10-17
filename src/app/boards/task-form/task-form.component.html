@@ -9,7 +9,11 @@
       [formGroupName]="i"
       *ngFor="let subtask of subtasks.controls; let i = index"
     >
-      <input type="checkbox" formControlName="isCompleted" />
+      <input
+        type="checkbox"
+        formControlName="isCompleted"
+        (input)="onSelect(subtask.get('id')?.value)"
+      />
       <span>{{ subtask.value.title }}</span>
     </label>
   </div>
