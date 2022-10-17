@@ -6,6 +6,8 @@ import { ModalService } from 'src/app/shared/modal.service';
 
 import { createColumn } from '../../store/actions/boards.actions';
 
+import { generateId } from '../../store/reducers/boards.reducer';
+
 @Component({
   selector: 'app-add-column',
   templateUrl: './add-column.component.html',
@@ -30,7 +32,7 @@ export class AddColumnComponent implements OnInit {
       this.store.dispatch(
         createColumn({
           column: {
-            id: 40,
+            id: generateId(),
             name: this.addForm.get('name')?.value,
             boardId: +this.boardId,
           },

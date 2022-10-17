@@ -38,6 +38,10 @@ export const initialState: AppBoardsState = {
   subtasks: subtaskAdapter.getInitialState(),
 };
 
+export const generateId = (): number => {
+  return Math.floor(Date.now() * Math.random());
+};
+
 export const boardsReducer = createReducer(
   initialState,
   on(fetchData, (state, { boards, columns, tasks, subtasks }) => {

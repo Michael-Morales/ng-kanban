@@ -11,6 +11,8 @@ import {
 
 import { updateBoard } from '../../store/actions/boards.actions';
 
+import { generateId } from '../../store/reducers/boards.reducer';
+
 import { Board, IColumn } from '../../interfaces';
 
 @Component({
@@ -84,24 +86,12 @@ export class EditBoardComponent implements OnInit {
   }
 
   onAddNewColumn() {
-    if (this.board) {
-      const getNewColumnId = (): number | void => {
-        if (this.allColumns) {
-          if (!this.columns.length) {
-            return this.allColumns[this.allColumns.length - 1].id + 1;
-          } else {
-            return this.columns.value[this.columns.length - 1].id + 1;
-          }
-        }
-      };
-
-      this.columns.push(
-        this.fb.group({
-          id: [getNewColumnId(), Validators.required],
-          boardId: [this.boardId, Validators.required],
-          name: ['', [Validators.required, Validators.minLength(3)]],
-        })
-      );
-    }
+    this.columns.push(
+      this.fb.group({
+        id: [generateId(), Validators.required],
+        boardId: [this.boardId, Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
+      })
+    );
   }
 }

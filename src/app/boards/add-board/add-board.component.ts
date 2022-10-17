@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { ModalService } from 'src/app/shared/modal.service';
+import { ModalService } from '../../shared/modal.service';
 
 import {
   selectAllBoards,
@@ -11,6 +11,8 @@ import {
 } from '../../store/selectors/boards.selectors';
 
 import { createBoard } from '../../store/actions/boards.actions';
+
+import { generateId } from '../../store/reducers/boards.reducer';
 
 import { Board, IColumn } from '../../interfaces';
 
@@ -22,6 +24,7 @@ import { Board, IColumn } from '../../interfaces';
 export class AddBoardComponent implements OnInit {
   boards$?: Board[];
   columns$?: IColumn[];
+  newBoardId: number = generateId();
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     columns: this.fb.array([]),
@@ -54,11 +57,9 @@ export class AddBoardComponent implements OnInit {
 
   onSave() {
     if (this.addForm.valid && this.boards$) {
-      const newId = this.boards$[this.boards$.length - 1].id + 1;
-
       this.store.dispatch(
         createBoard({
-          board: { id: newId, name: this.addForm.get('name')?.value },
+          board: { id: this.newBoardId, name: this.addForm.get('name')?.value },
           columns: this.addForm.get('columns')?.value,
         })
       );
@@ -70,28 +71,12 @@ export class AddBoardComponent implements OnInit {
   }
 
   onAddNewColumn() {
-    if (this.boards$) {
-      const getNewColumnId = (): number | void => {
-        if (this.columns$) {
-          if (!this.columns.length) {
-            return this.columns$[this.columns$.length - 1].id + 1;
-          } else {
-            return (
-              this.addForm.get('columns')?.value[this.columns.length - 1].id + 1
-            );
-          }
-        }
-      };
-
-      const newBoardId = this.boards$[this.boards$.length - 1].id + 1;
-
-      this.columns.push(
-        this.fb.group({
-          id: [getNewColumnId(), Validators.required],
-          boardId: [newBoardId, Validators.required],
-          name: ['', [Validators.required, Validators.minLength(3)]],
-        })
-      );
-    }
+    this.columns.push(
+      this.fb.group({
+        id: [generateId(), Validators.required],
+        boardId: [this.newBoardId, Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
+      })
+    );
   }
 }
