@@ -10,6 +10,7 @@ import {
   createTask,
   deleteTask,
   toggleSubtask,
+  updateTaskColumn,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -135,6 +136,9 @@ export const boardsReducer = createReducer(
       ...state,
       subtasks: subtaskAdapter.updateOne(update, state.subtasks),
     };
+  }),
+  on(updateTaskColumn, (state, { update }) => {
+    return { ...state, tasks: taskAdapter.updateOne(update, state.tasks) };
   })
 );
 

@@ -47,3 +47,8 @@ export const toggleSubtask = createAction(
   '[Board] Toggle Subtask',
   props<{ update: Update<ISubTask> }>()
 );
+
+export const updateTaskColumn = createAction(
+  '[Board] Update Task Column',
+  props<{ update: Update<ITask> }>()
+);

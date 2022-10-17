@@ -12,7 +12,7 @@
       <input
         type="checkbox"
         formControlName="isCompleted"
-        (input)="onSelect(subtask.get('id')?.value)"
+        (input)="onToggle(subtask.get('id')?.value)"
       />
       <span>{{ subtask.value.title }}</span>
     </label>

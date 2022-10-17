@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,10 @@ import { map } from 'rxjs';
 
 import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
-import { toggleSubtask } from 'src/app/store/actions/boards.actions';
+import {
+  toggleSubtask,
+  updateTaskColumn,
+} from 'src/app/store/actions/boards.actions';
 
 import { Task, Column, ISubTask } from '../../interfaces';
 
@@ -15,7 +18,7 @@ import { Task, Column, ISubTask } from '../../interfaces';
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css'],
 })
-export class TaskFormComponent implements OnInit {
+export class TaskFormComponent implements OnInit, OnDestroy {
   @Input() task?: Task;
   @Input() currentColumn?: Column;
   @Input() completedTasks?: number;
@@ -57,11 +60,15 @@ export class TaskFormComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.onSelect();
+  }
+
   get subtasks() {
     return this.taskForm.get('subtasks') as FormArray;
   }
 
-  onSelect(id: number) {
+  onToggle(id: number) {
     const currentSubtaskStatus = this.subtasks.value.find(
       (subtask: ISubTask) => subtask.id === id
     ).isCompleted;
@@ -71,5 +78,18 @@ export class TaskFormComponent implements OnInit {
         update: { id, changes: { isCompleted: !currentSubtaskStatus } },
       })
     );
+  }
+
+  onSelect() {
+    if (this.task) {
+      this.store.dispatch(
+        updateTaskColumn({
+          update: {
+            id: this.task.id,
+            changes: { columnId: this.taskForm.get('columnId')?.value },
+          },
+        })
+      );
+    }
   }
 }
