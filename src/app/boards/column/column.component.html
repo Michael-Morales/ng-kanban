@@ -31,12 +31,5 @@
   header="Add New Column"
   (dismiss)="modalService.closeModal()"
 >
-  <form [formGroup]="formGroup">
-    <app-input
-      [control]="$any(formGroup).get('title')"
-      label="Title"
-      placeholder="e.g. Todo"
-    ></app-input>
-    <app-button buttonType="submit">add new column</app-button>
-  </form>
+  <app-add-column [boardId]="boardId"></app-add-column>
 </app-modal>

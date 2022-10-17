@@ -13,6 +13,7 @@ import { EditBoardComponent } from './edit-board/edit-board.component';
 import { AddBoardComponent } from './add-board/add-board.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
+import { AddColumnComponent } from './add-column/add-column.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
     AddBoardComponent,
     AddTaskComponent,
     EditTaskComponent,
+    AddColumnComponent,
   ],
   imports: [
     CommonModule,
