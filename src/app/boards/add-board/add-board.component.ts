@@ -73,13 +73,11 @@ export class AddBoardComponent implements OnInit {
     if (this.boards$) {
       const getNewColumnId = (): number | void => {
         if (this.columns$) {
-          if (this.addForm.get('columns')?.value.length === 0) {
-            return this.columns$?.[this.columns$.length - 1].id + 1;
+          if (!this.columns.length) {
+            return this.columns$[this.columns$.length - 1].id + 1;
           } else {
             return (
-              this.addForm.get('columns')?.value[
-                this.addForm.get('columns')?.value.length - 1
-              ].id + 1
+              this.addForm.get('columns')?.value[this.columns.length - 1].id + 1
             );
           }
         }

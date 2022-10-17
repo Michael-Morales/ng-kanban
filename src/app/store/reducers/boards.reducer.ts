@@ -1,7 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import { fetchData, createBoard, deleteBoard } from '../actions/boards.actions';
+import {
+  fetchData,
+  createBoard,
+  deleteBoard,
+  updateBoard,
+} from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
 
@@ -85,6 +90,13 @@ export const boardsReducer = createReducer(
       columns: columnAdapter.removeMany(columnsToDelete, state.columns),
       tasks: taskAdapter.removeMany(tasksToDelete, state.tasks),
       subtasks: subtaskAdapter.removeMany(subtasksToDelete, state.subtasks),
+    };
+  }),
+  on(updateBoard, (state, { board, columns }) => {
+    return {
+      ...state,
+      boards: boardAdapter.updateOne(board, state.boards),
+      columns: columnAdapter.addMany(columns, state.columns),
     };
   })
 );

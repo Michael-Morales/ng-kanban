@@ -4,9 +4,14 @@ import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectAllBoards } from '../../store/selectors/boards.selectors';
+import {
+  selectAllBoards,
+  selectColumns,
+} from '../../store/selectors/boards.selectors';
 
-import { Board } from '../../interfaces';
+import { updateBoard } from '../../store/actions/boards.actions';
+
+import { Board, IColumn } from '../../interfaces';
 
 @Component({
   selector: 'app-edit-board',
@@ -16,6 +21,7 @@ import { Board } from '../../interfaces';
 export class EditBoardComponent implements OnInit {
   @Input() boardId?: number;
   board?: Board;
+  allColumns?: IColumn[];
   editForm!: FormGroup;
 
   constructor(
@@ -32,14 +38,21 @@ export class EditBoardComponent implements OnInit {
           (this.board = boards.find((board) => board.id === this.boardId))
       );
 
+    this.store
+      .select(selectColumns)
+      .subscribe((columns) => (this.allColumns = columns));
+
     this.editForm = this.fb.group({
+      id: [this.boardId, Validators.required],
       name: [this.board?.name, [Validators.required, Validators.minLength(3)]],
       columns: this.fb.array([]),
     });
+
     this.board?.columns.forEach((column) => {
       this.columns.push(
         this.fb.group({
           id: [column.id, Validators.required],
+          boardId: [column.boardId, Validators.required],
           name: [column.name, [Validators.required, Validators.minLength(3)]],
         })
       );
@@ -56,16 +69,39 @@ export class EditBoardComponent implements OnInit {
 
   onSave() {
     if (this.editForm.valid && this.board) {
+      this.store.dispatch(
+        updateBoard({
+          board: {
+            id: this.board.id,
+            changes: { name: this.editForm.get('name')?.value },
+          },
+          columns: this.columns.value,
+        })
+      );
+
       this.modalService.closeModal();
     }
   }
 
   onAddNewColumn() {
-    this.columns.push(
-      this.fb.group({
-        id: ['90', Validators.required],
-        name: ['', [Validators.required, Validators.minLength(3)]],
-      })
-    );
+    if (this.board) {
+      const getNewColumnId = (): number | void => {
+        if (this.allColumns) {
+          if (!this.columns.length) {
+            return this.allColumns[this.allColumns.length - 1].id + 1;
+          } else {
+            return this.columns.value[this.columns.length - 1].id + 1;
+          }
+        }
+      };
+
+      this.columns.push(
+        this.fb.group({
+          id: [getNewColumnId(), Validators.required],
+          boardId: [this.boardId, Validators.required],
+          name: ['', [Validators.required, Validators.minLength(3)]],
+        })
+      );
+    }
   }
 }

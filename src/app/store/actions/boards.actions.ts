@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
 
@@ -20,4 +21,14 @@ export const createBoard = createAction(
 export const deleteBoard = createAction(
   '[Boards] Delete Board',
   props<{ id: number }>()
+);
+
+export const updateBoard = createAction(
+  '[Boards] Update Board',
+  props<{ board: Update<IBoard>; columns: IColumn[] }>()
+);
+
+export const createColumn = createAction(
+  '[Boards] Create Column',
+  props<{ column: IColumn }>()
 );
