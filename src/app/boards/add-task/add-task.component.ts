@@ -21,7 +21,7 @@ import { Column } from '../../interfaces';
 export class AddTaskComponent implements OnInit {
   @Input() boardId?: string;
   newTaskId: number = generateId();
-  columns?: Column[];
+  columns$?: Column[];
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     columnId: ['', Validators.required],
@@ -43,7 +43,7 @@ export class AddTaskComponent implements OnInit {
           columns.filter((column) => column.boardId.toString() === this.boardId)
         )
       )
-      .subscribe((columns) => (this.columns = columns));
+      .subscribe((columns) => (this.columns$ = columns));
   }
 
   get subtasks() {

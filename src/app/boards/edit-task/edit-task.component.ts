@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { map, combineLatest } from 'rxjs';
 
 import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
@@ -15,7 +15,7 @@ import { Column, Task } from '../../interfaces';
 })
 export class EditTaskComponent implements OnInit {
   @Input() task?: Task;
-  columns?: Column[];
+  columns$?: Column[];
   editForm!: FormGroup;
 
   constructor(
@@ -25,16 +25,13 @@ export class EditTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.store
-        .select(selectAllBoards)
-        .pipe(
-          map((boards) =>
-            boards.find((board) => board.id.toString() === params.get('id'))
-          )
+    combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
+      .pipe(
+        map(([params, boards]) =>
+          boards.find((board) => board.id.toString() === params.get('id'))
         )
-        .subscribe((board) => (this.columns = board?.columns));
-    });
+      )
+      .subscribe((board) => (this.columns$ = board?.columns));
 
     this.editForm = this.fb.group({
       title: [this.task?.title, [Validators.required, Validators.minLength(3)]],

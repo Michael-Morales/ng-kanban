@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
 
 import { ModalService } from '../../shared/modal.service';
 
@@ -38,13 +39,13 @@ export class AddBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store
-      .select(selectAllBoards)
-      .subscribe((boards) => (this.boards$ = boards));
-
-    this.store
-      .select(selectColumns)
-      .subscribe((columns) => (this.columns$ = columns));
+    combineLatest([
+      this.store.select(selectAllBoards),
+      this.store.select(selectColumns),
+    ]).subscribe(([boards, columns]) => {
+      this.boards$ = boards;
+      this.columns$ = columns;
+    });
   }
 
   get columns() {

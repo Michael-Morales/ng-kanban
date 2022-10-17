@@ -10,6 +10,10 @@ import {
 
 export const selectState = createFeatureSelector<AppBoardsState>('boards');
 
+export const checkBoardsLength = createSelector(selectState, (state) => {
+  return boardSelectors.selectTotal(state.boards);
+});
+
 export const selectPopulatedTasks = createSelector(selectState, (state) => {
   const subtasks = subtaskSelectors.selectAll(state.subtasks);
   const tasks = taskSelectors.selectAll(state.tasks);

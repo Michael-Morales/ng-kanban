@@ -36,7 +36,7 @@
     <label>Current Status</label>
     <app-select
       [control]="$any(editForm).get('columnId')"
-      [columns]="columns"
+      [columns]="columns$"
     ></app-select>
   </div>
   <app-button

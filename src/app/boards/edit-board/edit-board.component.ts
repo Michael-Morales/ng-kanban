@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
@@ -22,8 +23,8 @@ import { Board, IColumn } from '../../interfaces';
 })
 export class EditBoardComponent implements OnInit {
   @Input() boardId?: number;
-  board?: Board;
-  allColumns?: IColumn[];
+  board$?: Board;
+  allColumns$?: IColumn[];
   editForm!: FormGroup;
 
   constructor(
@@ -33,24 +34,21 @@ export class EditBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store
-      .select(selectAllBoards)
-      .subscribe(
-        (boards) =>
-          (this.board = boards.find((board) => board.id === this.boardId))
-      );
-
-    this.store
-      .select(selectColumns)
-      .subscribe((columns) => (this.allColumns = columns));
+    combineLatest([
+      this.store.select(selectAllBoards),
+      this.store.select(selectColumns),
+    ]).subscribe(([boards, columns]) => {
+      this.board$ = boards.find((board) => board.id === this.boardId);
+      this.allColumns$ = columns;
+    });
 
     this.editForm = this.fb.group({
       id: [this.boardId, Validators.required],
-      name: [this.board?.name, [Validators.required, Validators.minLength(3)]],
+      name: [this.board$?.name, [Validators.required, Validators.minLength(3)]],
       columns: this.fb.array([]),
     });
 
-    this.board?.columns.forEach((column) => {
+    this.board$?.columns.forEach((column) => {
       this.columns.push(
         this.fb.group({
           id: [column.id, Validators.required],
@@ -70,11 +68,11 @@ export class EditBoardComponent implements OnInit {
   }
 
   onSave() {
-    if (this.editForm.valid && this.board) {
+    if (this.editForm.valid && this.board$) {
       this.store.dispatch(
         updateBoard({
           board: {
-            id: this.board.id,
+            id: this.board$.id,
             changes: { name: this.editForm.get('name')?.value },
           },
           columns: this.columns.value,

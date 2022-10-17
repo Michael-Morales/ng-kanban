@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { HeaderService } from 'src/app/header/header.service';
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectAllBoards } from '../../store/selectors/boards.selectors';
-
-import { Board } from '../../interfaces';
+import { checkBoardsLength } from '../../store/selectors/boards.selectors';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +13,7 @@ import { Board } from '../../interfaces';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  boards?: Board[];
+  length$?: Observable<number> = this.store.select(checkBoardsLength);
 
   constructor(
     private headerService: HeaderService,
@@ -22,11 +21,7 @@ export class HomeComponent implements OnInit {
     private store: Store
   ) {}
 
-  ngOnInit(): void {
-    this.store
-      .select(selectAllBoards)
-      .subscribe((boards) => (this.boards = boards));
-  }
+  ngOnInit(): void {}
 
   dismissHeaderMenu() {
     if (

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap } from 'rxjs';
+import { map, tap, combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
@@ -15,7 +15,7 @@ import { Column } from '../../interfaces';
   styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit {
-  columns?: Column[] = [];
+  columns$?: Column[] = [];
   boardId: string | null = '';
 
   constructor(
@@ -26,23 +26,19 @@ export class ColumnComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(tap((params) => (this.boardId = params.get('id'))))
-      .subscribe((params) => {
-        this.store
-          .select(selectAllBoards)
-          .pipe(
-            map((boards) =>
-              boards.find((board) => board.id.toString() === params.get('id'))
-            )
-          )
-          .subscribe((board) => {
-            if (!board) {
-              this.router.navigateByUrl('/404');
-            } else {
-              this.columns = board.columns;
-            }
-          });
+    combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
+      .pipe(
+        tap(([params]) => this.boardId === params.get('id')),
+        map(([params, boards]) =>
+          boards.find((board) => board.id.toString() === params.get('id'))
+        )
+      )
+      .subscribe((board) => {
+        if (!board) {
+          this.router.navigateByUrl('/404');
+        } else {
+          this.columns$ = board.columns;
+        }
       });
   }
 }

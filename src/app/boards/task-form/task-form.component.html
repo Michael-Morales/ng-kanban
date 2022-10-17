@@ -21,7 +21,7 @@
     <h5>Current Status</h5>
     <app-select
       [control]="$any(taskForm).get('columnId')"
-      [columns]="columns"
+      [columns]="columns$"
     ></app-select>
   </div>
 </form>
