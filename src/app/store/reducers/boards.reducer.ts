@@ -7,6 +7,7 @@ import {
   deleteBoard,
   updateBoard,
   createColumn,
+  createTask,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -106,6 +107,9 @@ export const boardsReducer = createReducer(
   }),
   on(createColumn, (state, { column }) => {
     return { ...state, columns: columnAdapter.addOne(column, state.columns) };
+  }),
+  on(createTask, (state, { task }) => {
+    return { ...state };
   })
 );
 

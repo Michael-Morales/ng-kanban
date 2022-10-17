@@ -78,21 +78,18 @@ export const tasks: ITask[] = [
     columnId: 0,
     title: 'Build UI for onboarding flow',
     description: '',
-    status: 'Todo',
   },
   {
     id: 1,
     columnId: 0,
     title: 'Build UI for search',
     description: '',
-    status: 'Todo',
   },
   {
     id: 2,
     columnId: 0,
     title: 'Build settings UI',
     description: '',
-    status: 'Todo',
   },
   {
     id: 3,
@@ -100,42 +97,36 @@ export const tasks: ITask[] = [
     title: 'QA and test all major user journeys',
     description:
       'Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.',
-    status: 'Todo',
   },
   {
     id: 4,
     columnId: 1,
     title: 'Design settings and search pages',
     description: '',
-    status: 'Doing',
   },
   {
     id: 5,
     columnId: 1,
     title: 'Add account management endpoints',
     description: '',
-    status: 'Doing',
   },
   {
     id: 6,
     columnId: 1,
     title: 'Design onboarding flow',
     description: '',
-    status: 'Doing',
   },
   {
     id: 7,
     columnId: 1,
     title: 'Add search enpoints',
     description: '',
-    status: 'Doing',
   },
   {
     id: 8,
     columnId: 1,
     title: 'Add authentication endpoints',
     description: '',
-    status: 'Doing',
   },
   {
     id: 9,
@@ -144,7 +135,6 @@ export const tasks: ITask[] = [
       'Research pricing points of various competitors and trial different business models',
     description:
       "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-    status: 'Doing',
   },
   {
     id: 10,
@@ -152,7 +142,6 @@ export const tasks: ITask[] = [
     title: 'Conduct 5 wireframe tests',
     description:
       'Ensure the layout continues to make sense and we have strong buy-in from potential users.',
-    status: 'Done',
   },
   {
     id: 11,
@@ -160,7 +149,6 @@ export const tasks: ITask[] = [
     title: 'Create wireframe prototype',
     description:
       'Create a greyscale clickable wireframe prototype to test our asssumptions so far.',
-    status: 'Done',
   },
   {
     id: 12,
@@ -168,7 +156,6 @@ export const tasks: ITask[] = [
     title: 'Review results of usability tests and iterate',
     description:
       "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
-    status: 'Done',
   },
   {
     id: 13,
@@ -176,7 +163,6 @@ export const tasks: ITask[] = [
     title:
       'Create paper prototypes and conduct 10 usability tests with potential customers',
     description: '',
-    status: 'Done',
   },
   {
     id: 14,
@@ -184,14 +170,12 @@ export const tasks: ITask[] = [
     title: 'Market discovery',
     description:
       'We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.',
-    status: 'Done',
   },
   {
     id: 15,
     columnId: 2,
     title: 'Competitor analysis',
     description: '',
-    status: 'Done',
   },
   {
     id: 16,
@@ -199,35 +183,30 @@ export const tasks: ITask[] = [
     title: 'Research the market',
     description:
       'We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.',
-    status: 'Done',
   },
   {
     id: 17,
     columnId: 3,
     title: 'Plan Product Hunt launch',
     description: '',
-    status: 'Todo',
   },
   {
     id: 18,
     columnId: 3,
     title: 'Share on Show HN',
     description: '',
-    status: 'Todo',
   },
   {
     id: 19,
     columnId: 3,
     title: 'Write launch article to publish on multiple channels',
     description: '',
-    status: 'Todo',
   },
   {
     id: 20,
     columnId: 4,
     title: 'Launch version one',
     description: '',
-    status: 'Doing',
   },
   {
     id: 21,
@@ -235,7 +214,6 @@ export const tasks: ITask[] = [
     title: 'Review early feedback and plan next steps for roadmap',
     description:
       "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
-    status: 'Doing',
   },
 ];
 

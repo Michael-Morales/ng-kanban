@@ -16,7 +16,6 @@ export interface Task {
   columnId: number;
   title: string;
   description?: string;
-  status: string;
   subtasks: SubTask[];
 }
 
@@ -42,7 +41,6 @@ export interface ITask {
   id: number;
   columnId: number;
   title: string;
-  status: string;
   description?: string;
 }
 

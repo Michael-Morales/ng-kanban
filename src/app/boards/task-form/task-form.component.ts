@@ -40,7 +40,7 @@ export class TaskFormComponent implements OnInit {
 
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
-      status: [this.currentColumn?.name],
+      columnId: [this.currentColumn?.id],
     });
 
     this.task?.subtasks.forEach((subtask) => {

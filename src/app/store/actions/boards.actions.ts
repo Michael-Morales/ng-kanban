@@ -32,3 +32,8 @@ export const createColumn = createAction(
   '[Boards] Create Column',
   props<{ column: IColumn }>()
 );
+
+export const createTask = createAction(
+  '[Board] Create Task',
+  props<{ task: ITask }>()
+);

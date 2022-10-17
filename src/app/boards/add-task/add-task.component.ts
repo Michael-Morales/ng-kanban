@@ -5,7 +5,11 @@ import { map } from 'rxjs';
 
 import { selectPopulatedColumns } from '../../store/selectors/boards.selectors';
 
-import { Column } from '../../interfaces';
+import { createTask } from '../../store/actions/boards.actions';
+
+import { generateId } from '../../store/reducers/boards.reducer';
+
+import { Column, ITask } from '../../interfaces';
 
 @Component({
   selector: 'app-add-task',
@@ -14,11 +18,12 @@ import { Column } from '../../interfaces';
 })
 export class AddTaskComponent implements OnInit {
   @Input() boardId?: string;
+  newTaskId: number = generateId();
   columns?: Column[];
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
+    columnId: ['', Validators.required],
     description: [''],
-    status: ['', Validators.required],
     subtasks: this.fb.array([]),
   });
 
@@ -53,6 +58,18 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSave() {
-    console.log('Creating new task');
+    if (this.addForm.valid && this.addForm.value) {
+      const {
+        title,
+        columnId,
+        description,
+      }: { title: string; columnId: number; description: string } =
+        this.addForm.value;
+      // this.store.dispatch(
+      //   createTask({
+      //     task: { id: this.newTaskId, title, columnId, description },
+      //   })
+      // );
+    }
   }
 }
