@@ -32,7 +32,7 @@
     *ngIf="modalService.modal === task.title + ' delete'"
     header="Delete this task?"
   >
-    <app-delete-menu>
+    <app-delete-menu (delete)="onDelete()">
       Are you sure you want to delete the ‘{{ task.title }}’ task and its
       subtasks? This action cannot be reversed.
     </app-delete-menu>

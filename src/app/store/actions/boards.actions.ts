@@ -37,3 +37,8 @@ export const createTask = createAction(
   '[Board] Create Task',
   props<{ task: ITask; subtasks: ISubTask[] }>()
 );
+
+export const deleteTask = createAction(
+  '[Board] Delete Task',
+  props<{ id: number }>()
+);
