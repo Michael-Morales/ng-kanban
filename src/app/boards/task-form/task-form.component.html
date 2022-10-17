@@ -1,5 +1,9 @@
-<form [formGroup]="taskForm">
-  <div class="checkbox-container" formArrayName="subtasks">
+<form *ngIf="task" [formGroup]="taskForm">
+  <div
+    *ngIf="task.subtasks.length > 0"
+    class="checkbox-container"
+    formArrayName="subtasks"
+  >
     <h5>Subtasks ({{ completedTasks }} of {{ subtasks.length }})</h5>
     <label
       [formGroupName]="i"

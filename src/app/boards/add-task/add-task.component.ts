@@ -3,13 +3,15 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
+import { ModalService } from 'src/app/shared/modal.service';
+
 import { selectPopulatedColumns } from '../../store/selectors/boards.selectors';
 
 import { createTask } from '../../store/actions/boards.actions';
 
 import { generateId } from '../../store/reducers/boards.reducer';
 
-import { Column, ITask } from '../../interfaces';
+import { Column } from '../../interfaces';
 
 @Component({
   selector: 'app-add-task',
@@ -27,7 +29,11 @@ export class AddTaskComponent implements OnInit {
     subtasks: this.fb.array([]),
   });
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.store
@@ -51,6 +57,8 @@ export class AddTaskComponent implements OnInit {
   onAddNewSubtask() {
     this.subtasks.push(
       this.fb.group({
+        id: generateId(),
+        taskId: this.newTaskId,
         title: ['', [Validators.required, Validators.minLength(3)]],
         isCompleted: [false],
       })
@@ -65,11 +73,15 @@ export class AddTaskComponent implements OnInit {
         description,
       }: { title: string; columnId: number; description: string } =
         this.addForm.value;
-      // this.store.dispatch(
-      //   createTask({
-      //     task: { id: this.newTaskId, title, columnId, description },
-      //   })
-      // );
+
+      this.store.dispatch(
+        createTask({
+          task: { id: this.newTaskId, title, columnId, description },
+          subtasks: this.subtasks.value,
+        })
+      );
+
+      this.modalService.closeModal();
     }
   }
 }

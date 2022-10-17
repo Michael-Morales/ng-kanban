@@ -57,10 +57,9 @@ export const boardsReducer = createReducer(
     return {
       ...state,
       boards: boardAdapter.addOne(board, state.boards),
-      columns:
-        columns.length > 0
-          ? columnAdapter.addMany(columns, state.columns)
-          : state.columns,
+      columns: !columns.length
+        ? state.columns
+        : columnAdapter.addMany(columns, state.columns),
     };
   }),
   on(deleteBoard, (state, { id }) => {
@@ -108,8 +107,14 @@ export const boardsReducer = createReducer(
   on(createColumn, (state, { column }) => {
     return { ...state, columns: columnAdapter.addOne(column, state.columns) };
   }),
-  on(createTask, (state, { task }) => {
-    return { ...state };
+  on(createTask, (state, { task, subtasks }) => {
+    return {
+      ...state,
+      tasks: taskAdapter.addOne(task, state.tasks),
+      subtasks: !subtasks.length
+        ? state.subtasks
+        : subtaskAdapter.addMany(subtasks, state.subtasks),
+    };
   })
 );
 
