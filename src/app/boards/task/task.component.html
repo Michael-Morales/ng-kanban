@@ -34,7 +34,7 @@
   </app-modal>
 
   <app-modal
-    *ngIf="modalService.modal === taskId + ' delete'"
+    *ngIf="modalService.modal === taskId + ' task delete'"
     header="Delete this task?"
   >
     <app-delete-menu (delete)="onDelete()">
@@ -44,7 +44,7 @@
   </app-modal>
 
   <app-modal
-    *ngIf="modalService.modal === taskId + ' edit'"
+    *ngIf="modalService.modal === taskId + ' task edit'"
     header="Edit task"
     (dismiss)="modalService.closeModal()"
   >

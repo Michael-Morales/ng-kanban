@@ -33,7 +33,7 @@ export class HeaderService {
 
   onEditClick(board: Board) {
     this.showMenu = false;
-    this.modalService.openModal(board.id + ' edit');
+    this.modalService.openModal(board.id + ' board edit');
   }
 
   onAddBoardClick() {
@@ -48,7 +48,7 @@ export class HeaderService {
 
   onDeleteClick(board: Board) {
     this.showMenu = false;
-    this.modalService.openModal(board.id + ' delete');
+    this.modalService.openModal(board.id + ' board delete');
   }
 
   onShowSidebarClick() {

@@ -82,7 +82,7 @@
 </header>
 
 <app-modal
-  *ngIf="modalService.modal === currentBoard$?.id + ' delete'"
+  *ngIf="modalService.modal === currentBoard$?.id + ' board delete'"
   header="Delete this board?"
 >
   <app-delete-menu (delete)="onDeleteClick()">
@@ -92,7 +92,7 @@
 </app-modal>
 
 <app-modal
-  *ngIf="modalService.modal === currentBoard$?.id + ' edit'"
+  *ngIf="modalService.modal === currentBoard$?.id + ' board edit'"
   header="Edit Board"
   (dismiss)="modalService.closeModal()"
 >

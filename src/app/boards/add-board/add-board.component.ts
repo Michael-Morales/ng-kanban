@@ -6,9 +6,7 @@ import { Store } from '@ngrx/store';
 import { ModalService } from '../../shared/modal.service';
 
 import { selectAllBoards } from '../../store/selectors/boards.selectors';
-
 import { createBoard } from '../../store/actions/boards.actions';
-
 import { generateId } from '../../store/reducers/boards.reducer';
 
 import { Board } from '../../interfaces';

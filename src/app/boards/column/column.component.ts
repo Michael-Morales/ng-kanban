@@ -28,7 +28,7 @@ export class ColumnComponent implements OnInit {
   ngOnInit(): void {
     combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
       .pipe(
-        tap(([params]) => this.boardId === params.get('id')),
+        tap(([params]) => (this.boardId = params.get('id'))),
         map(([params, boards]) =>
           boards.find((board) => board.id.toString() === params.get('id'))
         )

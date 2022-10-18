@@ -6,9 +6,7 @@ import { map, Observable } from 'rxjs';
 import { ModalService } from 'src/app/shared/modal.service';
 
 import { selectColumns } from '../../store/selectors/boards.selectors';
-
 import { createTask } from '../../store/actions/boards.actions';
-
 import { generateId } from '../../store/reducers/boards.reducer';
 
 import { IColumn } from '../../interfaces';
