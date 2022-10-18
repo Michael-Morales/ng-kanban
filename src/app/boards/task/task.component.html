@@ -1,10 +1,13 @@
-<ng-container *ngIf="task">
-  <div class="task-container" (click)="modalService.openModal(task.title)">
+<ng-container *ngIf="taskId && task && subtasks">
+  <div
+    class="task-container"
+    (click)="modalService.openModal(taskId.toString())"
+  >
     <h3>
       {{ task.title }}
     </h3>
-    <p *ngIf="task.subtasks.length > 0; else elseBlock">
-      {{ completedTasks }} of {{ task.subtasks.length }} subtasks
+    <p *ngIf="subtasks.length > 0; else elseBlock">
+      {{ completedTasks }} of {{ subtasks.length }} subtasks
     </p>
     <ng-template #elseBlock>
       <p>No subtasks</p>
@@ -12,7 +15,7 @@
   </div>
 
   <app-modal
-    *ngIf="modalService.modal === task.title"
+    *ngIf="modalService.modal === taskId.toString()"
     (dismiss)="modalService.closeModal()"
     [header]="task.title"
     type="task"
@@ -22,14 +25,16 @@
     </p>
 
     <app-task-form
-      [task]="task"
-      [currentColumn]="currentColumn"
+      [currentTask]="task"
+      [currentSubtasks]="subtasks"
+      [currentColumnId]="currentColumnId"
       [completedTasks]="completedTasks"
     ></app-task-form>
   </app-modal>
 
   <app-modal
-    *ngIf="modalService.modal === task.title + ' delete'"
+    *ngIf="modalService.modal === taskId + ' delete'"
+    [id]="taskId"
     header="Delete this task?"
   >
     <app-delete-menu (delete)="onDelete()">
@@ -39,10 +44,10 @@
   </app-modal>
 
   <app-modal
-    *ngIf="modalService.modal === task.title + ' edit'"
+    *ngIf="modalService.modal === taskId + ' edit'"
     header="Edit task"
     (dismiss)="modalService.closeModal()"
   >
-    <app-edit-task [task]="task"></app-edit-task>
+    <!-- <app-edit-task [task]="task"></app-edit-task> -->
   </app-modal>
 </ng-container>

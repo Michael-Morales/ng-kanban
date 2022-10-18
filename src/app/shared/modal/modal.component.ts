@@ -17,6 +17,7 @@ import { ModalService } from '../modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Output() dismiss = new EventEmitter();
+  @Input() id?: number;
   @Input() header = '';
   @Input() type = '';
   showMenu = false;
@@ -25,6 +26,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document.body.appendChild(this.el.nativeElement);
+    console.log(this.id);
   }
 
   ngOnDestroy(): void {
@@ -36,10 +38,11 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onEditClick() {
-    this.modalService.openModal(this.header + ' edit');
+    this.modalService.openModal(this.id + ' edit');
   }
 
   onDeleteClick() {
-    this.modalService.openModal(this.header + ' delete');
+    console.log(this.id);
+    this.modalService.openModal(this.id + ' delete');
   }
 }

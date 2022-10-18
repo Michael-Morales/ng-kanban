@@ -2,16 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest } from 'rxjs';
+import { map, combineLatest, Observable } from 'rxjs';
 
-import { selectAllBoards } from '../../store/selectors/boards.selectors';
+import { selectColumns } from '../../store/selectors/boards.selectors';
 
 import {
   toggleSubtask,
   updateTaskColumn,
 } from 'src/app/store/actions/boards.actions';
 
-import { Task, Column, ISubTask } from '../../interfaces';
+import { ITask, IColumn, ISubTask } from '../../interfaces';
 
 @Component({
   selector: 'app-task-form',
@@ -19,11 +19,19 @@ import { Task, Column, ISubTask } from '../../interfaces';
   styleUrls: ['./task-form.component.css'],
 })
 export class TaskFormComponent implements OnInit {
-  @Input() task?: Task;
-  @Input() currentColumn?: Column;
+  @Input() currentTask?: ITask;
+  @Input() currentSubtasks?: ISubTask[];
+  @Input() currentColumnId?: number;
   @Input() completedTasks?: number;
   taskForm!: FormGroup;
-  columns$?: Column[];
+  columns$: Observable<IColumn[]> = combineLatest([
+    this.route.paramMap,
+    this.store.select(selectColumns),
+  ]).pipe(
+    map(([params, columns]) =>
+      columns.filter((column) => column.boardId.toString() === params.get('id'))
+    )
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -32,24 +40,16 @@ export class TaskFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
-      .pipe(
-        map(([params, boards]) =>
-          boards.find((board) => board.id.toString() === params.get('id'))
-        )
-      )
-      .subscribe((board) => (this.columns$ = board?.columns));
-
     this.taskForm = this.fb.group({
       subtasks: this.fb.array([]),
-      columnId: [this.currentColumn?.id],
+      columnId: [this.currentColumnId],
     });
 
-    this.task?.subtasks.forEach((subtask) => {
+    this.currentSubtasks?.forEach((subtask) => {
       this.subtasks.push(
         this.fb.group({
           id: [subtask.id, Validators.required],
-          taskId: [this.task?.id, Validators.required],
+          taskId: [this.currentTask?.id, Validators.required],
           title: [subtask.title, Validators.required],
           isCompleted: [subtask.isCompleted, Validators.required],
         })
@@ -74,11 +74,11 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSelect() {
-    if (this.task) {
+    if (this.currentTask) {
       this.store.dispatch(
         updateTaskColumn({
           update: {
-            id: this.task.id,
+            id: this.currentTask.id,
             changes: { columnId: this.taskForm.get('columnId')?.value },
           },
         })

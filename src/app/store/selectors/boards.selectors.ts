@@ -50,10 +50,18 @@ export const selectAllBoards = createSelector(
   }
 );
 
+export const selectBoards = createSelector(selectState, (state) =>
+  boardSelectors.selectAll(state.boards)
+);
+
 export const selectColumns = createSelector(selectState, (state) =>
   columnSelectors.selectAll(state.columns)
 );
 
-export const selectBoards = createSelector(selectState, (state) =>
-  boardSelectors.selectAll(state.boards)
+export const selectTasks = createSelector(selectState, (state) =>
+  taskSelectors.selectAll(state.tasks)
+);
+
+export const selectSubtasks = createSelector(selectState, (state) =>
+  subtaskSelectors.selectAll(state.subtasks)
 );

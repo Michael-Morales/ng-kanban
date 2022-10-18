@@ -15,8 +15,8 @@
       <div class="task-container">
         <app-task
           *ngFor="let task of column.tasks"
-          [task]="task"
-          [currentColumn]="column"
+          [taskId]="task.id"
+          [currentColumnId]="column.id"
         ></app-task>
       </div>
     </article>

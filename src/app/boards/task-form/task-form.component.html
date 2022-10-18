@@ -1,6 +1,6 @@
-<form *ngIf="task" [formGroup]="taskForm">
+<form *ngIf="currentTask && currentSubtasks" [formGroup]="taskForm">
   <div
-    *ngIf="task.subtasks.length > 0"
+    *ngIf="currentSubtasks.length > 0"
     class="checkbox-container"
     formArrayName="subtasks"
   >
@@ -21,7 +21,7 @@
     <h5>Current Status</h5>
     <app-select
       [control]="$any(taskForm).get('columnId')"
-      [columns]="columns$"
+      [columns]="columns$ | async"
     ></app-select>
   </div>
 </form>

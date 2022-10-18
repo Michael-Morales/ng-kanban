@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
 
 import { ModalService } from '../../shared/modal.service';
 
-import {
-  selectAllBoards,
-  selectColumns,
-} from '../../store/selectors/boards.selectors';
+import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
 import { createBoard } from '../../store/actions/boards.actions';
 
 import { generateId } from '../../store/reducers/boards.reducer';
 
-import { Board, IColumn } from '../../interfaces';
+import { Board } from '../../interfaces';
 
 @Component({
   selector: 'app-add-board',
@@ -24,7 +20,6 @@ import { Board, IColumn } from '../../interfaces';
 })
 export class AddBoardComponent implements OnInit {
   boards$?: Board[];
-  columns$?: IColumn[];
   newBoardId: number = generateId();
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -39,13 +34,9 @@ export class AddBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([
-      this.store.select(selectAllBoards),
-      this.store.select(selectColumns),
-    ]).subscribe(([boards, columns]) => {
-      this.boards$ = boards;
-      this.columns$ = columns;
-    });
+    this.store
+      .select(selectAllBoards)
+      .subscribe((boards) => (this.boards$ = boards));
   }
 
   get columns() {

@@ -1,20 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import {
-  selectAllBoards,
-  selectColumns,
-} from '../../store/selectors/boards.selectors';
+import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
 import { updateBoard } from '../../store/actions/boards.actions';
 
 import { generateId } from '../../store/reducers/boards.reducer';
 
-import { Board, IColumn } from '../../interfaces';
+import { Board } from '../../interfaces';
 
 @Component({
   selector: 'app-edit-board',
@@ -24,7 +20,6 @@ import { Board, IColumn } from '../../interfaces';
 export class EditBoardComponent implements OnInit {
   @Input() boardId?: number;
   board$?: Board;
-  allColumns$?: IColumn[];
   editForm!: FormGroup;
 
   constructor(
@@ -34,13 +29,12 @@ export class EditBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([
-      this.store.select(selectAllBoards),
-      this.store.select(selectColumns),
-    ]).subscribe(([boards, columns]) => {
-      this.board$ = boards.find((board) => board.id === this.boardId);
-      this.allColumns$ = columns;
-    });
+    this.store
+      .select(selectAllBoards)
+      .subscribe(
+        (boards) =>
+          (this.board$ = boards.find((board) => board.id === this.boardId))
+      );
 
     this.editForm = this.fb.group({
       id: [this.boardId, Validators.required],
