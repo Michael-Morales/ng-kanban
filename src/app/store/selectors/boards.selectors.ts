@@ -53,3 +53,7 @@ export const selectAllBoards = createSelector(
 export const selectColumns = createSelector(selectState, (state) =>
   columnSelectors.selectAll(state.columns)
 );
+
+export const selectBoards = createSelector(selectState, (state) =>
+  boardSelectors.selectAll(state.boards)
+);

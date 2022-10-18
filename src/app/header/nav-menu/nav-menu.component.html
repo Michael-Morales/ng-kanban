@@ -1,9 +1,9 @@
-<p>all boards ({{ boards?.length }})</p>
+<p>all boards ({{ (boards$ | async)?.length }})</p>
 <nav>
   <a
     [routerLink]="['boards', board.id]"
     routerLinkActive="active"
-    *ngFor="let board of boards"
+    *ngFor="let board of boards$ | async"
   >
     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
       <path

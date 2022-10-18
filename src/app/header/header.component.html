@@ -35,7 +35,7 @@
       class="nav-mobile-menu"
       *ngIf="headerService.showNav && boards$?.length"
     >
-      <app-nav-menu [boards]="boards$"></app-nav-menu>
+      <app-nav-menu></app-nav-menu>
     </div>
   </div>
   <div class="actions">
@@ -68,7 +68,7 @@
   </button>
 
   <aside [ngClass]="{ sidebar: true, open: headerService.showSidebar }">
-    <app-nav-menu [boards]="boards$"></app-nav-menu>
+    <app-nav-menu></app-nav-menu>
     <button class="hide-sidebar" (click)="headerService.onHideSidebarClick()">
       <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg">
         <path

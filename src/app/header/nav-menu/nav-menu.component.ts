@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { HeaderService } from '../header.service';
 
-import { Board } from '../../interfaces';
+import { selectBoards } from '../../store/selectors/boards.selectors';
+
+import { IBoard } from '../../interfaces';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,9 +14,9 @@ import { Board } from '../../interfaces';
   styleUrls: ['./nav-menu.component.css'],
 })
 export class NavMenuComponent implements OnInit {
-  @Input() boards?: Board[] = [];
+  boards$: Observable<IBoard[]> = this.store.select(selectBoards);
 
-  constructor(public headerService: HeaderService) {}
+  constructor(public headerService: HeaderService, private store: Store) {}
 
   ngOnInit(): void {}
 }
