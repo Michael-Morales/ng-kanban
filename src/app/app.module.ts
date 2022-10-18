@@ -11,6 +11,8 @@ import { NavMenuComponent } from './header/nav-menu/nav-menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 import { boardsReducer } from './store/reducers/boards.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { boardsReducer } from './store/reducers/boards.reducer';
     StoreModule.forRoot({
       boards: boardsReducer,
     }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],

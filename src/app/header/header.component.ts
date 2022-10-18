@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Params, Router } from '@angular/router';
-import { filter, map, combineLatest, tap } from 'rxjs';
+import { filter, map, combineLatest, tap, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from '../shared/modal.service';
@@ -29,20 +29,19 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([this.store.select(selectAllBoards), this.router.events])
+    this.router.events
       .pipe(
-        tap(([boards]) => (this.boards$ = boards)),
         filter(
-          ([, e]) =>
+          (e) =>
             e instanceof ActivationEnd &&
             Object.keys(e.snapshot.params).length > 0
         ),
-        map(([boards, e]): [Board[], Params] => [
-          boards,
-          e instanceof ActivationEnd ? e.snapshot.params : {},
-        ]),
-        map(([boards, { id }]) =>
-          boards.find((board) => board.id.toString() === id)
+        map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
+        switchMap(({ id }) =>
+          this.store.select(selectAllBoards).pipe(
+            tap((boards) => (this.boards$ = boards)),
+            map((boards) => boards.find((board) => board.id.toString() === id))
+          )
         )
       )
       .subscribe((board) => {
@@ -54,6 +53,7 @@ export class HeaderComponent implements OnInit {
   onDeleteClick() {
     if (this.currentBoard$) {
       this.store.dispatch(deleteBoard({ id: this.currentBoard$.id }));
+      this.currentBoard$ = undefined;
       this.router.navigateByUrl('/boards');
       this.modalService.closeModal();
     }

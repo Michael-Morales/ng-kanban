@@ -34,21 +34,21 @@ export const createColumn = createAction(
 );
 
 export const createTask = createAction(
-  '[Board] Create Task',
+  '[Boards] Create Task',
   props<{ task: ITask; subtasks: ISubTask[] }>()
 );
 
 export const deleteTask = createAction(
-  '[Board] Delete Task',
+  '[Boards] Delete Task',
   props<{ id: number }>()
 );
 
 export const toggleSubtask = createAction(
-  '[Board] Toggle Subtask',
+  '[Boards] Toggle Subtask',
   props<{ update: Update<ISubTask> }>()
 );
 
 export const updateTaskColumn = createAction(
-  '[Board] Update Task Column',
+  '[Boards] Update Task Column',
   props<{ update: Update<ITask> }>()
 );

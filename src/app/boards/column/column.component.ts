@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, tap, combineLatest } from 'rxjs';
+import { map, tap, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from 'src/app/shared/modal.service';
@@ -26,19 +26,21 @@ export class ColumnComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
+    this.route.paramMap
       .pipe(
-        tap(([params]) => (this.boardId = params.get('id'))),
-        map(([params, boards]) =>
-          boards.find((board) => board.id.toString() === params.get('id'))
+        tap((params) => console.log(params.get('id'))),
+        tap((params) => (this.boardId = params.get('id'))),
+        switchMap((params) =>
+          this.store.select(selectAllBoards).pipe(
+            map((boards) =>
+              boards.find((board) => board.id.toString() === params.get('id'))
+            ),
+            tap((board) => {
+              console.log(board);
+            })
+          )
         )
       )
-      .subscribe((board) => {
-        if (!board) {
-          this.router.navigateByUrl('/404');
-        } else {
-          this.columns$ = board.columns;
-        }
-      });
+      .subscribe((board) => (this.columns$ = board?.columns));
   }
 }
