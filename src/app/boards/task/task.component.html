@@ -1,13 +1,13 @@
-<ng-container *ngIf="taskId && task && subtasks">
+<ng-container *ngIf="task$ && subtasks$">
   <div
     class="task-container"
-    (click)="modalService.openModal(taskId.toString())"
+    (click)="modalService.openModal(task$.id.toString())"
   >
     <h3>
-      {{ task.title }}
+      {{ task$.title }}
     </h3>
-    <p *ngIf="subtasks.length > 0; else elseBlock">
-      {{ completedTasks }} of {{ subtasks.length }} subtasks
+    <p *ngIf="subtasks$.length > 0; else elseBlock">
+      {{ completedTasks }} of {{ subtasks$.length }} subtasks
     </p>
     <ng-template #elseBlock>
       <p>No subtasks</p>
@@ -15,19 +15,19 @@
   </div>
 
   <app-modal
-    *ngIf="modalService.modal === taskId.toString()"
+    *ngIf="modalService.modal === task$.id.toString()"
     (dismiss)="modalService.closeModal()"
-    [header]="task.title"
+    [header]="task$.title"
     type="task"
-    [id]="taskId.toString()"
+    [id]="task$.id.toString()"
   >
     <p class="description">
-      {{ task.description }}
+      {{ task$.description }}
     </p>
 
     <app-task-form
-      [currentTask]="task"
-      [currentSubtasks]="subtasks"
+      [currentTask]="task$"
+      [currentSubtasks]="subtasks$"
       [currentColumnId]="currentColumnId"
       [completedTasks]="completedTasks"
     ></app-task-form>
@@ -38,7 +38,7 @@
     header="Delete this task?"
   >
     <app-delete-menu (delete)="onDelete()">
-      Are you sure you want to delete the ‘{{ task.title }}’ task and its
+      Are you sure you want to delete the ‘{{ task$.title }}’ task and its
       subtasks? This action cannot be reversed.
     </app-delete-menu>
   </app-modal>
@@ -49,8 +49,8 @@
     (dismiss)="modalService.closeModal()"
   >
     <app-edit-task
-      [currentTask]="task"
-      [currentSubtasks]="subtasks"
+      [currentTask]="task$"
+      [currentSubtasks]="subtasks$"
     ></app-edit-task>
   </app-modal>
 </ng-container>

@@ -21,8 +21,8 @@ import { ITask, ISubTask } from '../../interfaces';
 export class TaskComponent implements OnInit {
   @Input() taskId?: number;
   @Input() currentColumnId?: number;
-  task?: ITask;
-  subtasks?: ISubTask[];
+  task$?: ITask;
+  subtasks$?: ISubTask[];
   completedTasks: number = 0;
 
   constructor(public modalService: ModalService, private store: Store) {}
@@ -39,8 +39,8 @@ export class TaskComponent implements OnInit {
         ])
       )
       .subscribe(([task, subtasks]) => {
-        this.task = task;
-        this.subtasks = subtasks;
+        this.task$ = task;
+        this.subtasks$ = subtasks;
         this.completedTasks = subtasks.reduce(
           (acc, cur) => (cur.isCompleted ? acc + 1 : acc),
           0
