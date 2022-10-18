@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 
-import { Column, IColumn } from '../../interfaces';
+import { IColumn } from '../../interfaces';
 
 @Component({
   selector: 'app-select',
@@ -11,7 +10,7 @@ import { Column, IColumn } from '../../interfaces';
 })
 export class SelectComponent implements OnInit {
   @Input() control!: FormControl;
-  @Input() columns?: Column[] | IColumn[] | null;
+  @Input() columns!: IColumn[] | null;
 
   constructor() {}
 

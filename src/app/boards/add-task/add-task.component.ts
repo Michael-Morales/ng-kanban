@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
-import { selectPopulatedColumns } from '../../store/selectors/boards.selectors';
+import { selectColumns } from '../../store/selectors/boards.selectors';
 
 import { createTask } from '../../store/actions/boards.actions';
 
 import { generateId } from '../../store/reducers/boards.reducer';
 
-import { Column } from '../../interfaces';
+import { IColumn } from '../../interfaces';
 
 @Component({
   selector: 'app-add-task',
@@ -21,7 +21,14 @@ import { Column } from '../../interfaces';
 export class AddTaskComponent implements OnInit {
   @Input() boardId?: string;
   newTaskId: number = generateId();
-  columns$?: Column[];
+  columns$: Observable<IColumn[]> = this.store
+    .select(selectColumns)
+    .pipe(
+      map((columns) =>
+        columns.filter((column) => column.boardId.toString() === this.boardId)
+      )
+    );
+
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     columnId: ['', Validators.required],
@@ -35,16 +42,7 @@ export class AddTaskComponent implements OnInit {
     private modalService: ModalService
   ) {}
 
-  ngOnInit(): void {
-    this.store
-      .select(selectPopulatedColumns)
-      .pipe(
-        map((columns) =>
-          columns.filter((column) => column.boardId.toString() === this.boardId)
-        )
-      )
-      .subscribe((columns) => (this.columns$ = columns));
-  }
+  ngOnInit(): void {}
 
   get subtasks() {
     return this.addForm.get('subtasks') as FormArray;

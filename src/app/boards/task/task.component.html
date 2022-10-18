@@ -19,6 +19,7 @@
     (dismiss)="modalService.closeModal()"
     [header]="task.title"
     type="task"
+    [id]="taskId.toString()"
   >
     <p class="description">
       {{ task.description }}
@@ -34,7 +35,6 @@
 
   <app-modal
     *ngIf="modalService.modal === taskId + ' delete'"
-    [id]="taskId"
     header="Delete this task?"
   >
     <app-delete-menu (delete)="onDelete()">
@@ -48,6 +48,9 @@
     header="Edit task"
     (dismiss)="modalService.closeModal()"
   >
-    <!-- <app-edit-task [task]="task"></app-edit-task> -->
+    <app-edit-task
+      [currentTask]="task"
+      [currentSubtasks]="subtasks"
+    ></app-edit-task>
   </app-modal>
 </ng-container>

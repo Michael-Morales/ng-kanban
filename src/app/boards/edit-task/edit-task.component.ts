@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest } from 'rxjs';
+import { map, combineLatest, Observable } from 'rxjs';
 
-import { selectAllBoards } from '../../store/selectors/boards.selectors';
+import { selectColumns } from '../../store/selectors/boards.selectors';
 
-import { Column, Task } from '../../interfaces';
+import { IColumn, ISubTask, ITask } from '../../interfaces';
 
 @Component({
   selector: 'app-edit-task',
@@ -14,8 +14,16 @@ import { Column, Task } from '../../interfaces';
   styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditTaskComponent implements OnInit {
-  @Input() task?: Task;
-  columns$?: Column[];
+  @Input() currentTask?: ITask;
+  @Input() currentSubtasks?: ISubTask[];
+  columns$: Observable<IColumn[]> = combineLatest([
+    this.route.paramMap,
+    this.store.select(selectColumns),
+  ]).pipe(
+    map(([params, columns]) =>
+      columns.filter((column) => column.boardId.toString() === params.get('id'))
+    )
+  );
   editForm!: FormGroup;
 
   constructor(
@@ -25,22 +33,17 @@ export class EditTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([this.route.paramMap, this.store.select(selectAllBoards)])
-      .pipe(
-        map(([params, boards]) =>
-          boards.find((board) => board.id.toString() === params.get('id'))
-        )
-      )
-      .subscribe((board) => (this.columns$ = board?.columns));
-
     this.editForm = this.fb.group({
-      title: [this.task?.title, [Validators.required, Validators.minLength(3)]],
-      description: [this.task?.description],
-      columnId: [this.task?.columnId, Validators.required],
+      title: [
+        this.currentTask?.title,
+        [Validators.required, Validators.minLength(3)],
+      ],
+      description: [this.currentTask?.description],
+      columnId: [this.currentTask?.columnId, Validators.required],
       subtasks: this.fb.array([]),
     });
 
-    this.task?.subtasks.forEach(({ title, isCompleted }) => {
+    this.currentSubtasks?.forEach(({ title, isCompleted }) => {
       this.subtasks.push(
         this.fb.group({
           title: [title, [Validators.required, Validators.minLength(3)]],
