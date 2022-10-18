@@ -22,6 +22,7 @@
     <app-select
       [control]="$any(taskForm).get('columnId')"
       [columns]="columns$ | async"
+      (change)="onSelect()"
     ></app-select>
   </div>
 </form>
