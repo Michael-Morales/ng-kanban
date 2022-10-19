@@ -1,0 +1,36 @@
+.task-container {
+  padding: 2.4rem 1.6rem;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow);
+  cursor: pointer;
+}
+
+h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--black);
+  transition: color ease 0.3s;
+}
+
+.task-container:hover h3 {
+  color: var(--primary-color);
+}
+
+p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.description {
+  margin-bottom: 2.4rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}

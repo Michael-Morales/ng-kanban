@@ -1,0 +1,56 @@
+<ng-container *ngIf="task$ && subtasks$">
+  <div
+    class="task-container"
+    (click)="modalService.openModal(task$.id.toString())"
+  >
+    <h3>
+      {{ task$.title }}
+    </h3>
+    <p *ngIf="subtasks$.length > 0; else elseBlock">
+      {{ completedTasks }} of {{ subtasks$.length }} subtasks
+    </p>
+    <ng-template #elseBlock>
+      <p>No subtasks</p>
+    </ng-template>
+  </div>
+
+  <app-modal
+    *ngIf="modalService.modal === task$.id.toString()"
+    (dismiss)="modalService.closeModal()"
+    [header]="task$.title"
+    type="task"
+    [id]="task$.id.toString()"
+  >
+    <p class="description">
+      {{ task$.description }}
+    </p>
+
+    <app-task-form
+      [currentTask]="task$"
+      [currentSubtasks]="subtasks$"
+      [currentColumnId]="currentColumnId"
+      [completedTasks]="completedTasks"
+    ></app-task-form>
+  </app-modal>
+
+  <app-modal
+    *ngIf="modalService.modal === taskId + ' task delete'"
+    header="Delete this task?"
+  >
+    <app-delete-menu (delete)="onDelete()">
+      Are you sure you want to delete the ‘{{ task$.title }}’ task and its
+      subtasks? This action cannot be reversed.
+    </app-delete-menu>
+  </app-modal>
+
+  <app-modal
+    *ngIf="modalService.modal === taskId + ' task edit'"
+    header="Edit task"
+    (dismiss)="modalService.closeModal()"
+  >
+    <app-edit-task
+      [currentTask]="task$"
+      [currentSubtasks]="subtasks$"
+    ></app-edit-task>
+  </app-modal>
+</ng-container>

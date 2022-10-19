@@ -1,0 +1,5 @@
+<select [formControl]="control">
+  <option *ngFor="let column of columns" [ngValue]="column.id">
+    {{ column.name }}
+  </option>
+</select>

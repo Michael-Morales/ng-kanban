@@ -1,0 +1,30 @@
+label {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2.4rem;
+}
+
+.elements {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.element-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+button {
+  border: unset;
+  background-color: unset;
+  cursor: pointer;
+}

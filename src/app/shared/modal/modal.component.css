@@ -1,0 +1,43 @@
+.modal-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(32, 33, 44, 0.5);
+  z-index: 999;
+}
+
+.modal {
+  padding: 2.4rem;
+  margin: 0 1.6rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90%;
+  background-color: var(--white);
+  border-radius: 6px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.4rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+  color: var(--black);
+}
+
+button {
+  padding: 0 0.8rem;
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+}
+
+.task-menu {
+  position: relative;
+}

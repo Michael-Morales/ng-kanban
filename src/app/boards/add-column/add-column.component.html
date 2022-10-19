@@ -1,0 +1,10 @@
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+  <app-input
+    [control]="$any(addForm).get('name')"
+    label="Title"
+    placeholder="e.g. Todo"
+  ></app-input>
+  <app-button buttonType="submit" [disabled]="addForm.invalid"
+    >add new column</app-button
+  >
+</form>
