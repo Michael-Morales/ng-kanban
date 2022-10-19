@@ -4,7 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest, Observable } from 'rxjs';
 
+import { ModalService } from 'src/app/shared/modal.service';
+
+import { generateId } from '../../store/reducers/boards.reducer';
 import { selectColumns } from '../../store/selectors/boards.selectors';
+import { updateTask, deleteSubtask } from '../../store/actions/boards.actions';
 
 import { IColumn, ISubTask, ITask } from '../../interfaces';
 
@@ -29,7 +33,8 @@ export class EditTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private store: Store
+    private store: Store,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -43,9 +48,11 @@ export class EditTaskComponent implements OnInit {
       subtasks: this.fb.array([]),
     });
 
-    this.currentSubtasks?.forEach(({ title, isCompleted }) => {
+    this.currentSubtasks?.forEach(({ id, taskId, title, isCompleted }) => {
       this.subtasks.push(
         this.fb.group({
+          id: [id, Validators.required],
+          taskId: [taskId, Validators.required],
           title: [title, [Validators.required, Validators.minLength(3)]],
           isCompleted,
         })
@@ -57,13 +64,16 @@ export class EditTaskComponent implements OnInit {
     return this.editForm.get('subtasks') as FormArray;
   }
 
-  onDelete(index: number) {
+  onDelete(index: number, id: number) {
     this.subtasks.removeAt(index);
+    this.store.dispatch(deleteSubtask({ id }));
   }
 
   onAddNewSubtask() {
     this.subtasks.push(
       this.fb.group({
+        id: [generateId(), Validators.required],
+        taskId: [this.currentTask?.id, Validators.required],
         title: ['', [Validators.required, Validators.minLength(3)]],
         isCompleted: [false],
       })
@@ -71,6 +81,24 @@ export class EditTaskComponent implements OnInit {
   }
 
   onSave() {
-    console.log('Saving changes');
+    if (this.editForm.valid && this.currentTask) {
+      const { title, description, columnId } = this.editForm.value;
+
+      this.store.dispatch(
+        updateTask({
+          task: {
+            id: this.currentTask.id,
+            changes: {
+              title,
+              description,
+              columnId,
+            },
+          },
+          subtasks: this.subtasks.value,
+        })
+      );
+
+      this.modalService.closeModal();
+    }
   }
 }

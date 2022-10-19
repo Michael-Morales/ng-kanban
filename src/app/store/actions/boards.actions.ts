@@ -48,9 +48,19 @@ export const deleteTask = createAction(
   props<{ id: number }>()
 );
 
+export const updateTask = createAction(
+  '[Boards] Update Task',
+  props<{ task: Update<ITask>; subtasks: ISubTask[] }>()
+);
+
 export const toggleSubtask = createAction(
   '[Boards] Toggle Subtask',
   props<{ update: Update<ISubTask> }>()
+);
+
+export const deleteSubtask = createAction(
+  '[Boards] Delete Subtask',
+  props<{ id: number }>()
 );
 
 export const updateTaskColumn = createAction(

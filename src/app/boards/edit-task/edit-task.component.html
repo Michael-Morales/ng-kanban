@@ -16,14 +16,17 @@
       <div
         class="element-input"
         [formGroupName]="i"
-        *ngFor="let column of subtasks.controls; let i = index"
+        *ngFor="let subtask of subtasks.controls; let i = index"
       >
         <app-input
-          [control]="$any(column).get('title')"
+          [control]="$any(subtask).get('title')"
           [ngClass]="'list'"
           placeholder="e.g. Make coffee"
         ></app-input>
-        <button class="delete-button" (click)="onDelete(i)">
+        <button
+          class="delete-button"
+          (click)="onDelete(i, $any(subtask).get('id').value)"
+        >
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>

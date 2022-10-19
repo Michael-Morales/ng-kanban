@@ -12,6 +12,8 @@ import {
   toggleSubtask,
   updateTaskColumn,
   deleteColumn,
+  updateTask,
+  deleteSubtask,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -156,10 +158,23 @@ export const boardsReducer = createReducer(
       subtasks: subtaskAdapter.removeMany(subtasksToDelete, state.subtasks),
     };
   }),
+  on(updateTask, (state, { task, subtasks }) => {
+    return {
+      ...state,
+      tasks: taskAdapter.updateOne(task, state.tasks),
+      subtasks: subtaskAdapter.upsertMany(subtasks, state.subtasks),
+    };
+  }),
   on(toggleSubtask, (state, { update }) => {
     return {
       ...state,
       subtasks: subtaskAdapter.updateOne(update, state.subtasks),
+    };
+  }),
+  on(deleteSubtask, (state, { id }) => {
+    return {
+      ...state,
+      subtasks: subtaskAdapter.removeOne(id.toString(), state.subtasks),
     };
   }),
   on(updateTaskColumn, (state, { update }) => {
