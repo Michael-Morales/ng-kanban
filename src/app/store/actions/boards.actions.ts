@@ -33,6 +33,11 @@ export const createColumn = createAction(
   props<{ column: IColumn }>()
 );
 
+export const deleteColumn = createAction(
+  '[Boards] Delete Column',
+  props<{ id: number }>()
+);
+
 export const createTask = createAction(
   '[Boards] Create Task',
   props<{ task: ITask; subtasks: ISubTask[] }>()

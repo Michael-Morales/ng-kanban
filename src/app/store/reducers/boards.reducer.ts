@@ -11,6 +11,7 @@ import {
   deleteTask,
   toggleSubtask,
   updateTaskColumn,
+  deleteColumn,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -104,11 +105,35 @@ export const boardsReducer = createReducer(
     return {
       ...state,
       boards: boardAdapter.updateOne(board, state.boards),
-      columns: columnAdapter.addMany(columns, state.columns),
+      columns: columnAdapter.upsertMany(columns, state.columns),
     };
   }),
   on(createColumn, (state, { column }) => {
     return { ...state, columns: columnAdapter.addOne(column, state.columns) };
+  }),
+  on(deleteColumn, (state, { id }) => {
+    const tasksToDelete = taskSelectors
+      .selectAll(state.tasks)
+      .filter((task) => task.columnId === id)
+      .map((task) => task.id.toString());
+
+    const subtasks = subtaskSelectors.selectAll(state.subtasks);
+    const subtasksToDelete: string[] = [];
+
+    for (let i = 0; i < subtasks.length; i++) {
+      for (let j = 0; j < tasksToDelete.length; j++) {
+        if (subtasks[i].taskId.toString() === tasksToDelete[j]) {
+          subtasksToDelete.push(subtasks[i].id.toString());
+        }
+      }
+    }
+
+    return {
+      ...state,
+      columns: columnAdapter.removeOne(id.toString(), state.columns),
+      tasks: taskAdapter.removeMany(tasksToDelete, state.tasks),
+      subtasks: subtaskAdapter.removeMany(subtasksToDelete, state.subtasks),
+    };
   }),
   on(createTask, (state, { task, subtasks }) => {
     return {

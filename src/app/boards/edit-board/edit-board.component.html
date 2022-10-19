@@ -17,7 +17,7 @@
           [ngClass]="'list'"
           placeholder="e.g. Todo"
         ></app-input>
-        <button (click)="onDelete(i)">
+        <button (click)="onDelete(i, $any(column).get('id').value)">
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>

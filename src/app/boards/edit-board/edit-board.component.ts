@@ -7,7 +7,7 @@ import { ModalService } from 'src/app/shared/modal.service';
 
 import { selectAllBoards } from '../../store/selectors/boards.selectors';
 
-import { updateBoard } from '../../store/actions/boards.actions';
+import { updateBoard, deleteColumn } from '../../store/actions/boards.actions';
 
 import { generateId } from '../../store/reducers/boards.reducer';
 
@@ -65,8 +65,9 @@ export class EditBoardComponent implements OnInit, OnDestroy {
     return this.editForm.get('columns') as FormArray;
   }
 
-  onDelete(index: number) {
+  onDelete(index: number, id: number) {
     this.columns.removeAt(index);
+    this.store.dispatch(deleteColumn({ id }));
   }
 
   onSave() {
