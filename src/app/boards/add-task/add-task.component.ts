@@ -26,7 +26,6 @@ export class AddTaskComponent implements OnInit {
         columns.filter((column) => column.boardId.toString() === this.boardId)
       )
     );
-
   addForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     columnId: ['', Validators.required],

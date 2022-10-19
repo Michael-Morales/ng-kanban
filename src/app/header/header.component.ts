@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivationEnd, Params, Router } from '@angular/router';
-import { filter, map, combineLatest, tap, switchMap } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivationEnd, Router } from '@angular/router';
+import { filter, map, tap, switchMap, takeUntil, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from '../shared/modal.service';
@@ -17,9 +17,10 @@ import { Board } from '../interfaces';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   boards$?: Board[];
   currentBoard$?: Board;
+  unsubscribe$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -40,7 +41,8 @@ export class HeaderComponent implements OnInit {
         switchMap(({ id }) =>
           this.store.select(selectAllBoards).pipe(
             tap((boards) => (this.boards$ = boards)),
-            map((boards) => boards.find((board) => board.id.toString() === id))
+            map((boards) => boards.find((board) => board.id.toString() === id)),
+            takeUntil(this.unsubscribe$)
           )
         )
       )
@@ -48,6 +50,11 @@ export class HeaderComponent implements OnInit {
         this.currentBoard$ = board;
         this.headerService.closeMenus();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onDeleteClick() {

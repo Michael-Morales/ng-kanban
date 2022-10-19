@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { takeUntil, Subject } from 'rxjs';
 
 import { ModalService } from '../../shared/modal.service';
 
@@ -16,13 +17,14 @@ import { Board } from '../../interfaces';
   templateUrl: './add-board.component.html',
   styleUrls: ['./add-board.component.css'],
 })
-export class AddBoardComponent implements OnInit {
+export class AddBoardComponent implements OnInit, OnDestroy {
   boards$?: Board[];
   newBoardId: number = generateId();
   addForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     columns: this.fb.array([]),
   });
+  unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +36,13 @@ export class AddBoardComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectAllBoards)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((boards) => (this.boards$ = boards));
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   get columns() {

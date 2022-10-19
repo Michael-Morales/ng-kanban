@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { takeUntil, Subject } from 'rxjs';
 
 import { ModalService } from 'src/app/shared/modal.service';
 
@@ -17,10 +18,11 @@ import { Board } from '../../interfaces';
   templateUrl: './edit-board.component.html',
   styleUrls: ['../add-board/add-board.component.css'],
 })
-export class EditBoardComponent implements OnInit {
+export class EditBoardComponent implements OnInit, OnDestroy {
   @Input() boardId?: number;
   board$?: Board;
   editForm!: FormGroup;
+  unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +33,7 @@ export class EditBoardComponent implements OnInit {
   ngOnInit(): void {
     this.store
       .select(selectAllBoards)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (boards) =>
           (this.board$ = boards.find((board) => board.id === this.boardId))
@@ -51,6 +54,11 @@ export class EditBoardComponent implements OnInit {
         })
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   get columns() {
