@@ -13,7 +13,6 @@
     </ng-template>
 
     <button
-      *ngIf="boards$?.length"
       type="button"
       (click)="headerService.onNavClick()"
       class="mobile-nav-button"
@@ -22,7 +21,7 @@
         {{ currentBoard$.name }}
       </h1>
       <ng-template #defaultMobileView>
-        <h1 class="mobile-nav-button">Select a board</h1>
+        <h1 class="mobile-title">Select a board</h1>
       </ng-template>
       <img
         src="/assets/images/icon-chevron-down.svg"
@@ -31,10 +30,7 @@
       />
     </button>
 
-    <div
-      class="nav-mobile-menu"
-      *ngIf="headerService.showNav && boards$?.length"
-    >
+    <div class="nav-mobile-menu" *ngIf="headerService.showNav">
       <app-nav-menu></app-nav-menu>
     </div>
   </div>

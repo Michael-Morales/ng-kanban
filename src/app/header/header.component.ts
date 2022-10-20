@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
-import { filter, map, tap, switchMap, takeUntil, Subject } from 'rxjs';
+import { filter, map, switchMap, takeUntil, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { ModalService } from '../shared/modal.service';
@@ -18,7 +18,6 @@ import { Board } from '../interfaces';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  boards$?: Board[];
   currentBoard$?: Board;
   unsubscribe$ = new Subject<void>();
 
@@ -38,10 +37,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
             Object.keys(e.snapshot.params).length > 0
         ),
         map((e) => (e instanceof ActivationEnd ? e.snapshot.params : {})),
-        switchMap(({ id }) =>
+        switchMap((params) =>
           this.store.select(selectAllBoards).pipe(
-            tap((boards) => (this.boards$ = boards)),
-            map((boards) => boards.find((board) => board.id.toString() === id)),
+            map((boards) =>
+              boards.find((board) => board.id.toString() === params['id'])
+            ),
             takeUntil(this.unsubscribe$)
           )
         )
