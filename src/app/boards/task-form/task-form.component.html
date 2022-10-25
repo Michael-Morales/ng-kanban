@@ -8,13 +8,13 @@
       Subtasks ({{ completedTasks }} of {{ subtasks.length }})
     </h5>
     <label
-      class="flex cursor-pointer gap-4 rounded-[4px] bg-light py-4 px-2"
+      class="flex cursor-pointer gap-4 rounded bg-light py-4 px-2"
       [formGroupName]="i"
       *ngFor="let subtask of subtasks.controls; let i = index"
     >
       <input
         type="checkbox"
-        class="peer"
+        class="peer text-primary"
         formControlName="isCompleted"
         (input)="onToggle(subtask.get('id')?.value)"
       />

@@ -13,15 +13,21 @@
         *ngFor="let column of columns.controls; let i = index"
       >
         <app-input
+          class="w-full"
           [control]="$any(column).get('name')"
-          [ngClass]="'list'"
           placeholder="e.g. Todo"
         ></app-input>
         <button (click)="onDelete(i, $any(column).get('id').value)">
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>
-      <app-button [buttonStyle]="['secondary']" (click)="onAddNewColumn()"
+      <app-button
+        [buttonStyle]="[
+          'text-primary',
+          'bg-secondary',
+          'hover:bg-hover-secondary'
+        ]"
+        (click)="onAddNewColumn()"
         >+ add new column</app-button
       >
     </div>

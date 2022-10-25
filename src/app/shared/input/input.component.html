@@ -1,12 +1,16 @@
-<label *ngIf="label">{{ label }}</label>
-<input
-  *ngIf="controlType === 'input'"
-  [type]="type"
-  [formControl]="control"
-  [placeholder]="placeholder"
-/>
-<textarea
-  *ngIf="controlType === 'textarea'"
-  [formControl]="control"
-  [placeholder]="placeholder"
-></textarea>
+<div class="flex w-full flex-col gap-2" [ngClass]="{ 'mb-6': label }">
+  <label class="text-xs font-bold" *ngIf="label">{{ label }}</label>
+  <input
+    class="w-full rounded border border-solid border-light py-2 px-4 text-sm text-black transition placeholder:text-placeholder hover:border-primary focus:border-primary focus:ring-0 focus:ring-offset-0"
+    *ngIf="controlType === 'input'"
+    [type]="type"
+    [formControl]="control"
+    [placeholder]="placeholder"
+  />
+  <textarea
+    class="h-24 w-full resize-none rounded border border-solid border-light py-2 px-4 text-sm leading-normal text-black transition hover:border-primary focus:border-primary focus:ring-0 focus:ring-offset-0"
+    *ngIf="controlType === 'textarea'"
+    [formControl]="control"
+    [placeholder]="placeholder"
+  ></textarea>
+</div>

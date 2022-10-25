@@ -1,9 +1,15 @@
-<div class="modal-bg" (click)="onDismissClick()">
-  <div class="modal" (click)="$event.stopPropagation()">
-    <div class="header">
-      <h4>{{ header }}</h4>
-      <div class="task-menu" *ngIf="type === 'task'">
-        <button type="button" (click)="showMenu = !showMenu">
+<div
+  class="absolute inset-0 z-[999] flex items-center justify-center bg-[rgb(32,33,44,0.5)]"
+  (click)="onDismissClick()"
+>
+  <div
+    class="mx-4 max-h-[90%] w-full max-w-[480px] overflow-y-auto rounded-md bg-white p-6"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="mb-6 flex items-center justify-between">
+      <h4 class="text-lg font-bold text-black">{{ header }}</h4>
+      <div class="relative" *ngIf="type === 'task'">
+        <button type="button" class="px-2" (click)="showMenu = !showMenu">
           <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
         </button>
         <app-menu

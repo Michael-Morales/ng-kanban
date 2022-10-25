@@ -19,15 +19,21 @@
         *ngFor="let column of subtasks.controls; let i = index"
       >
         <app-input
+          class="w-full"
           [control]="$any(column).get('title')"
-          [ngClass]="'list'"
           placeholder="e.g. Make coffee"
         ></app-input>
-        <button class="delete-button" (click)="onDelete(i)">
+        <button (click)="onDelete(i)">
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>
-      <app-button [buttonStyle]="['secondary']" (click)="onAddNewSubtask()"
+      <app-button
+        [buttonStyle]="[
+          'text-primary',
+          'bg-secondary',
+          'hover:bg-hover-secondary'
+        ]"
+        (click)="onAddNewSubtask()"
         >+ add new subtask</app-button
       >
     </div>

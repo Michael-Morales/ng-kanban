@@ -1,4 +1,7 @@
-<select [formControl]="control">
+<select
+  class="w-full rounded border-[rgba(130,143,163,0.25)] p-2 text-sm font-medium text-black transition hover:border-primary"
+  [formControl]="control"
+>
   <option *ngFor="let column of columns" [ngValue]="column.id">
     {{ column.name }}
   </option>
