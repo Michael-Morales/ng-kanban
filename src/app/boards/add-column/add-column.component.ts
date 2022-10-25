@@ -11,7 +11,6 @@ import { generateId } from '../../store/reducers/boards.reducer';
 @Component({
   selector: 'app-add-column',
   templateUrl: './add-column.component.html',
-  styleUrls: ['./add-column.component.css'],
 })
 export class AddColumnComponent implements OnInit {
   @Input() boardId: string | null = '';

@@ -14,7 +14,6 @@ import { IColumn } from '../../interfaces';
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['../add-board/add-board.component.css'],
 })
 export class AddTaskComponent implements OnInit {
   @Input() boardId?: string;

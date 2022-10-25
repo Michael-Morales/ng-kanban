@@ -12,7 +12,6 @@ import { Column } from '../../interfaces';
 @Component({
   selector: 'app-column',
   templateUrl: './column.component.html',
-  styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit, OnDestroy {
   columns$?: Column[] = [];

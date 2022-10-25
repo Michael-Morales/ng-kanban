@@ -15,7 +15,6 @@ import { IColumn, ISubTask, ITask } from '../../interfaces';
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
-  styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditTaskComponent implements OnInit {
   @Input() currentTask?: ITask;

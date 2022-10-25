@@ -1,24 +1,31 @@
 <form *ngIf="currentTask && currentSubtasks" [formGroup]="taskForm">
   <div
     *ngIf="currentSubtasks.length > 0"
-    class="checkbox-container"
+    class="mb-6 flex flex-col gap-2"
     formArrayName="subtasks"
   >
-    <h5>Subtasks ({{ completedTasks }} of {{ subtasks.length }})</h5>
+    <h5 class="mb-4 text-xs font-bold">
+      Subtasks ({{ completedTasks }} of {{ subtasks.length }})
+    </h5>
     <label
+      class="flex cursor-pointer gap-4 rounded-[4px] bg-light py-4 px-2"
       [formGroupName]="i"
       *ngFor="let subtask of subtasks.controls; let i = index"
     >
       <input
         type="checkbox"
+        class="peer"
         formControlName="isCompleted"
         (input)="onToggle(subtask.get('id')?.value)"
       />
-      <span>{{ subtask.value.title }}</span>
+      <span
+        class="text-xs font-bold text-black peer-checked:text-body peer-checked:line-through"
+        >{{ subtask.value.title }}</span
+      >
     </label>
   </div>
   <div>
-    <h5>Current Status</h5>
+    <h5 class="mb-4 text-xs font-bold">Current Status</h5>
     <app-select
       [control]="$any(taskForm).get('columnId')"
       [columns]="columns$ | async"

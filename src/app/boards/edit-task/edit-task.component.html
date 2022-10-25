@@ -10,11 +10,11 @@
     [control]="$any(editForm).get('description')"
     placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
   ></app-input>
-  <div class="form-group" formArrayName="subtasks">
-    <label>Subtasks</label>
-    <div class="elements">
+  <div class="mb-6 flex flex-col gap-2" formArrayName="subtasks">
+    <label class="text-xs font-bold">Subtasks</label>
+    <div class="flex flex-col gap-3">
       <div
-        class="element-input"
+        class="flex items-center justify-between gap-4"
         [formGroupName]="i"
         *ngFor="let subtask of subtasks.controls; let i = index"
       >
@@ -23,10 +23,7 @@
           [ngClass]="'list'"
           placeholder="e.g. Make coffee"
         ></app-input>
-        <button
-          class="delete-button"
-          (click)="onDelete(i, $any(subtask).get('id').value)"
-        >
+        <button (click)="onDelete(i, $any(subtask).get('id').value)">
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>
@@ -35,8 +32,8 @@
       >
     </div>
   </div>
-  <div class="form-group">
-    <label>Current Status</label>
+  <div class="mb-6 flex flex-col gap-2">
+    <label class="text-xs font-bold">Current Status</label>
     <app-select
       [control]="$any(editForm).get('columnId')"
       [columns]="columns$ | async"

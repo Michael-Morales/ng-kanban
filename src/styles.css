@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: "Plus Jakarta Sans";
   src: url("assets/fonts/PlusJakartaSans-Medium.woff2") format("woff2");
@@ -14,7 +18,7 @@
 }
 
 :root {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
   --primary-color: #635fc7;
   --hover-primary-color: #a8a4ff;
   --secondary-color: #f0effa;
@@ -32,7 +36,7 @@
   --shadow: rgba(54, 78, 126, 0.1);
 }
 
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -57,7 +61,7 @@ button,
 textarea,
 select {
   font: inherit;
-}
+} */
 
 p,
 h1,

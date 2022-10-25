@@ -16,7 +16,6 @@ import { Board } from '../../interfaces';
 @Component({
   selector: 'app-edit-board',
   templateUrl: './edit-board.component.html',
-  styleUrls: ['../add-board/add-board.component.css'],
 })
 export class EditBoardComponent implements OnInit, OnDestroy {
   @Input() boardId?: number;

@@ -8,11 +8,13 @@
 </app-empty>
 
 <ng-template #columnContainer>
-  <div class="column-container">
-    <article *ngFor="let column of columns$">
-      <h2>{{ column.name }}</h2>
+  <div class="flex flex-nowrap gap-6">
+    <article class="flex-[0_0_280px]" *ngFor="let column of columns$">
+      <h2 class="mb-6 text-xs font-bold uppercase tracking-widest">
+        {{ column.name }}
+      </h2>
 
-      <div class="task-container">
+      <div class="mb-6 flex flex-col gap-5">
         <app-task
           *ngFor="let task of column.tasks"
           [taskId]="task.id"
@@ -20,7 +22,10 @@
         ></app-task>
       </div>
     </article>
-    <button class="new-column" (click)="modalService.openModal('add-column')">
+    <button
+      class="mb-6 min-h-[calc(100vh-122px)] flex-[0_0_280px] cursor-pointer rounded-md bg-light-blue text-2xl font-bold capitalize text-body transition hover:text-primary"
+      (click)="modalService.openModal('add-column')"
+    >
       + new column
     </button>
   </div>
