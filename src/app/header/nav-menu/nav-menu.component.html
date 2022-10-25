@@ -1,11 +1,19 @@
-<p>all boards ({{ (boards$ | async)?.length }})</p>
-<nav>
+<p class="mb-5 text-xs font-bold uppercase tracking-widest">
+  all boards ({{ (boards$ | async)?.length }})
+</p>
+<nav class="flex flex-col">
   <a
+    class="group/link relative z-[1] flex items-center gap-3 fill-body py-4 text-base font-bold text-body hover:text-primary hover:before:absolute hover:before:-z-[1] hover:before:h-full hover:before:w-[280px] hover:before:-translate-x-[50px] hover:before:rounded-tr-[100px] hover:before:rounded-br-[100px] hover:before:bg-secondary hover:before:transition"
     [routerLink]="['boards', board.id]"
-    routerLinkActive="active"
+    routerLinkActive="group/active fill-white text-white before:bg-primary before:-translate-x-[50px] before:absolute before:w-[280px] before:h-full before:rounded-tr-[100px] before:rounded-br-[100px] before:-z-[1] transition hover:before:bg-primary hover:text-white"
     *ngFor="let board of boards$ | async"
   >
-    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      class="transition-colors group-hover/link:fill-primary group-hover/active:fill-white"
+      width="16"
+      height="16"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
       />
@@ -13,8 +21,16 @@
     {{ board.name }}
   </a>
 </nav>
-<button class="new-board" (click)="headerService.onAddBoardClick()">
-  <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+<button
+  class="relative flex items-center gap-3 py-4 text-base font-bold capitalize text-primary before:absolute before:-z-[1] before:h-full before:w-[280px] before:-translate-x-[50px] before:rounded-tr-[100px] before:rounded-br-[100px] before:transition hover:before:bg-secondary"
+  (click)="headerService.onAddBoardClick()"
+>
+  <svg
+    class="fill-primary"
+    width="16"
+    height="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
     />

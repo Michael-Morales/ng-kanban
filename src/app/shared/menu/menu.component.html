@@ -1,2 +1,16 @@
-<button (click)="onEditClick()">edit {{ type }}</button>
-<button class="delete" (click)="onDeleteClick()">delete {{ type }}</button>
+<div
+  class="absolute top-[125%] right-0 flex w-[135px] flex-col items-end rounded-md bg-white py-2 px-4 shadow-md shadow-shadow"
+>
+  <button
+    class="py-3 text-sm font-bold capitalize text-black transition-colors hover:text-body"
+    (click)="onEditClick()"
+  >
+    edit {{ type }}
+  </button>
+  <button
+    class="py-3 text-sm font-bold capitalize text-black transition-colors hover:text-danger"
+    (click)="onDeleteClick()"
+  >
+    delete {{ type }}
+  </button>
+</div>

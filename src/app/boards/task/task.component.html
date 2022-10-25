@@ -1,12 +1,14 @@
 <ng-container *ngIf="task$ && subtasks$">
   <div
-    class="task-container"
+    class="group cursor-pointer rounded-lg bg-white py-6 px-4 shadow-md shadow-shadow"
     (click)="modalService.openModal(task$.id.toString())"
   >
-    <h3>
+    <h3
+      class="mb-2 text-base font-bold text-black transition-colors group-hover:text-primary"
+    >
       {{ task$.title }}
     </h3>
-    <p *ngIf="subtasks$.length > 0; else elseBlock">
+    <p class="text-xs font-bold" *ngIf="subtasks$.length > 0; else elseBlock">
       {{ completedTasks }} of {{ subtasks$.length }} subtasks
     </p>
     <ng-template #elseBlock>
@@ -21,7 +23,7 @@
     type="task"
     [id]="task$.id.toString()"
   >
-    <p class="description">
+    <p class="mb-6 text-sm font-medium">
       {{ task$.description }}
     </p>
 

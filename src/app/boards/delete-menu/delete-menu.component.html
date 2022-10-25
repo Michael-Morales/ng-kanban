@@ -1,12 +1,16 @@
-<p class="description">
+<p class="mb-6 text-sm font-medium">
   <ng-content></ng-content>
 </p>
 
-<div class="actions">
-  <app-button [buttonStyle]="['danger']" (click)="onDeleteClick()"
+<div class="flex flex-col gap-4">
+  <app-button
+    [buttonStyle]="['bg-danger', 'hover:bg-hover-danger']"
+    (click)="onDeleteClick()"
     >delete</app-button
   >
-  <app-button [buttonStyle]="['secondary']" (click)="dismiss()"
+  <app-button
+    [buttonStyle]="['text-primary', 'bg-secondary', 'hover:bg-hover-secondary']"
+    (click)="dismiss()"
     >cancel</app-button
   >
 </div>

@@ -1,52 +1,73 @@
-<header>
-  <div class="navigation">
+<header
+  class="relative z-[999] flex items-center justify-between bg-white py-5 px-4 md:px-8"
+>
+  <div class="flex items-center gap-4 md:gap-16">
     <a routerLink="/">
-      <img src="/assets/images/logo-mobile.svg" alt="" class="logo-mobile" />
-      <img src="/assets/images/logo-dark.svg" alt="" class="logo-desktop" />
+      <img src="/assets/images/logo-mobile.svg" alt="" class="md:hidden" />
+      <img src="/assets/images/logo-dark.svg" alt="" class="hidden md:block" />
     </a>
 
-    <h1 *ngIf="currentBoard$; else defaultDesktopView" class="desktop-title">
+    <h1
+      *ngIf="currentBoard$; else defaultDesktopView"
+      class="hidden text-2xl font-bold text-black md:block"
+    >
       {{ currentBoard$.name }}
     </h1>
     <ng-template #defaultDesktopView>
-      <h1 class="desktop-title">Select a board</h1>
+      <h1 class="hidden text-2xl font-bold text-black md:block">
+        Select a board
+      </h1>
     </ng-template>
 
     <button
       type="button"
       (click)="headerService.onNavClick()"
-      class="mobile-nav-button"
+      class="flex items-center gap-2 md:hidden"
     >
-      <h1 *ngIf="currentBoard$; else defaultMobileView">
+      <h1
+        class="text-xl font-bold text-black"
+        *ngIf="currentBoard$; else defaultMobileView"
+      >
         {{ currentBoard$.name }}
       </h1>
       <ng-template #defaultMobileView>
-        <h1 class="mobile-title">Select a board</h1>
+        <h1 class="text-xl font-bold text-black">Select a board</h1>
       </ng-template>
       <img
         src="/assets/images/icon-chevron-down.svg"
         alt=""
-        [ngClass]="{ active: headerService.showNav }"
+        [ngClass]="{ 'rotate-180': headerService.showNav }"
       />
     </button>
 
-    <div class="nav-mobile-menu" *ngIf="headerService.showNav">
+    <div
+      class="absolute top-[calc(100%+1rem)] left-[54px] max-h-[70vh] w-[280px] overflow-x-hidden rounded-lg bg-white py-4 px-6 shadow-[0_10px_20px_rgba(54,78,126,0.25)]"
+      *ngIf="headerService.showNav"
+    >
       <app-nav-menu></app-nav-menu>
     </div>
   </div>
-  <div class="actions">
+  <div class="flex items-center gap-2">
     <app-button
-      [buttonStyle]="['small']"
+      [buttonStyle]="['py-2', 'px-4', 'text-sm']"
       (click)="headerService.onAddTaskClick()"
       [disabled]="!currentBoard$ || !currentBoard$.columns.length"
       class="add-task-button"
     >
-      <img src="/assets/images/icon-add-task-mobile.svg" alt="" />
-      <span>+ add new task</span>
+      <img
+        class="md:hidden"
+        src="/assets/images/icon-add-task-mobile.svg"
+        alt=""
+      />
+      <span class="hidden md:block">+ add new task</span>
     </app-button>
 
-    <div class="menu-container">
-      <button type="button" (click)="headerService.onMenuClick()">
+    <div class="relative">
+      <button
+        type="button"
+        class="flex items-center gap-2 px-2"
+        (click)="headerService.onMenuClick()"
+      >
         <img src="/assets/images/icon-vertical-ellipsis.svg" alt="" />
       </button>
 
@@ -59,17 +80,33 @@
     </div>
   </div>
 
-  <button class="show-sidebar" (click)="headerService.onShowSidebarClick()">
+  <button
+    class="fixed bottom-8 left-0 -z-[2] hidden rounded-tr-[100px] rounded-br-[100px] bg-primary p-[1.125rem] transition hover:bg-hover-primary md:block"
+    (click)="headerService.onShowSidebarClick()"
+  >
     <img src="/assets/images/icon-show-sidebar.svg" alt="" />
   </button>
 
-  <aside [ngClass]="{ sidebar: true, open: headerService.showSidebar }">
+  <aside
+    class="fixed top-[74px] bottom-0 -z-[1] hidden w-[300px] bg-white pl-8 pt-4 pb-8 transition-[left] md:flex md:flex-col md:justify-between"
+    [ngClass]="{
+      'left-0': headerService.showSidebar,
+      '-left-[300px]': !headerService.showSidebar
+    }"
+  >
     <app-nav-menu></app-nav-menu>
-    <button class="hide-sidebar" (click)="headerService.onHideSidebarClick()">
-      <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg">
+    <button
+      class="group relative flex items-center gap-4 py-4 text-base font-bold capitalize text-body transition before:absolute before:-z-[1] before:h-full before:w-[280px] before:-translate-x-[50px] before:rounded-tr-[100px] before:rounded-br-[100px] before:transition hover:text-primary hover:before:bg-secondary"
+      (click)="headerService.onHideSidebarClick()"
+    >
+      <svg
+        class="fill-body transition group-hover:fill-primary"
+        width="18"
+        height="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M8.522 11.223a4.252 4.252 0 0 1-3.654-5.22l3.654 5.22ZM9 12.25A8.685 8.685 0 0 1 1.5 8a8.612 8.612 0 0 1 2.76-2.864l-.86-1.23A10.112 10.112 0 0 0 .208 7.238a1.5 1.5 0 0 0 0 1.524A10.187 10.187 0 0 0 9 13.75c.414 0 .828-.025 1.239-.074l-1-1.43A8.88 8.88 0 0 1 9 12.25Zm8.792-3.488a10.14 10.14 0 0 1-4.486 4.046l1.504 2.148a.375.375 0 0 1-.092.523l-.648.453a.375.375 0 0 1-.523-.092L3.19 1.044A.375.375 0 0 1 3.282.52L3.93.068a.375.375 0 0 1 .523.092l1.735 2.479A10.308 10.308 0 0 1 9 2.25c3.746 0 7.031 2 8.792 4.988a1.5 1.5 0 0 1 0 1.524ZM16.5 8a8.674 8.674 0 0 0-6.755-4.219A1.75 1.75 0 1 0 12.75 5v-.001a4.25 4.25 0 0 1-1.154 5.366l.834 1.192A8.641 8.641 0 0 0 16.5 8Z"
-          fill="#828FA3"
         />
       </svg>
       hide sidebar

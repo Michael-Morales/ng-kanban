@@ -4,24 +4,30 @@
     [control]="$any(addForm).get('name')"
     placeholder="e.g. Web Design"
   ></app-input>
-  <div class="form-group" formArrayName="columns">
-    <label>Board columns</label>
-    <div class="elements">
+  <div class="mb-6 flex flex-col gap-2" formArrayName="columns">
+    <label class="text-xs font-bold">Board columns</label>
+    <div class="flex flex-col gap-3">
       <div
-        class="element-input"
+        class="flex items-center justify-between gap-4"
         [formGroupName]="i"
         *ngFor="let column of columns.controls; let i = index"
       >
         <app-input
+          class="w-full"
           [control]="$any(column).get('name')"
-          [ngClass]="'list'"
           placeholder="e.g. Todo"
         ></app-input>
         <button (click)="onDelete(i)">
           <img src="/assets/images/icon-cross.svg" alt="" />
         </button>
       </div>
-      <app-button [buttonStyle]="['secondary']" (click)="onAddNewColumn()"
+      <app-button
+        [buttonStyle]="[
+          'text-primary',
+          'bg-secondary',
+          'hover:bg-hover-secondary'
+        ]"
+        (click)="onAddNewColumn()"
         >+ add new column</app-button
       >
     </div>

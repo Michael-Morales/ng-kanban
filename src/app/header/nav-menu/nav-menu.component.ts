@@ -11,7 +11,6 @@ import { IBoard } from '../../interfaces';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css'],
 })
 export class NavMenuComponent implements OnInit {
   boards$: Observable<IBoard[]> = this.store.select(selectBoards);

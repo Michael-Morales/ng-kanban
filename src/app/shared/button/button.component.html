@@ -1,3 +1,8 @@
-<button [type]="buttonType" [ngClass]="buttonStyle" [disabled]="disabled">
+<button
+  class="flex w-full items-center justify-center rounded-[100px] bg-primary py-4 px-5 text-base font-bold capitalize text-white transition hover:bg-hover-primary disabled:bg-secondary"
+  [type]="buttonType"
+  [ngClass]="buttonStyle"
+  [disabled]="disabled"
+>
   <ng-content></ng-content>
 </button>
