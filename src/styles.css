@@ -17,6 +17,11 @@
   font-display: swap;
 }
 
+html,
+body {
+  @apply h-full;
+}
+
 body {
   @apply overflow-x-hidden bg-light font-sans font-medium text-body antialiased;
 }
