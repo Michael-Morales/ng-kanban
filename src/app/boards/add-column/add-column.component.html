@@ -4,7 +4,11 @@
     label="Title"
     placeholder="e.g. Todo"
   ></app-input>
-  <app-button buttonType="submit" [disabled]="addForm.invalid"
+  <app-button
+    buttonType="submit"
+    [primary]="true"
+    [standard]="true"
+    [disabled]="addForm.invalid"
     >add new column</app-button
   >
 </form>

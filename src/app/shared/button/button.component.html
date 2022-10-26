@@ -1,7 +1,14 @@
 <button
-  class="flex w-full items-center justify-center rounded-[100px] bg-primary py-4 px-5 text-base font-bold capitalize text-white transition hover:bg-hover-primary disabled:bg-secondary"
+  class="flex w-full items-center justify-center rounded-[100px] font-bold capitalize transition disabled:bg-secondary disabled:text-white"
   [type]="buttonType"
-  [ngClass]="buttonStyle"
+  [ngClass]="{
+    'bg-primary hover:bg-hover-primary': primary,
+    'bg-secondary text-primary hover:bg-hover-secondary': secondary,
+    'bg-danger hover:bg-hover-danger': danger,
+    'text-white': primary || danger,
+    'py-4 px-5 text-base': standard,
+    'py-2 px-4 text-sm': small
+  }"
   [disabled]="disabled"
 >
   <ng-content></ng-content>

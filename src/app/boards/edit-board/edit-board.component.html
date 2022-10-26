@@ -22,11 +22,8 @@
         </button>
       </div>
       <app-button
-        [buttonStyle]="[
-          'text-primary',
-          'bg-secondary',
-          'hover:bg-hover-secondary'
-        ]"
+        [secondary]="true"
+        [standard]="true"
         (click)="onAddNewColumn()"
         >+ add new column</app-button
       >
@@ -34,6 +31,8 @@
   </div>
   <app-button
     buttonType="submit"
+    [primary]="true"
+    [standard]="true"
     (click)="onSave()"
     [disabled]="editForm.invalid"
     >save changes</app-button

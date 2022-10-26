@@ -3,14 +3,10 @@
 </p>
 
 <div class="flex flex-col gap-4">
-  <app-button
-    [buttonStyle]="['bg-danger', 'hover:bg-hover-danger']"
-    (click)="onDeleteClick()"
+  <app-button [danger]="true" [standard]="true" (click)="onDeleteClick()"
     >delete</app-button
   >
-  <app-button
-    [buttonStyle]="['text-primary', 'bg-secondary', 'hover:bg-hover-secondary']"
-    (click)="dismiss()"
+  <app-button [secondary]="true" [standard]="true" (click)="dismiss()"
     >cancel</app-button
   >
 </div>
