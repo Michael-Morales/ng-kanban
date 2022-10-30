@@ -68,12 +68,12 @@ export class AddTaskComponent implements OnInit {
       }: { title: string; columnId: number; description: string } =
         this.addForm.value;
 
-      this.store.dispatch(
-        createTask({
-          task: { id: this.newTaskId, title, columnId, description },
-          subtasks: this.subtasks.value,
-        })
-      );
+      // this.store.dispatch(
+      //   createTask({
+      //     task: { id: this.newTaskId, title, columnId, description },
+      //     subtasks: this.subtasks.value,
+      //   })
+      // );
 
       this.modalService.closeModal();
     }

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BoardsRoutingModule } from './boards-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +16,7 @@ import { AddBoardComponent } from './add-board/add-board.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { AddColumnComponent } from './add-column/add-column.component';
+import { TasksContainerComponent } from './tasks-container/tasks-container.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +30,15 @@ import { AddColumnComponent } from './add-column/add-column.component';
     AddTaskComponent,
     EditTaskComponent,
     AddColumnComponent,
+    TasksContainerComponent,
   ],
   imports: [
     CommonModule,
     BoardsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    DragDropModule,
   ],
   exports: [
     DeleteMenuComponent,
