@@ -27,7 +27,9 @@ export const boardAdapter: EntityAdapter<IBoard> =
   createEntityAdapter<IBoard>();
 export const columnAdapter: EntityAdapter<IColumn> =
   createEntityAdapter<IColumn>();
-export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>();
+export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>({
+  sortComparer: (a: ITask, b: ITask): number => a.position - b.position,
+});
 export const subtaskAdapter: EntityAdapter<ISubTask> =
   createEntityAdapter<ISubTask>();
 

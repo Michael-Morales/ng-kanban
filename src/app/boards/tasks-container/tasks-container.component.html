@@ -1,0 +1,14 @@
+<div
+  *ngIf="column"
+  class="mb-6 flex min-h-full flex-col gap-5"
+  cdkDropList
+  [cdkDropListData]="column.tasks"
+  (cdkDropListDropped)="drop($event)"
+>
+  <app-task
+    *ngFor="let task of column.tasks"
+    [taskId]="task.id"
+    [currentColumnId]="column.id"
+    cdkDrag
+  ></app-task>
+</div>

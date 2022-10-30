@@ -40,6 +40,7 @@ export interface IColumn {
 export interface ITask {
   id: number;
   columnId: number;
+  position: number;
   title: string;
   description?: string;
 }
