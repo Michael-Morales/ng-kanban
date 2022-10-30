@@ -67,28 +67,28 @@ export const tasks: ITask[] = [
   {
     id: 1,
     columnId: 1,
-    position: 1,
+    position: 0,
     title: 'Build UI for onboarding flow',
     description: '',
   },
   {
     id: 2,
     columnId: 1,
-    position: 2,
+    position: 1,
     title: 'Build UI for search',
     description: '',
   },
   {
     id: 3,
     columnId: 1,
-    position: 3,
+    position: 2,
     title: 'Build settings UI',
     description: '',
   },
   {
     id: 4,
     columnId: 1,
-    position: 4,
+    position: 3,
     title: 'QA and test all major user journeys',
     description:
       'Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.',
@@ -96,42 +96,42 @@ export const tasks: ITask[] = [
   {
     id: 5,
     columnId: 2,
-    position: 1,
+    position: 0,
     title: 'Design settings and search pages',
     description: '',
   },
   {
     id: 6,
     columnId: 2,
-    position: 2,
+    position: 1,
     title: 'Add account management endpoints',
     description: '',
   },
   {
     id: 7,
     columnId: 2,
-    position: 3,
+    position: 2,
     title: 'Design onboarding flow',
     description: '',
   },
   {
     id: 8,
     columnId: 2,
-    position: 4,
+    position: 3,
     title: 'Add search enpoints',
     description: '',
   },
   {
     id: 9,
     columnId: 2,
-    position: 5,
+    position: 4,
     title: 'Add authentication endpoints',
     description: '',
   },
   {
     id: 10,
     columnId: 2,
-    position: 6,
+    position: 5,
     title:
       'Research pricing points of various competitors and trial different business models',
     description:
@@ -140,7 +140,7 @@ export const tasks: ITask[] = [
   {
     id: 11,
     columnId: 3,
-    position: 1,
+    position: 0,
     title: 'Conduct 5 wireframe tests',
     description:
       'Ensure the layout continues to make sense and we have strong buy-in from potential users.',
@@ -148,7 +148,7 @@ export const tasks: ITask[] = [
   {
     id: 12,
     columnId: 3,
-    position: 2,
+    position: 1,
     title: 'Create wireframe prototype',
     description:
       'Create a greyscale clickable wireframe prototype to test our asssumptions so far.',
@@ -156,7 +156,7 @@ export const tasks: ITask[] = [
   {
     id: 13,
     columnId: 3,
-    position: 3,
+    position: 2,
     title: 'Review results of usability tests and iterate',
     description:
       "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
@@ -164,7 +164,7 @@ export const tasks: ITask[] = [
   {
     id: 14,
     columnId: 3,
-    position: 4,
+    position: 3,
     title:
       'Create paper prototypes and conduct 10 usability tests with potential customers',
     description: '',
@@ -172,7 +172,7 @@ export const tasks: ITask[] = [
   {
     id: 15,
     columnId: 3,
-    position: 5,
+    position: 4,
     title: 'Market discovery',
     description:
       'We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.',
@@ -180,14 +180,14 @@ export const tasks: ITask[] = [
   {
     id: 16,
     columnId: 3,
-    position: 6,
+    position: 5,
     title: 'Competitor analysis',
     description: '',
   },
   {
     id: 17,
     columnId: 3,
-    position: 7,
+    position: 6,
     title: 'Research the market',
     description:
       'We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.',
@@ -195,35 +195,35 @@ export const tasks: ITask[] = [
   {
     id: 18,
     columnId: 4,
-    position: 1,
+    position: 0,
     title: 'Plan Product Hunt launch',
     description: '',
   },
   {
     id: 19,
     columnId: 4,
-    position: 2,
+    position: 1,
     title: 'Share on Show HN',
     description: '',
   },
   {
     id: 20,
     columnId: 4,
-    position: 3,
+    position: 2,
     title: 'Write launch article to publish on multiple channels',
     description: '',
   },
   {
     id: 21,
     columnId: 5,
-    position: 1,
+    position: 0,
     title: 'Launch version one',
     description: '',
   },
   {
     id: 22,
     columnId: 5,
-    position: 2,
+    position: 1,
     title: 'Review early feedback and plan next steps for roadmap',
     description:
       "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
