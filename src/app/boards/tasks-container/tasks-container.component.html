@@ -1,6 +1,6 @@
 <div
   *ngIf="column"
-  class="mb-6 flex min-h-full flex-col gap-5"
+  class="mb-6 flex min-h-[calc(100%-68px)] flex-col gap-5 md:min-h-[calc(100%-80px)]"
   cdkDropList
   [cdkDropListData]="column.tasks"
   (cdkDropListDropped)="drop($event)"
