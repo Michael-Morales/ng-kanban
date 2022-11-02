@@ -14,6 +14,7 @@ import {
   deleteColumn,
   updateTask,
   deleteSubtask,
+  moveItemInState,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -28,7 +29,7 @@ export const boardAdapter: EntityAdapter<IBoard> =
 export const columnAdapter: EntityAdapter<IColumn> =
   createEntityAdapter<IColumn>();
 export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>({
-  sortComparer: (a: ITask, b: ITask): number => a.position - b.position,
+  sortComparer: (a, b) => a.position - b.position,
 });
 export const subtaskAdapter: EntityAdapter<ISubTask> =
   createEntityAdapter<ISubTask>();
@@ -116,7 +117,7 @@ export const boardsReducer = createReducer(
     return { ...state, columns: columnAdapter.addOne(column, state.columns) };
   }),
   on(deleteColumn, (state, { id }) => {
-    const tasksToDelete = taskSelectors
+    const tasksToDelete: string[] = taskSelectors
       .selectAll(state.tasks)
       .filter((task) => task.columnId === id)
       .map((task) => task.id.toString());
@@ -181,6 +182,9 @@ export const boardsReducer = createReducer(
   }),
   on(updateTaskColumn, (state, { update }) => {
     return { ...state, tasks: taskAdapter.updateOne(update, state.tasks) };
+  }),
+  on(moveItemInState, (state, { tasks }) => {
+    return { ...state, tasks: taskAdapter.setMany(tasks, state.tasks) };
   })
 );
 

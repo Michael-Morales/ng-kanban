@@ -67,3 +67,8 @@ export const updateTaskColumn = createAction(
   '[Boards] Update Task Column',
   props<{ update: Update<ITask> }>()
 );
+
+export const moveItemInState = createAction(
+  '[Boards] Move Item in Array',
+  props<{ tasks: ITask[] }>()
+);

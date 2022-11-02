@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+
+import { moveItemInState } from '../../store/actions/boards.actions';
 
 import { Column, Task } from 'src/app/interfaces';
 
@@ -14,7 +17,7 @@ import { Column, Task } from 'src/app/interfaces';
 export class TasksContainerComponent implements OnInit {
   @Input() column?: Column;
 
-  constructor() {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {}
 
@@ -26,6 +29,18 @@ export class TasksContainerComponent implements OnInit {
           event.previousIndex,
           event.currentIndex
         );
+
+        const rearrangedTasks = event.container.data.map(
+          ({ id, columnId, description, title }, i) => ({
+            id,
+            columnId,
+            description,
+            position: i,
+            title,
+          })
+        );
+
+        this.store.dispatch(moveItemInState({ tasks: rearrangedTasks }));
       } else {
         transferArrayItem(
           event.previousContainer.data,
