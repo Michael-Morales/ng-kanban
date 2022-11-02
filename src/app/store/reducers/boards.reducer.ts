@@ -14,6 +14,7 @@ import {
   deleteColumn,
   updateTask,
   deleteSubtask,
+  moveItemInState,
 } from '../actions/boards.actions';
 
 import { IBoard, IColumn, ITask, ISubTask } from '../../interfaces';
@@ -28,7 +29,7 @@ export const boardAdapter: EntityAdapter<IBoard> =
 export const columnAdapter: EntityAdapter<IColumn> =
   createEntityAdapter<IColumn>();
 export const taskAdapter: EntityAdapter<ITask> = createEntityAdapter<ITask>({
-  sortComparer: (a: ITask, b: ITask): number => a.position - b.position,
+  sortComparer: (a, b) => a.position - b.position,
 });
 export const subtaskAdapter: EntityAdapter<ISubTask> =
   createEntityAdapter<ISubTask>();
@@ -49,6 +50,17 @@ export const initialState: AppBoardsState = {
 
 export const generateId = (): number => {
   return Math.floor(Date.now() * Math.random());
+};
+
+const getNewPosition = (state: AppBoardsState, newColId?: number): number => {
+  const tasks = taskSelectors
+    .selectAll(state.tasks)
+    .filter(({ columnId }) => columnId === newColId);
+
+  const position =
+    tasks.length === 0 ? 0 : tasks[tasks.length - 1].position + 1;
+
+  return position;
 };
 
 export const boardsReducer = createReducer(
@@ -116,7 +128,7 @@ export const boardsReducer = createReducer(
     return { ...state, columns: columnAdapter.addOne(column, state.columns) };
   }),
   on(deleteColumn, (state, { id }) => {
-    const tasksToDelete = taskSelectors
+    const tasksToDelete: string[] = taskSelectors
       .selectAll(state.tasks)
       .filter((task) => task.columnId === id)
       .map((task) => task.id.toString());
@@ -140,9 +152,11 @@ export const boardsReducer = createReducer(
     };
   }),
   on(createTask, (state, { task, subtasks }) => {
+    const newTask = { ...task, position: getNewPosition(state, task.columnId) };
+
     return {
       ...state,
-      tasks: taskAdapter.addOne(task, state.tasks),
+      tasks: taskAdapter.addOne(newTask, state.tasks),
       subtasks: !subtasks.length
         ? state.subtasks
         : subtaskAdapter.addMany(subtasks, state.subtasks),
@@ -161,9 +175,24 @@ export const boardsReducer = createReducer(
     };
   }),
   on(updateTask, (state, { task, subtasks }) => {
+    const previousTask = taskSelectors
+      .selectAll(state.tasks)
+      .find(({ id }) => id === task.id);
+
+    const updatedTask = {
+      ...task,
+      changes:
+        previousTask?.columnId === task.changes.columnId
+          ? task.changes
+          : {
+              ...task.changes,
+              position: getNewPosition(state, task.changes.columnId),
+            },
+    };
+
     return {
       ...state,
-      tasks: taskAdapter.updateOne(task, state.tasks),
+      tasks: taskAdapter.updateOne(updatedTask, state.tasks),
       subtasks: subtaskAdapter.upsertMany(subtasks, state.subtasks),
     };
   }),
@@ -180,7 +209,18 @@ export const boardsReducer = createReducer(
     };
   }),
   on(updateTaskColumn, (state, { update }) => {
-    return { ...state, tasks: taskAdapter.updateOne(update, state.tasks) };
+    const updatedTask = {
+      ...update,
+      changes: {
+        ...update.changes,
+        position: getNewPosition(state, update.changes.columnId),
+      },
+    };
+
+    return { ...state, tasks: taskAdapter.updateOne(updatedTask, state.tasks) };
+  }),
+  on(moveItemInState, (state, { tasks }) => {
+    return { ...state, tasks: taskAdapter.setMany(tasks, state.tasks) };
   })
 );
 
