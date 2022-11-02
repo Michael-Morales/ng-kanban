@@ -40,7 +40,7 @@ export const deleteColumn = createAction(
 
 export const createTask = createAction(
   '[Boards] Create Task',
-  props<{ task: ITask; subtasks: ISubTask[] }>()
+  props<{ task: Omit<ITask, 'position'>; subtasks: ISubTask[] }>()
 );
 
 export const deleteTask = createAction(

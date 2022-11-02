@@ -141,9 +141,18 @@ export const boardsReducer = createReducer(
     };
   }),
   on(createTask, (state, { task, subtasks }) => {
+    const tasks = taskSelectors
+      .selectAll(state.tasks)
+      .filter(({ columnId }) => columnId === task.columnId);
+
+    const position =
+      tasks.length === 0 ? 0 : tasks[tasks.length - 1].position + 1;
+
+    const newTask = { ...task, position };
+
     return {
       ...state,
-      tasks: taskAdapter.addOne(task, state.tasks),
+      tasks: taskAdapter.addOne(newTask, state.tasks),
       subtasks: !subtasks.length
         ? state.subtasks
         : subtaskAdapter.addMany(subtasks, state.subtasks),
