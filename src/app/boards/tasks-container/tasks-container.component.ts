@@ -23,6 +23,8 @@ export class TasksContainerComponent implements OnInit {
 
   drop(event: CdkDragDrop<Task[]>) {
     if (this.column) {
+      const targetColumnId = this.column.id;
+
       if (event.previousContainer === event.container) {
         moveItemInArray(
           this.column.tasks,
@@ -47,6 +49,29 @@ export class TasksContainerComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex
+        );
+
+        const previousContainer = event.previousContainer.data.map(
+          ({ id, columnId, title, description }, i) => ({
+            id,
+            columnId,
+            description,
+            title,
+            position: i,
+          })
+        );
+        const newContainer = event.container.data.map(
+          ({ id, title, description }, i) => ({
+            id,
+            columnId: targetColumnId,
+            title,
+            description,
+            position: i,
+          })
+        );
+
+        this.store.dispatch(
+          moveItemInState({ tasks: [...previousContainer, ...newContainer] })
         );
       }
     }
