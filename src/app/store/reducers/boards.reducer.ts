@@ -52,6 +52,17 @@ export const generateId = (): number => {
   return Math.floor(Date.now() * Math.random());
 };
 
+const getNewPosition = (state: AppBoardsState, newColId?: number): number => {
+  const tasks = taskSelectors
+    .selectAll(state.tasks)
+    .filter(({ columnId }) => columnId === newColId);
+
+  const position =
+    tasks.length === 0 ? 0 : tasks[tasks.length - 1].position + 1;
+
+  return position;
+};
+
 export const boardsReducer = createReducer(
   initialState,
   on(fetchData, (state, { boards, columns, tasks, subtasks }) => {
@@ -141,14 +152,7 @@ export const boardsReducer = createReducer(
     };
   }),
   on(createTask, (state, { task, subtasks }) => {
-    const tasks = taskSelectors
-      .selectAll(state.tasks)
-      .filter(({ columnId }) => columnId === task.columnId);
-
-    const position =
-      tasks.length === 0 ? 0 : tasks[tasks.length - 1].position + 1;
-
-    const newTask = { ...task, position };
+    const newTask = { ...task, position: getNewPosition(state, task.columnId) };
 
     return {
       ...state,
@@ -171,9 +175,24 @@ export const boardsReducer = createReducer(
     };
   }),
   on(updateTask, (state, { task, subtasks }) => {
+    const previousTask = taskSelectors
+      .selectAll(state.tasks)
+      .find(({ id }) => id === task.id);
+
+    const updatedTask = {
+      ...task,
+      changes:
+        previousTask?.columnId === task.changes.columnId
+          ? task.changes
+          : {
+              ...task.changes,
+              position: getNewPosition(state, task.changes.columnId),
+            },
+    };
+
     return {
       ...state,
-      tasks: taskAdapter.updateOne(task, state.tasks),
+      tasks: taskAdapter.updateOne(updatedTask, state.tasks),
       subtasks: subtaskAdapter.upsertMany(subtasks, state.subtasks),
     };
   }),
@@ -190,7 +209,15 @@ export const boardsReducer = createReducer(
     };
   }),
   on(updateTaskColumn, (state, { update }) => {
-    return { ...state, tasks: taskAdapter.updateOne(update, state.tasks) };
+    const updatedTask = {
+      ...update,
+      changes: {
+        ...update.changes,
+        position: getNewPosition(state, update.changes.columnId),
+      },
+    };
+
+    return { ...state, tasks: taskAdapter.updateOne(updatedTask, state.tasks) };
   }),
   on(moveItemInState, (state, { tasks }) => {
     return { ...state, tasks: taskAdapter.setMany(tasks, state.tasks) };
